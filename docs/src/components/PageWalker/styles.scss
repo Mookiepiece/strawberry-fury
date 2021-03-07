@@ -1,0 +1,33 @@
+.page-walker-markdown {
+  code {
+    color: #c7257e;
+    background: #f9f2f6;
+    border-radius: 3px;
+    padding-left: 3px;
+    padding-right: 3px;
+    font-family: Consolas, 'Courier New', Courier, FreeMono, monospace;
+  }
+
+  table {
+    text-align: left;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  th,
+  td {
+    padding: 8px;
+    &:not(:last-child) {
+      padding-right: 36px;
+    }
+  }
+
+  tbody > tr:nth-child(odd) {
+    background: #fafafa;
+  }
+  th {
+    border-bottom: 1px solid #ddd;
+  }
+  td {
+    border-bottom: 1px solid #eee;
+  }
+}

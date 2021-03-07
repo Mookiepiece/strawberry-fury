@@ -6,8 +6,9 @@
   "main": "lib/index.js",
   "module": "lib/index.esm.js",
   "scripts": {
-    "dev": "yarn workspace docs dev",
+    "dev": "yarn workspace docs start",
     "docs:build": "yarn workspace docs build",
+    "docs:deploy": "gh-pages -d docs/dist",
     "build": "yarn clean && yarn build:types && yarn build:bundle && yarn build:comp",
     "build:bundle": "rollup --config ./scripts/rollup.bundle.config.js",
     "build:types": "tsc -p ./tsconfig.json",
@@ -24,6 +25,7 @@
     "react-markdown": "^5.0.3"
   },
   "devDependencies": {
+    "@babel/core": "^7.13.8",
     "@babel/plugin-transform-runtime": "^7.13.7",
     "@babel/preset-env": "^7.13.5",
     "@babel/preset-react": "^7.12.13",
@@ -36,7 +38,14 @@
     "@rollup/plugin-typescript": "^8.2.0",
     "@types/react": "^17.0.2",
     "@types/react-dom": "^17.0.1",
+    "@typescript-eslint/eslint-plugin": "^4.16.1",
+    "@typescript-eslint/parser": "^4.16.1",
+    "eslint": "^7.21.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-react": "^7.22.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "gh-pages": "^3.1.0",
+    "postcss": "^8.2.7",
     "prettier": "^2.2.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -47,8 +56,7 @@
     "rollup-plugin-postcss": "^4.0.0",
     "rollup-plugin-typescript2": "^0.30.0",
     "sass": "^1.32.8",
-    "sass-loader": "^11.0.1",
-    "typescript": "^4.1.5"
+    "typescript": "^4.2.3"
   },
   "peerDependencies": {
     "react": "^17.0.1",

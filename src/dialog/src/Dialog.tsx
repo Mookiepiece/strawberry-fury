@@ -10,23 +10,23 @@ const Dialog: React.FC<DialogProps> = ({ title, children, warning }) => {
       {
         [
           `
-／ ￣￣ ＼　 
+／ ￣￣ ＼　
 |　ー　ー \\　 ／￣￣￣￣￣￣￣＼
 |　 ◉　◉ |   |　   ${title}    \\
-\\　　 ▱　/ ∠     ${children}   / 
+\\　　 ▱　/ ∠     ${children}   /
  ＼　　 イ　 \\ ________________/
 ／　　　\\
-/　|　　　 \\ 
+/　|　　　 \\
 |　|　　　 | |
 `.trim(),
           `
-／ ￣￣ ＼　 
+／ ￣￣ ＼　
 |　乀　√   \\　 ／￣￣￣￣￣￣￣＼
 |　 ◉　◉ |   |　   ${title}    \\
 \\　  / 皿\\  / ∠    ${children}  /
  ＼　　 イ　 \\ ________________/
 ／　　　\\
-/　|　　　 \\ 
+/　|　　　 \\
 |　|　　　 | |
 `.trim(),
         ][warning ? 1 : 0]

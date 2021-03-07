@@ -26,12 +26,6 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
-# vercel
-.vercel
-docs/.next
-docs/build
-docs/out
-
 lib
 dist
 yarn.lock

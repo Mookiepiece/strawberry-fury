@@ -1,0 +1,104 @@
+$color-primary: #e16b8c;
+$color-primary-fade: $color-primary;
+
+* {
+  box-sizing: border-box;
+}
+
+.flex {
+  display: flex;
+}
+
+.doc-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  padding: 0 8px;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: white;
+  box-shadow: #0003 0 0 4px;
+  .doc-nav-logo {
+    position: absolute;
+    left: 8px;
+    > img {
+      width: 48px;
+      height: 48px;
+      + * {
+        margin: 0 8px;
+      }
+    }
+  }
+  .doc-nav-operations {
+    position: absolute;
+    right: 16px;
+  }
+}
+
+.doc-nav a,
+.doc-aside a {
+  margin: 0 2px;
+  padding: 12px;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 4px;
+  outline: 0;
+  &:visited,
+  & {
+    color: #000;
+  }
+  &:hover {
+    background: #f4f4f4;
+  }
+  &:active {
+    background: #ddd;
+  }
+  &.active {
+    color: $color-primary;
+  }
+  &:focus-visible {
+    box-shadow: 0 0 0 4px #8cbaff80;
+  }
+}
+
+.doc-button {
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 8px;
+  background: white;
+  border: 1px solid $color-primary;
+  outline: none;
+  &:hover {
+    background: #fcf1f1;
+  }
+  &:active {
+    background: rgb(243, 202, 202);
+  }
+}
+
+.doc-nav a {
+  min-width: 180px;
+  text-align: center;
+}
+
+main.doc-content {
+  > .doc-aside {
+    min-height: calc(100vh - 48px);
+    padding: 16px 0;
+    width: 200px;
+    box-shadow: #0003 0 0 4px;
+    position: fixed;
+    top: 48px;
+    a {
+      display: block;
+    }
+  }
+
+  > article {
+    margin-left: 200px;
+    padding: 24px;
+    flex-grow: 1;
+  }
+}
