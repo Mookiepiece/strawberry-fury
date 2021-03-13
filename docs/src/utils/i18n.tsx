@@ -11,8 +11,8 @@ const a: Record<
   }
 > = {
   IndexPageDesc: {
-    en: 'A vanilla react.js components library.',
-    zh: '一款低添加的react.js组件库',
+    en: 'vanilla react.js components.',
+    zh: '自然的react.js组件库',
   },
   IndexPageGetStarted: {
     en: 'GET STARTED',

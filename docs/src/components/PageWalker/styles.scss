@@ -12,6 +12,7 @@
     text-align: left;
     border-collapse: collapse;
     font-size: 14px;
+    margin-bottom: 24px;
   }
   th,
   td {
@@ -29,5 +30,15 @@
   }
   td {
     border-bottom: 1px solid #eee;
+  }
+
+  h3 {
+    margin-top: 48px;
+    padding: 12px;
+    transform: translateX(-12px);
+    border-radius: 8px;
+    color: var(--color-primary);
+    background: linear-gradient(6deg, #f3e3da81, #ffcece81);
+    box-shadow: -4px -2px;
   }
 }

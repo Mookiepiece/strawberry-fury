@@ -4,7 +4,7 @@ const WebpackBar = require('webpackbar');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const dev = process.env.NODE_ENV !== 'production';
 
-module.exports = {
+const basicConfig = {
   mode: process.env.NODE_ENV,
   devtool: 'eval-cheap-module-source-map',
   entry: ['./src/index.tsx'],
@@ -17,7 +17,7 @@ module.exports = {
     extensions: ['.js', '.tsx', '.ts', '.json'],
     alias: {
       '🦌': path.resolve(__dirname, './src'),
-      '🦄': path.resolve(__dirname, '../src'),
+      '🦄': path.resolve(__dirname, '../strawberry-fury/src'),
     },
   },
   module: {
@@ -69,6 +69,11 @@ module.exports = {
       template: './index.html',
     }),
     new WebpackBar({ color: '#DC9FB4' }),
-    !dev && new BundleAnalyzerPlugin(),
   ],
 };
+
+if (!dev) {
+  basicConfig.plugins.push(new BundleAnalyzerPlugin());
+}
+
+module.exports = basicConfig;

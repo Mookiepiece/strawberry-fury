@@ -3,6 +3,7 @@ import {
   HashRouter as Router,
   Switch,
   Route,
+  Link,
   NavLink,
   Redirect,
   useLocation,
@@ -10,6 +11,8 @@ import {
 import Index from '🦌/pages';
 import Button from '🦌/pages/components/button';
 import Dialog from '🦌/pages/components/dialog';
+import Collapse from '🦌/pages/components/collapse';
+
 import logo from '🦌/strawberry-fury-LOGO.png';
 import { getCowboy, i18nContext, i18nStateContext, Language } from './utils/i18n';
 import './styles.scss';
@@ -22,13 +25,14 @@ const Nav: React.FC<{ i18nState: Language; setI18nState: () => void }> = ({
   const i18n = useContext(i18nContext);
   return (
     <div className="doc-nav">
-      <div
+      <Link
         className="doc-nav-logo"
         style={{ display: 'flex', alignItems: 'center', float: 'left' }}
+        to="/"
       >
         <img src={logo} alt="logo" />
         <h3>Strawberry Fury</h3>
-      </div>
+      </Link>
       <div>
         <button className="doc-button" style={{ width: 120 }} onClick={setI18nState}>
           <sup>文</sup>
@@ -37,8 +41,12 @@ const Nav: React.FC<{ i18nState: Language; setI18nState: () => void }> = ({
         </button>
       </div>
       <div className="doc-nav-operations">
-        <NavLink to="/index">{i18n.NavbarHome}</NavLink>
-        <NavLink to="/components">{i18n.NavbarComponents}</NavLink>
+        <NavLink className="button-link" to="/index">
+          {i18n.NavbarHome}
+        </NavLink>
+        <NavLink className="button-link" to="/components">
+          {i18n.NavbarComponents}
+        </NavLink>
       </div>
     </div>
   );
@@ -48,12 +56,15 @@ const SideBar: React.FC = () => {
   const pages = {
     '/components/button': 'Button',
     '/components/dialog': 'Dialog',
+    '/components/collapse': 'Collapse',
   };
   return (
     <aside className="doc-aside">
       {Object.entries(pages).map(([k, v]) => (
         <div key={k}>
-          <NavLink to={k}>{v}</NavLink>
+          <NavLink className="button-link" to={k}>
+            {v}
+          </NavLink>
         </div>
       ))}
     </aside>
@@ -104,6 +115,7 @@ const App: React.FC = () => {
                       />
                       <Route path="/components/button" component={Button} />
                       <Route path="/components/dialog" component={Dialog} />
+                      <Route path="/components/collapse" component={Collapse} />
                     </Switch>
                   </main>
                 )}

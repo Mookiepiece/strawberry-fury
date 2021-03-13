@@ -1,3 +1,4 @@
+/* eslint-disable no-irregular-whitespace */
 import React from 'react';
 
 const HuTao: React.FC = () => {
@@ -13,7 +14,7 @@ const HuTao: React.FC = () => {
    《‖ ＼ 　 イ  ‖》        \\                  /
    》  ／ 「」\\   《   ＜    |            /    ＞
 《   /  |   =❈=  \\    》        /       /
-川  |   |     =·=    | |   《    /    /  
+川  |   |     =·=    | |   《    /    /
 `.trim()}
     </div>
   );

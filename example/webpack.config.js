@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -22,6 +23,17 @@ const config = {
         loader: 'babel-loader',
         options: {
           presets: ['@babel/preset-react', '@babel/preset-typescript'],
+          plugins: [
+            [
+              'import',
+              {
+                libraryName: 'strawberry-fury',
+                customStyleName(name) {
+                  return `strawberry-fury/src/_theme/${name}.scss`;
+                },
+              },
+            ],
+          ],
         },
       },
       {
@@ -29,9 +41,6 @@ const config = {
         use: [
           {
             loader: MiniCssExtractPlugin.loader,
-            options: {
-              hmr: process.env.NODE_ENV === 'development',
-            },
           },
           'css-loader',
         ],
@@ -41,9 +50,6 @@ const config = {
         use: [
           {
             loader: MiniCssExtractPlugin.loader,
-            options: {
-              hmr: process.env.NODE_ENV === 'development',
-            },
           },
           'css-loader',
           'sass-loader',

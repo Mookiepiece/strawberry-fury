@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-labels */
 import { rollup } from 'rollup';
 import resolve from '@rollup/plugin-node-resolve';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';

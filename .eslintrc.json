@@ -3,16 +3,23 @@
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
-    "prettier",
-    "prettier/react",
-    "prettier/@typescript-eslint"
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
   ],
   "parser": "@typescript-eslint/parser",
+  "plugins": ["react", "@typescript-eslint"],
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
     },
     "ecmaVersion": 2021,
     "sourceType": "module"
+  },
+  "rules": {
+    "react/prop-types": 0,
+    "@typescript-eslint/no-empty-function": 0
+  },
+  "env": {
+    "node": true
   }
 }

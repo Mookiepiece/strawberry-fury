@@ -3,11 +3,17 @@ import resolve from '@rollup/plugin-node-resolve';
 import babel from '@rollup/plugin-babel';
 import alias from '@rollup/plugin-alias';
 import path from 'path';
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const pkg = require('../package.json');
 
 export default {
   input: 'src/index.ts',
   output: [
+    {
+      file: pkg.main,
+      format: 'cjs',
+    },
     {
       file: pkg.module,
       format: 'es',
