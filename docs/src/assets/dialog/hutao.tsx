@@ -1,6 +1,7 @@
 import React from 'react';
 import HuTao from '🦄/hutao';
 
-export default function BasicUsage() {
+const YourHuTao: React.FC = () => {
   return <HuTao />;
-}
+};
+export default YourHuTao;

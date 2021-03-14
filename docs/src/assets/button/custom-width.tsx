@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '🦄/Button';
 
-export default function BasicUsage() {
+const CustomStyle: React.FC = () => {
   return (
     <>
       <Button width={100} height={50}>
@@ -13,4 +13,6 @@ export default function BasicUsage() {
       </Button>
     </>
   );
-}
+};
+
+export default CustomStyle;

@@ -1,6 +1,7 @@
 import React from 'react';
 import Tank from '🦄/tank';
 
-export default function TankBiu() {
+const YourTank: React.FC = () => {
   return <Tank />;
-}
+};
+export default YourTank;

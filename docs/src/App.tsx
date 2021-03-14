@@ -24,12 +24,8 @@ const Nav: React.FC<{ i18nState: Language; setI18nState: () => void }> = ({
 }) => {
   const i18n = useContext(i18nContext);
   return (
-    <div className="doc-nav">
-      <Link
-        className="doc-nav-logo"
-        style={{ display: 'flex', alignItems: 'center', float: 'left' }}
-        to="/"
-      >
+    <header className="doc-nav">
+      <Link className="doc-nav-logo-link button-link" to="/">
         <img src={logo} alt="logo" />
         <h3>Strawberry Fury</h3>
       </Link>
@@ -48,7 +44,7 @@ const Nav: React.FC<{ i18nState: Language; setI18nState: () => void }> = ({
           {i18n.NavbarComponents}
         </NavLink>
       </div>
-    </div>
+    </header>
   );
 };
 
@@ -79,7 +75,7 @@ const ScrollToTop: React.FC = ({ children }) => {
     window.scrollTo(0, 0);
   }
 
-  return children as any;
+  return children as React.ReactElement;
 };
 
 const App: React.FC = () => {

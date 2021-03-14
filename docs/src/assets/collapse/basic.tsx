@@ -1,7 +1,7 @@
 import React from 'react';
 import Collapse from '🦄/Collapse';
 
-export default function BasicUsage() {
+const BasicUsage: React.FC = () => {
   return (
     <>
       <style>{`
@@ -10,6 +10,7 @@ export default function BasicUsage() {
         border: 1px solid var(--color-primary);
         padding: 12px;
         cursor: pointer;
+        user-select: none;
       }
       p.basic-collapse-summary:not(:first-child) {
         margin-top: -1px;
@@ -30,7 +31,7 @@ export default function BasicUsage() {
         <Collapse.Item>
           <Collapse.Summary>
             <p className="basic-collapse-summary">
-              You don't know about me<span>↓</span>
+              You dont know about me<span>↓</span>
             </p>
           </Collapse.Summary>
           <Collapse.Panel>
@@ -52,4 +53,5 @@ export default function BasicUsage() {
       </Collapse>
     </>
   );
-}
+};
+export default BasicUsage;

@@ -10,20 +10,22 @@ SyntaxHighlighter.registerLanguage('tsx', tsx);
 
 const DemoPlayer: React.FC<{
   src: {
-    demo: any;
+    demo: React.FC;
     raw: string;
   };
 }> = ({ src: { demo, raw } }) => {
   const LiveDemo = demo;
   return (
     <div className="demo-player">
-      <div className="demo-live">
-        <LiveDemo />
-      </div>
-      <div className="demo-code">
-        <SyntaxHighlighter language="tsx" style={vs}>
-          {raw}
-        </SyntaxHighlighter>
+      <div className="demo-player-inner">
+        <div className="demo-live">
+          <LiveDemo />
+        </div>
+        <div className="demo-code">
+          <SyntaxHighlighter language="tsx" style={vs}>
+            {raw}
+          </SyntaxHighlighter>
+        </div>
       </div>
     </div>
   );

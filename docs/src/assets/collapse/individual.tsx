@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Collapse from '🦄/Collapse';
 import Button from '🦄/Button';
 
-export default function BasicUsage() {
+const Individual: React.FC = () => {
   const [active, setActive] = useState(false);
   const [active2, setActive2] = useState(false);
   return (
@@ -32,4 +32,6 @@ export default function BasicUsage() {
       </Collapse.Panel>
     </>
   );
-}
+};
+
+export default Individual;

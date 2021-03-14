@@ -21,5 +21,11 @@
   },
   "env": {
     "node": true
-  }
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "ignorePatterns": ["**/dist", "webpack.config.js", "strawberry-fury/lib/**/*"]
 }

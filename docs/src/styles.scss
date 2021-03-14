@@ -1,33 +1,46 @@
 :root {
   --color-primary: #e16b8c;
   --color-primary-fade: #{transparentize(#e16b8c, 0.8)};
+  --color-primary-fade-100: #{transparentize(#e16b8c, 0.95)};
+  --color-primary-fade-300: #{transparentize(#e16b8c, 0.85)};
+  --color-secondary: #ff9900;
+  --color-secondary-fade: #{transparentize(#ff7b00, 0.92)};
+  --color-dark: #446;
+  --color-dark-fade-100: #{transparentize(#446, 0.95)};
+  --color-dark-fade: #{transparentize(#446, 0.8)};
+  --color-contrasting: #0080ff;
+  --color-contrasting-fade: #{transparentize(#0080ff, 0.9)};
+}
+
+header,
+aside,
+.page-walker-markdown {
+  color: var(--color-dark);
 }
 
 * {
   box-sizing: border-box;
 }
 
-.flex {
-  display: flex;
-}
-
-.doc-nav {
+header.doc-nav {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 48px;
-  padding: 0 8px;
-  position: sticky;
-  top: 0;
-  z-index: 1;
   background: white;
-  box-shadow: #0003 0 0 4px;
-  .doc-nav-logo {
-    color: #000;
+  box-shadow: 0 0 4px var(--color-dark-fade);
+  position: relative;
+  z-index: 1;
+  a.button-link.doc-nav-logo-link {
+    display: flex;
+    align-items: center;
+    float: left;
+    padding: 0 8px 0 0;
+    color: inherit;
     user-select: none;
     cursor: pointer;
     position: absolute;
-    left: 8px;
+    left: 0;
     > img {
       width: 48px;
       height: 48px;
@@ -42,21 +55,38 @@
   }
 }
 
-a {
-  text-decoration: none;
+main.doc-content {
+  height: calc(100vh - 48px);
+  display: flex;
+  > aside.doc-aside {
+    height: calc(100vh - 48px);
+    padding: 16px 0;
+    flex: 200px 0 0;
+    box-shadow: var(--color-dark-fade) 0 0 4px;
+    a {
+      display: block;
+    }
+  }
 }
 
-.doc-nav a.button-link,
-.doc-aside a.button-link {
+article {
+  padding: 24px;
+  flex-grow: 1;
+  overflow: auto;
+}
+
+a.button-link,
+a.button-link {
+  display: inline-block;
+  align-items: center;
   margin: 0 2px;
   padding: 12px;
-  display: inline-block;
   border-radius: 4px;
+  text-decoration: none;
   &:visited,
   & {
-    color: #000;
+    color: inherit;
   }
-  outline: 0;
   &:hover {
     background: #f4f4f4;
   }
@@ -66,6 +96,7 @@ a {
   &.active {
     color: var(--color-primary);
   }
+  outline: none;
   &:focus-visible {
     box-shadow: 0 0 0 4px #8cbaff80;
   }
@@ -87,26 +118,6 @@ a {
 }
 
 .doc-nav a.button-link {
-  min-width: 180px;
   text-align: center;
-}
-
-main.doc-content {
-  > .doc-aside {
-    min-height: calc(100vh - 48px);
-    padding: 16px 0;
-    width: 200px;
-    box-shadow: #0003 0 0 4px;
-    position: fixed;
-    top: 48px;
-    a {
-      display: block;
-    }
-  }
-
-  > article {
-    margin-left: 200px;
-    padding: 24px;
-    flex-grow: 1;
-  }
+  min-width: 180px;
 }

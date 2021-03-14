@@ -1,13 +1,18 @@
 .demo-player {
-  border: 1px solid #deeefc;
+  flex-grow: 1;
   border-radius: 4px;
+  overflow: hidden;
+  .demo-player-inner {
+    border: 2px solid var(--color-contrasting-fade);
+    margin-top: 12px;
+  }
   .demo-live {
+    box-shadow: 0 2px 4px var(--color-contrasting-fade);
+    overflow: auto hidden;
     padding: 24px;
-    border-bottom: 1px solid #deeefc;
     border-radius: 4px;
   }
   .demo-code {
-    background-color: #fdf9fc;
     border-radius: 4px;
     > pre {
       margin: 0 !important;
@@ -15,9 +20,4 @@
       background-color: transparent !important;
     }
   }
-}
-
-.page-walker {
-  display: flow-root;
-  overflow: hidden;
 }
