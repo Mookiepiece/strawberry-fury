@@ -3,21 +3,28 @@
   border-radius: 4px;
   overflow: hidden;
   .demo-player-inner {
+    border-radius: 12px;
     border: 2px solid var(--color-contrasting-fade);
     margin-top: 12px;
+    background-color: var(--color-contrasting-fade-100);
   }
   .demo-live {
-    box-shadow: 0 2px 4px var(--color-contrasting-fade);
+    box-shadow: 0 4px 2px -2px var(--color-contrasting);
     overflow: auto hidden;
     padding: 24px;
-    border-radius: 4px;
+    border-radius: 12px;
+    position: relative;
+    background-color: #fff;
   }
   .demo-code {
-    border-radius: 4px;
     > pre {
       margin: 0 !important;
       border: 0 !important;
       background-color: transparent !important;
+      border-radius: 0 0 12px 12px;
+      > code {
+        font-size: 16px !important;
+      }
     }
   }
 }

@@ -4,11 +4,14 @@
   --color-primary-fade-100: #{transparentize(#e16b8c, 0.95)};
   --color-primary-fade-300: #{transparentize(#e16b8c, 0.85)};
   --color-secondary: #ff9900;
+  --color-secondary-fade-100: #{transparentize(#ff7b00, 0.95)};
   --color-secondary-fade: #{transparentize(#ff7b00, 0.92)};
   --color-dark: #446;
   --color-dark-fade-100: #{transparentize(#446, 0.95)};
   --color-dark-fade: #{transparentize(#446, 0.8)};
   --color-contrasting: #0080ff;
+  --color-contrasting-fade-100: #{transparentize(#0080ff, 0.98)};
+  --color-contrasting-fade-300: #{transparentize(#0080ff, 0.95)};
   --color-contrasting-fade: #{transparentize(#0080ff, 0.9)};
 }
 

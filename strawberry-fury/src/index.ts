@@ -9,3 +9,12 @@ export * from './Collapse';
 
 export { default as Testaa } from './Testaa';
 export * from './Testaa';
+
+export { default as StButton } from './StButton';
+export * from './StButton';
+
+export { default as StForm } from './StForm';
+export * from './StForm';
+
+export { default as StInput } from './StInput';
+export * from './StInput';

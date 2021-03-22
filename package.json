@@ -8,6 +8,7 @@
     "docs:deploy": "yarn workspace docs deploy",
     "build": "yarn workspace strawberry-fury build",
     "example": "yarn && yarn workspace example build",
+    "example:skip-check": "yarn && yarn workspace example build:skip-check",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "workspaces": [

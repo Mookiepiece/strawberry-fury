@@ -12,6 +12,7 @@ import Index from '🦌/pages';
 import Button from '🦌/pages/components/button';
 import Dialog from '🦌/pages/components/dialog';
 import Collapse from '🦌/pages/components/collapse';
+import Form from '🦌/pages/components/form';
 
 import logo from '🦌/strawberry-fury-LOGO.png';
 import { getCowboy, i18nContext, i18nStateContext, Language } from './utils/i18n';
@@ -53,6 +54,7 @@ const SideBar: React.FC = () => {
     '/components/button': 'Button',
     '/components/dialog': 'Dialog',
     '/components/collapse': 'Collapse',
+    '/components/form': 'Form',
   };
   return (
     <aside className="doc-aside">
@@ -112,6 +114,7 @@ const App: React.FC = () => {
                       <Route path="/components/button" component={Button} />
                       <Route path="/components/dialog" component={Dialog} />
                       <Route path="/components/collapse" component={Collapse} />
+                      <Route path="/components/form" component={Form} />
                     </Switch>
                   </main>
                 )}

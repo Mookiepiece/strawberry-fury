@@ -72,17 +72,14 @@ const Collapse: React.FC<CollapseProps> & {
     });
   }, []);
 
-  const toggle = useCallback(
-    (i: string) => {
+  const toggle = useCallback((i: string) => {
+    setActiveNames(activeNames => {
       const index = activeNames.findIndex(k => k === i);
-      setActiveNames(activeNames =>
-        index === -1
-          ? [...activeNames, i]
-          : [...activeNames.slice(0, index), ...activeNames.slice(index + 1)]
-      );
-    },
-    [activeNames]
-  );
+      return index === -1
+        ? [...activeNames, i]
+        : [...activeNames.slice(0, index), ...activeNames.slice(index + 1)];
+    });
+  }, []);
 
   const collapseContextValue = useMemo(
     () => ({

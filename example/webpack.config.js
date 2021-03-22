@@ -31,6 +31,7 @@ const config = {
                 customStyleName(name) {
                   return `strawberry-fury/src/_theme/${name}.scss`;
                 },
+                camel2DashComponentName: false,
               },
             ],
           ],

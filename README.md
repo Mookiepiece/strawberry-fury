@@ -101,7 +101,7 @@ NO English translations for rest sections in this chapter
 
 `tree shaking`只对`ES Module (ESM)` 文件生效。所以本项目用 `rollup` 构建`ESM` 输出。`webpack` 的 `ESM` 输出还在实验阶段。`typescript-cli`也支持`ESNext`输出，`babel-cli`也支持配置不转换模块语法。
 
-`webpack` 是不会在开发模式启动`tree shaking`的，生产环境才会启用，[material-ui: minimizing-bundle-size](https://material-ui.com/guides/minimizing-bundle-size/#when-and-how-to-use-tree-shaking)这篇指南介绍得非常详细，所以如果你的库很大，需要借助`babel-plugin-import`将 `import { Component } from 'my-lib'`转换成`import Component from 'my-lib/Component'`提升开发模式的编译速度，因为前者在`tree shaking`没有启用的情况会引入全部的文件，后者因为路径写得更细，所以只引入你需要的文件
+`webpack` 是不会在开发模式启动`tree shaking`的，生产环境才会启用，[material-ui: minimizing-bundle-size](https://material-ui.com/guides/minimizing-bundle-size/#when-and-how-to-use-tree-shaking)这篇指南介绍得非常详细，所以如果你的库很大，需要借助`babel-plugin-import`将 `import { Component } from 'my-lib'`转换成`import Component from 'my-lib/Component'`提升开发模式的编译速度，因为前者在`tree shaking`没有启用的情况会引入文件的整个内容，后者因为路径写得更细，所以只引入你需要的文件
 
 #### 关于 css
 
@@ -127,3 +127,5 @@ NO English translations for rest sections in this chapter
 官网是部署在 github pages 下的，国内网络不能访问
 
 如果连接不上 github，fatal: unable to access，尝试把 git remote [从 https 改成 ssh](https://www.zhihu.com/question/26954892)
+
+typescript declaration 类型定义文件在编译后是有损失的，简单的讲，你 index.ts 输出了哪些文件，才会输出那个文件的类型，因为所有文件最后都被打包成了 index.js。当前文件夹底下的其他次要文件凭空消失了，所以注意把需要类型定义文件的文件都 import 到 index.ts 里[可能像这样](https://github.com/element-plus/element-plus/blob/e45da7bddbf6ac58751ac598ca3bc2e00454073b/packages/form/index.ts#L14)，这种情况不太清楚会不会存在，因为按道理次要文件不会被 export，或者说按照 ts 的语法，export 的东西必须有类型定义。
