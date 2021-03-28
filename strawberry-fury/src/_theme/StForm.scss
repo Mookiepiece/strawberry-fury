@@ -1,0 +1,44 @@
+.st-label {
+  color: var(--color-dark);
+  height: 36px;
+  line-height: 36px;
+  font-size: 14px;
+  display: inline-block;
+  text-align: right;
+  margin-right: 10px;
+  width: 120px;
+
+  &.st-label-asterisk::before {
+    content: '*';
+    padding-right: 4px;
+    color: var(--color-danger);
+    font-size: small;
+  }
+}
+
+.st-form-content {
+  padding-left: 130px;
+}
+
+.st-form-item {
+  > label {
+    display: flex;
+  }
+
+  .st-error-message {
+    transition: all 0.15s;
+    display: block;
+    color: var(--color-danger);
+    font-size: 13.2px;
+    line-height: 18px;
+    margin-bottom: 4px;
+    transform-origin: top;
+    transform: scaleY(0);
+  }
+
+  &.st-form-item--error {
+    .st-error-message {
+      transform: scaleY(1);
+    }
+  }
+}

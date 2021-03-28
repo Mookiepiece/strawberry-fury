@@ -1,24 +1,24 @@
-@import '_var.scss';
-
 .sf-button {
   cursor: pointer;
-  border: 1px solid $color-primary;
-  color: $color-primary;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
   border-radius: 4px;
   outline: 0;
-  box-shadow: 0 0 0 0 $color-primary;
+  box-shadow: 0 0 0 0 var(--color-primary);
   background-color: white;
   padding: 6px;
   transition: box-shadow 0.3s;
   position: relative;
+  transition: all 0.06s, box-shadow 0.2s;
   &:focus-visible {
-    box-shadow: 0 0 0 0.25rem $color-primary-fade;
+    box-shadow: 0 0 0 4px var(--color-primary-fade-300);
   }
   &:hover {
-    background-color: $color-primary-fade;
+    background-color: var(--color-primary-fade-200);
   }
   &:active {
-    background-color: $color-primary-ultra-fade;
+    transform: scale(0.95);
+    background-color: var(--color-primary-fade-300);
   }
 
   .sf-hair {

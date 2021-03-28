@@ -1,7 +1,7 @@
 import React from 'react';
 
 type ButtonProps = {
-  type: 'button' | 'submit' | 'reset';
+  type?: 'button' | 'submit' | 'reset';
   height?: string | number;
 } & React.HtmlHTMLAttributes<HTMLButtonElement>;
 

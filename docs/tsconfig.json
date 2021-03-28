@@ -16,7 +16,7 @@
     "baseUrl": "src",
     "paths": {
       "🦌/*": ["./*"],
-      "🦄/*": ["../../strawberry-fury/src/*"]
+      "🦄": ["../../strawberry-fury/src/index"]
     },
     "allowSyntheticDefaultImports": true,
     "noFallthroughCasesInSwitch": true

@@ -1,0 +1,43 @@
+:root {
+  --color-primary: #e16b8c;
+  --color-primary-fade-100: #{transparentize(#e16b8c, 0.98)};
+  --color-primary-fade-200: #{transparentize(#e16b8c, 0.95)};
+  --color-primary-fade-300: #{transparentize(#e16b8c, 0.9)};
+  --color-primary-fade-400: #{transparentize(#e16b8c, 0.8)};
+  --color-primary-fade-500: #{transparentize(#e16b8c, 0.6)};
+  --color-primary-fade-600: #{transparentize(#e16b8c, 0.4)};
+  --color-primary-fade-700: #{transparentize(#e16b8c, 0.2)};
+  --color-secondary: #ff9900;
+  --color-secondary-fade-100: #{transparentize(#ff7b00, 0.95)};
+  --color-secondary-fade-200: #{transparentize(#ff7b00, 0.9)};
+  --color-secondary-fade-300: #{transparentize(#ff7b00, 0.75)};
+  --color-secondary-fade-400: #{transparentize(#ff7b00, 0.6)};
+  --color-secondary-fade-500: #{transparentize(#ff7b00, 0.45)};
+  --color-secondary-fade-600: #{transparentize(#ff7b00, 0.3)};
+  --color-secondary-fade-700: #{transparentize(#ff7b00, 0.15)};
+  --color-dark: #446;
+  --color-dark-fade-100: #{transparentize(#446, 0.95)};
+  --color-dark-fade-200: #{transparentize(#446, 0.9)};
+  --color-dark-fade-300: #{transparentize(#446, 0.75)};
+  --color-dark-fade-400: #{transparentize(#446, 0.6)};
+  --color-dark-fade-500: #{transparentize(#446, 0.45)};
+  --color-dark-fade-600: #{transparentize(#446, 0.3)};
+  --color-dark-fade-700: #{transparentize(#446, 0.15)};
+  --color-contrasting: #0080ff;
+  --color-contrasting-fade-100: #{transparentize(#0080ff, 0.98)};
+  --color-contrasting-fade-200: #{transparentize(#0080ff, 0.95)};
+  --color-contrasting-fade-300: #{transparentize(#0080ff, 0.9)};
+  --color-contrasting-fade-400: #{transparentize(#0080ff, 0.8)};
+  --color-contrasting-fade-500: #{transparentize(#0080ff, 0.6)};
+  --color-contrasting-fade-600: #{transparentize(#0080ff, 0.4)};
+  --color-contrasting-fade-700: #{transparentize(#0080ff, 0.2)};
+
+  --color-danger: #f73c2f;
+  --color-danger-fade-100: #{transparentize(#f73c2f, 0.98)};
+  --color-danger-fade-200: #{transparentize(#f73c2f, 0.95)};
+  --color-danger-fade-300: #{transparentize(#f73c2f, 0.9)};
+  --color-danger-fade-400: #{transparentize(#f73c2f, 0.8)};
+  --color-danger-fade-500: #{transparentize(#f73c2f, 0.6)};
+  --color-danger-fade-600: #{transparentize(#f73c2f, 0.4)};
+  --color-danger-fade-700: #{transparentize(#f73c2f, 0.2)};
+}

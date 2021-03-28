@@ -1,5 +1,5 @@
 import React from 'react';
-import Collapse from '🦄/Collapse';
+import { StCollapse } from '🦄';
 
 const BasicUsage: React.FC = () => {
   return (
@@ -27,30 +27,30 @@ const BasicUsage: React.FC = () => {
         transform: rotate(.5turn);
       }
     `}</style>
-      <Collapse>
-        <Collapse.Item>
-          <Collapse.Summary>
+      <StCollapse>
+        <StCollapse.Item>
+          <StCollapse.Summary>
             <p className="basic-collapse-summary">
               You dont know about me<span>↓</span>
             </p>
-          </Collapse.Summary>
-          <Collapse.Panel>
+          </StCollapse.Summary>
+          <StCollapse.Panel>
             <h5>But I bet you want to</h5>
             <div style={{ width: 100, height: 100, background: 'aliceblue' }}></div>
-          </Collapse.Panel>
-        </Collapse.Item>
-        <Collapse.Item>
-          <Collapse.Summary>
+          </StCollapse.Panel>
+        </StCollapse.Item>
+        <StCollapse.Item>
+          <StCollapse.Summary>
             <p className="basic-collapse-summary">
               Everything will be alright<span>↓</span>
             </p>
-          </Collapse.Summary>
-          <Collapse.Panel>
+          </StCollapse.Summary>
+          <StCollapse.Panel>
             <h5>We just keep dancing</h5>
             <p>like we are 22</p>
-          </Collapse.Panel>
-        </Collapse.Item>
-      </Collapse>
+          </StCollapse.Panel>
+        </StCollapse.Item>
+      </StCollapse>
     </>
   );
 };

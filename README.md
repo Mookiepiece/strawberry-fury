@@ -79,6 +79,7 @@ Of course there are some interesting components included.
 - [Creating a Library of React Components using Create React App](https://hackernoon.com/creating-a-library-of-react-components-using-create-react-app-without-ejecting-d182df690c6b)
 - [Creating a React Component Library using Rollup, Typescript, Sass and Storybook](https://github.com/HarveyD/react-component-library)
 - [58-magic/react-component-template](https://github.com/58-magic/react-component-template)
+- [tjx666/react-typescript-boilerplate 从零开始配置 react + typescript](https://github.com/tjx666/react-typescript-boilerplate)
 
 #### Prior Art
 
@@ -87,6 +88,7 @@ Those article may better than this one：
 - [Creating a Library of React Components using Create React App](https://hackernoon.com/creating-a-library-of-react-components-using-create-react-app-without-ejecting-d182df690c6b)
 - [Creating a React Component Library using Rollup, Typescript, Sass and Storybook](https://github.com/HarveyD/react-component-library)
 - [58-magic/react-component-template](https://github.com/58-magic/react-component-template)
+- [tjx666/react-typescript-boilerplate 从零开始配置 react + typescript](https://github.com/tjx666/react-typescript-boilerplate)
 
 NO English translations for rest sections in this chapter
 
@@ -128,4 +130,4 @@ NO English translations for rest sections in this chapter
 
 如果连接不上 github，fatal: unable to access，尝试把 git remote [从 https 改成 ssh](https://www.zhihu.com/question/26954892)
 
-typescript declaration 类型定义文件在编译后是有损失的，简单的讲，你 index.ts 输出了哪些文件，才会输出那个文件的类型，因为所有文件最后都被打包成了 index.js。当前文件夹底下的其他次要文件凭空消失了，所以注意把需要类型定义文件的文件都 import 到 index.ts 里[可能像这样](https://github.com/element-plus/element-plus/blob/e45da7bddbf6ac58751ac598ca3bc2e00454073b/packages/form/index.ts#L14)，这种情况不太清楚会不会存在，因为按道理次要文件不会被 export，或者说按照 ts 的语法，export 的东西必须有类型定义。
+为了支持 `babel-plugin-import`，每个组件只能有一个默认导出，这也意味着不能使用 `export types` 或者 `export const` 导出，需要导出的方法得挂到默认导出的对象的属性里，所以 antd 不是暴露`FormInstanceType`而是暴露了`Form.useForm`方法这个方法返回值是 instanceType。

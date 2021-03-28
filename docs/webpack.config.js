@@ -11,7 +11,7 @@ const basicConfig = {
   target: 'web',
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js',
+    filename: 'bundle.[hash:8].js',
   },
   resolve: {
     extensions: ['.js', '.tsx', '.ts', '.json'],

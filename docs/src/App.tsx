@@ -9,16 +9,22 @@ import {
   useLocation,
 } from 'react-router-dom';
 import Index from '🦌/pages';
-import Button from '🦌/pages/components/button';
-import Dialog from '🦌/pages/components/dialog';
-import Collapse from '🦌/pages/components/collapse';
-import Form from '🦌/pages/components/form';
 
 import logo from '🦌/strawberry-fury-LOGO.png';
 import { getCowboy, i18nContext, i18nStateContext, Language } from './utils/i18n';
 import './styles.scss';
 import '🦄/_theme/index.scss';
 
+import Button from '🦌/pages/components/Button';
+import Dialog from '🦌/pages/components/Dialog';
+import StCollapse from '🦌/pages/components/StCollapse';
+import StForm from '🦌/pages/components/StForm';
+const pages: Record<string, [string, React.FC]> = {
+  '/components/button': ['Button', Button],
+  '/components/dialog': ['Dialog', Dialog],
+  '/components/StCollapse': ['St| Collapse', StCollapse],
+  '/components/StForm': ['St| Form', StForm],
+};
 const Nav: React.FC<{ i18nState: Language; setI18nState: () => void }> = ({
   i18nState,
   setI18nState,
@@ -50,18 +56,12 @@ const Nav: React.FC<{ i18nState: Language; setI18nState: () => void }> = ({
 };
 
 const SideBar: React.FC = () => {
-  const pages = {
-    '/components/button': 'Button',
-    '/components/dialog': 'Dialog',
-    '/components/collapse': 'Collapse',
-    '/components/form': 'Form',
-  };
   return (
     <aside className="doc-aside">
-      {Object.entries(pages).map(([k, v]) => (
+      {Object.entries(pages).map(([k, [v]]) => (
         <div key={k}>
           <NavLink className="button-link" to={k}>
-            {v}
+            {[v]}
           </NavLink>
         </div>
       ))}
@@ -111,10 +111,9 @@ const App: React.FC = () => {
                         exact
                         render={() => <Redirect to="/components/button" />}
                       />
-                      <Route path="/components/button" component={Button} />
-                      <Route path="/components/dialog" component={Dialog} />
-                      <Route path="/components/collapse" component={Collapse} />
-                      <Route path="/components/form" component={Form} />
+                      {Object.entries(pages).map(([k, [, v]]) => (
+                        <Route key={k} path={k} component={v} />
+                      ))}
                     </Switch>
                   </main>
                 )}

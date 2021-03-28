@@ -1,3 +1,4 @@
+import { ErrorList, ValidateError } from 'async-validator';
 import React, {
   useCallback,
   useImperativeHandle,
@@ -9,13 +10,9 @@ import React, {
 } from 'react';
 import { useEventCallback } from '🦄/_utils/useEventCallback';
 import { FormContext, FormItemsRegisterProps } from './FormContext';
-import FormItem, { FormItemProps } from './FormItem';
+import { FormItem, FormContent, FormItemProps, ValidateStatusParam } from './FormItem';
 
-export function setProp<T extends Record<string, unknown>>(
-  obj: T,
-  pathes: string[],
-  value: unknown
-): T {
+function setProp<T extends Record<string, unknown>>(obj: T, pathes: string[], value: unknown): T {
   const ans = { ...obj }; // answer
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let curr: any = ans; // an cursor to walk deep into the obj
@@ -42,24 +39,28 @@ export function setProp<T extends Record<string, unknown>>(
   return ans;
 }
 
-export type FormInstance = {
-  validate: () => Promise<void>;
-  reset: () => void;
-  clearValidate: () => void;
+type FormInstance = {
+  validate: (names?: string[]) => Promise<void>;
+  reset: (names?: string[]) => void;
+  clearValidate: (names?: string[]) => void;
+  setValidateStatus: (name: string, validateStatus: ValidateStatusParam) => void;
 };
 
 type FormProps<T extends Record<string, unknown>> = {
   value: T;
-  action: (value: T) => void;
+  onSubmit: (value: T) => void;
+  onSubmitValidateFailed?: (err: ValidateError) => void;
   children?: React.ReactNode;
   onChange: Dispatch<SetStateAction<T>>;
+  onValidateStatusChange?: (isValidating: boolean) => void;
 };
 
-const FormI = <T extends Record<string, unknown>>(props: FormProps<T>, ref: React.Ref<unknown>) => {
+const _Form = <T extends Record<string, unknown>>(props: FormProps<T>, ref: React.Ref<unknown>) => {
   const { value, children } = props;
 
-  const action = useEventCallback(props.action);
+  const onSubmit = useEventCallback(props.onSubmit);
   const onChange = useEventCallback(props.onChange);
+  const onValidateStatusChange = useEventCallback(props.onValidateStatusChange || (() => {}));
 
   const initialValue = useRef(value);
 
@@ -75,25 +76,51 @@ const FormI = <T extends Record<string, unknown>>(props: FormProps<T>, ref: Reac
     }
   }, []);
 
-  const validate = useCallback(async () => {
-    await Promise.all(items.current.map(item => item.validate()));
+  const validate = useCallback(
+    async (names: string[] = []) => {
+      const i = names.length
+        ? items.current.filter(({ name }) => names.includes(name))
+        : items.current;
+      onValidateStatusChange(true);
+      try {
+        await Promise.all(i.map(item => item.validate()));
+      } finally {
+        onValidateStatusChange(false);
+      }
+    },
+    [onValidateStatusChange]
+  );
+
+  const clearValidate = useCallback((names: string[] = []) => {
+    const i = names.length
+      ? items.current.filter(({ name }) => names.includes(name))
+      : items.current;
+    i.forEach(item => item.clearValidate());
   }, []);
 
-  const clearValidate = useCallback(async () => {
-    items.current.forEach(item => item.clearValidate());
+  const reset = useEventCallback(async (names: string[] = []) => {
+    const i = names.length
+      ? items.current.filter(({ name }) => names.includes(name))
+      : items.current;
+    i.forEach(item => (item.cancelValidate(), item.clearValidate()));
+    onChange(initialValue.current);
+  });
+
+  const setValidateStatus = useCallback((name: string, validateStatus: ValidateStatusParam) => {
+    const i = items.current.filter(({ name: _ }) => _ === name);
+    i.forEach(item => {
+      item.setValidateStatus(validateStatus);
+    });
   }, []);
 
   const submit = useEventCallback(() => {
     validate()
       .then(() => {
-        action(value);
+        onSubmit(value);
       })
-      .catch(() => {});
-  });
-
-  const reset = useEventCallback(async () => {
-    items.current.forEach(item => item.clearValidate());
-    onChange(initialValue.current);
+      .catch((e: { errors: ErrorList }) => {
+        props.onSubmitValidateFailed?.(e.errors[0]);
+      });
   });
 
   const setValue = useEventCallback((pathes: string[], propValue: unknown) => {
@@ -115,12 +142,13 @@ const FormI = <T extends Record<string, unknown>>(props: FormProps<T>, ref: Reac
 
   useImperativeHandle(
     ref,
-    () => ({
+    (): FormInstance => ({
       validate,
+      setValidateStatus,
       clearValidate,
       reset,
     }),
-    [clearValidate, reset, validate]
+    [validate, setValidateStatus, clearValidate, reset]
   );
 
   const handleSubmit = useCallback(
@@ -145,14 +173,18 @@ const FormI = <T extends Record<string, unknown>>(props: FormProps<T>, ref: Reac
     </form>
   );
 };
-FormI.displayName = 'Form';
+_Form.displayName = 'Form';
 
 const Form: (<T extends Record<string, unknown>>(
   props: FormProps<T> & React.RefAttributes<unknown>
 ) => React.ReactElement) & {
   Item: React.FC<FormItemProps>;
-} = Object.assign(React.forwardRef(FormI), {
+  Content: React.FC;
+  useRef: () => React.RefObject<FormInstance>;
+} = Object.assign(React.forwardRef(_Form), {
   Item: FormItem,
+  Content: FormContent,
+  useRef: () => React.useRef<FormInstance>(null),
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 }) as any;
 

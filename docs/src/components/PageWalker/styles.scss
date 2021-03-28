@@ -56,8 +56,8 @@
       left: 20px;
       width: 300px;
       height: 16px;
-      box-shadow: -12px -8px 0 6px var(--color-contrasting-fade-300),
-        2px -14px 0 6px var(--color-contrasting-fade-300);
+      box-shadow: -12px -8px 0 6px var(--color-contrasting-fade-200),
+        2px -14px 0 6px var(--color-contrasting-fade-100);
       background: linear-gradient(
         6deg,
         var(--color-primary-fade-100),
@@ -101,7 +101,7 @@
 
     @supports (-webkit-background-clip: text) {
       &:not(:hover):not(:focus-visible)::first-letter {
-        background-image: linear-gradient(130deg, #ec2a2a 20%, var(--color-primary) 55%);
+        background-image: linear-gradient(130deg, #f11717 20%, var(--color-primary) 55%);
         color: transparent;
         background-clip: text;
         -webkit-background-clip: text;
@@ -109,7 +109,7 @@
     }
     @supports (background-clip: text) {
       &:not(:hover):not(:focus-visible)::first-letter {
-        background-image: linear-gradient(130deg, #ec2a2a 20%, var(--color-primary) 55%);
+        background-image: linear-gradient(130deg, #f11717 20%, var(--color-primary) 55%);
         color: transparent;
         background-clip: text;
         -webkit-background-clip: text;
@@ -127,7 +127,7 @@
     &:focus-visible {
       color: var(--color-secondary);
       &::after {
-        color: var(--color-dark-fade);
+        color: var(--color-dark-fade-300);
       }
     }
   }

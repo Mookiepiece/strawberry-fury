@@ -1,0 +1,26 @@
+@import './mixins.scss';
+
+input.st-input {
+  font-size: 14px;
+  min-width: 280px;
+  height: 36px;
+  padding: 0 10px;
+  border-radius: 2px;
+  border: 1px solid var(--color-dark-fade-300);
+  outline: none;
+
+  box-shadow: 0 0 0 0 var(--color-dark-fade-300);
+  transition: all 0.15s;
+  &:focus-visible {
+    border-color: var(--color-contrasting-fade-600);
+    box-shadow: 0 0 0 3px var(--color-contrasting-fade-400);
+  }
+}
+@include when-form-error() {
+  input.st-input {
+    border-color: var(--color-danger);
+    &:focus-visible {
+      box-shadow: 0 0 0 3px var(--color-danger-fade-400);
+    }
+  }
+}

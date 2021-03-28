@@ -1,7 +1,7 @@
 import React from 'react';
-import HuTao from '🦄/hutao';
+import { Dialog } from '🦄';
 
 const YourHuTao: React.FC = () => {
-  return <HuTao />;
+  return <Dialog.HuTao />;
 };
 export default YourHuTao;

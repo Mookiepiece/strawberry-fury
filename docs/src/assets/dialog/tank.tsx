@@ -1,7 +1,7 @@
 import React from 'react';
-import Tank from '🦄/tank';
+import { Dialog } from '🦄';
 
 const YourTank: React.FC = () => {
-  return <Tank />;
+  return <Dialog.Tank />;
 };
 export default YourTank;

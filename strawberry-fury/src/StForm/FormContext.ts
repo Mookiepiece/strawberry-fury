@@ -1,9 +1,12 @@
 import React from 'react';
+import { ValidateStatusParam } from './FormItem';
 
 export type FormItemsRegisterProps = {
   name: string;
   validate: () => void;
+  cancelValidate: () => void;
   clearValidate: () => void;
+  setValidateStatus: (s: ValidateStatusParam) => void;
 };
 
 export const FormContext = React.createContext<{

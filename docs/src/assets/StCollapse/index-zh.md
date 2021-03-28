@@ -1,4 +1,4 @@
-## Collapse 折叠面板
+## St Collapse 折叠面板
 
 ### 原理
 

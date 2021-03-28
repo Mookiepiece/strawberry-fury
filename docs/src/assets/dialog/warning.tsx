@@ -1,5 +1,5 @@
 import React from 'react';
-import Dialog from '🦄/dialog';
+import { Dialog } from '🦄';
 
 const Warning: React.FC = () => {
   return (
