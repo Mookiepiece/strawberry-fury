@@ -21,13 +21,36 @@ StForm 使用受控表单，使用 `async-validator`做 schema 验证。
 
 要说这表单真的有什么原理吧，其实核心并不难，和写 Collapse 一样用传统的订阅模式就能解决。
 
-推荐阅读：`element/element-plus` `rc-field-form` `formik` 源码及文档
+表单如何在按下回车时自动提交[HTML Spec WHATWG](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#implicit-submission)：
+
+TLDR: 添加 submit 按钮支持隐式提交
+
+4.10.21.2 Implicit submission
+A form element's default button is the first submit button in tree order whose form owner is that form element.
+
+If the user agent supports letting the user submit a form implicitly (for example, on some platforms hitting the "enter" key while a text control is focused implicitly submits the form), then doing so for a form, whose default button has activation behavior and is not disabled, must cause the user agent to fire a click event at that default button.
+
+There are pages on the web that are only usable if there is a way to implicitly submit forms, so user agents are strongly encouraged to support this.
+
+If the form has no submit button, then the implicit submission mechanism must do nothing if the form has more than one field that blocks implicit submission, and must submit the form element from the form element itself otherwise.
+
+For the purpose of the previous paragraph, an element is a field that blocks implicit submission of a form element if it is an input element whose form owner is that form element and whose type attribute is in one of the following states: Text, Search, URL, Telephone, Email, Password, Date, Month, Week, Time, Local Date and Time, Number
+
+[The Enter Key should Submit Forms, Stop Suppressing it](https://www.tjvantoll.com/2013/01/01/enter-should-submit-forms-stop-messing-with-that/)
+
+> W3C 标准中有如下规定：
+>
+> When there is only one single-line text input field in a form, the user agent should accept Enter in that field as a request to submit the form.
+>
+> 即：当一个 form 元素中只有一个输入框时，在该输入框中按下回车应提交该表单。如果希望阻止这一默认行为，可以在 <el-form> 标签上添加 @submit.native.prevent。
+
+推荐阅读：`element/element-plus` `muse-ui` `rc-field-form` `formik`
 
 ### 基本用法
 
 `Form.Item`会接管子元素`value`和`onChange`属性，且 onChange 的第一参数是值而不是事件。同时也支持传入`render props`作子元素。
 
-`Form.Item`**输入时（onChange 时）校验**，`element`和`zent`的输入框 Input 控件是失焦时触发校验，`antd`是输入时校验。[这个是 formik 不清楚。](https://formik.org/docs/examples/with-material-ui)
+`Form.Item`**输入时（onChange 时）校验**，`element`的输入框 Input 控件是失焦时触发校验，`antd`和`formik`[是输入时校验](https://formik.org/docs/examples/with-material-ui)。
 
 输入校验附带 200ms 防抖，节流规则是每次校验需等待上一次完成，连续输入时，最后一次输入必定在等待前面的校验结束后触发一次最终值校验。很多库没有预设节流，可能是这种异步校验的场景实在是太少了一般都是提交后等结果。
 
@@ -40,5 +63,7 @@ DEMO{{./basic.tsx}}
 ### 高级示例
 
 这个示例里实现了一个架空的需求，后端不接收以数字开头的名字，当后端不接收此参数时，手动调用`setValidateStatus`将名称置错，并且改变名字的`rule`，用户再次输入同样的名字也会警告。
+
+为了防止重复提交，你应该为按钮加上 loading。
 
 DEMO{{./remote.tsx}}

@@ -58,15 +58,17 @@ const BasicUsage: React.FC = () => {
           {({ value, onChange }) => <StInput value={value} onChange={onChange} />}
         </StForm.Item>
         <StForm.Content>
-          <StButton type="submit">提交 Submit</StButton>
+          <StButton primary type="submit">
+            提交 Submit
+          </StButton>
           <StButton type="reset">重置 Reset</StButton>
         </StForm.Content>
       </StForm>
+      <br />
+      <p>{isValidating ? 'Validating...' : 'Idle'}</p>
       <StButton onClick={() => formRef.current?.validate().catch(e => alert(e.errors[0].message))}>
         手动提交 mannually validate and submit
       </StButton>
-      <br />
-      <p>{isValidating ? 'Validating...' : 'Idle'}</p>
       <StButton onClick={() => formRef.current?.reset()}>手动重置 mannually reset</StButton>
     </>
   );

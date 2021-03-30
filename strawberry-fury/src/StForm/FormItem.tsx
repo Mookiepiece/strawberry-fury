@@ -90,7 +90,7 @@ const FormContent: React.FC = ({ children }) => {
   return <div className="st-form-content">{children}</div>;
 };
 
-const FormItem: React.FC<FormItemProps> = ({ rules: _rules = [], label, name, children }) => {
+const FormItem: React.FC<FormItemProps> = ({ rules = [], label, name, children }) => {
   const { value: formValue, setValue, register, unregister } = useContext(FormContext);
 
   const pathes = useMemo(() => {
@@ -98,11 +98,6 @@ const FormItem: React.FC<FormItemProps> = ({ rules: _rules = [], label, name, ch
   }, [name]);
 
   const value = getProp(formValue, pathes);
-
-  const rules = useRef<RuleItem[]>([]);
-  useEffect(() => {
-    rules.current = Array.isArray(_rules) ? _rules : [_rules];
-  }, [_rules]);
 
   const [validateStatus, _setValidateStatus] = useState<ValidateStatus>({
     state: '',
@@ -130,7 +125,7 @@ const FormItem: React.FC<FormItemProps> = ({ rules: _rules = [], label, name, ch
   }, []);
 
   const validate = useEventCallback(async (method: 'change' | 'force') => {
-    const validator = new AsyncValidator({ [name]: rules.current });
+    const validator = new AsyncValidator({ [name]: rules });
 
     if (method === 'change' && validateStatus.state === 'validating') {
       nextTickToValidate.current = true;
@@ -200,6 +195,7 @@ const FormItem: React.FC<FormItemProps> = ({ rules: _rules = [], label, name, ch
     if (!isFirstMount) {
       // the value has changed and not triggered by clear, try to validate
       if (lastValueRef.current !== value && touchedRef.current) {
+        lastValueRef.current = value;
         debouncedValidate();
       }
     }
@@ -235,7 +231,7 @@ const FormItem: React.FC<FormItemProps> = ({ rules: _rules = [], label, name, ch
     });
   }
 
-  const asterisk = !!(Array.isArray(_rules) ? _rules : [_rules]).find(r => r.required);
+  const asterisk = !!(Array.isArray(rules) ? rules : [rules]).find(r => r.required);
 
   return (
     <div

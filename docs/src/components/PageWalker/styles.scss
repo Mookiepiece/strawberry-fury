@@ -1,18 +1,18 @@
 .page-walker-markdown {
   line-height: 1.35;
   code {
+    margin: 2px;
+    padding: 2px 4px;
+    font-family: Consolas, 'Courier New', Courier, FreeMono, monospace;
     background: linear-gradient(45deg, #f2f2f2, #fcfcfc, #f2f2f2);
     border-radius: 3px;
-    padding: 2px 4px;
-    margin: 2px;
-    font-family: Consolas, 'Courier New', Courier, FreeMono, monospace;
   }
 
   table {
+    margin-bottom: 24px;
+    font-size: 14px;
     text-align: left;
     border-collapse: collapse;
-    font-size: 14px;
-    margin-bottom: 24px;
     code {
       color: var(--color-primary);
       background: var(--color-primary-fade-100);
@@ -41,38 +41,83 @@
   }
   h3 {
     margin: 0;
-    font-size: 35px;
     padding: 12px;
-    transform: translateX(-12px);
-    border-radius: 8px;
     color: var(--color-primary);
+    font-size: 35px;
+    border-radius: 8px;
+    transform: translateX(-12px);
 
     &::after {
-      content: '';
-      display: block;
       position: absolute;
-      z-index: -1;
       bottom: 6px;
       left: 20px;
+      z-index: -1;
+      display: block;
       width: 300px;
       height: 16px;
-      box-shadow: -12px -8px 0 6px var(--color-contrasting-fade-200),
-        2px -14px 0 6px var(--color-contrasting-fade-100);
       background: linear-gradient(
         6deg,
         var(--color-primary-fade-100),
         var(--color-primary-fade-300)
       );
+      box-shadow: -12px -8px 0 6px var(--color-contrasting-fade-200),
+        2px -14px 0 6px var(--color-contrasting-fade-100);
+      content: '';
     }
   }
 
   a {
     border-radius: 4px;
+
     &:focus-visible {
       outline: none;
       box-shadow: 0 0 0 4px #8cbaff80;
     }
   }
+  h3 a {
+    position: relative;
+    display: block;
+    text-decoration: none;
+    filter: drop-shadow(-2px 2px 0px #fff);
+
+    &,
+    &:visited {
+      color: var(--color-primary);
+    }
+
+    @supports (-webkit-background-clip: text) {
+      &:not(:hover):not(:focus-visible)::first-letter {
+        color: transparent;
+        background-image: linear-gradient(130deg, #f11717 20%, var(--color-primary) 55%);
+        -webkit-background-clip: text;
+        background-clip: text;
+      }
+    }
+    @supports (background-clip: text) {
+      &:not(:hover):not(:focus-visible)::first-letter {
+        color: transparent;
+        background-image: linear-gradient(130deg, #f11717 20%, var(--color-primary) 55%);
+        -webkit-background-clip: text;
+        background-clip: text;
+      }
+    }
+
+    &::after {
+      position: relative;
+      left: 8px;
+      color: transparent;
+      transition: all 0.1s;
+      content: '#';
+    }
+    &:hover,
+    &:focus-visible {
+      color: var(--color-secondary);
+      &::after {
+        color: var(--color-dark-fade-300);
+      }
+    }
+  }
+
   p a,
   ul a {
     &,
@@ -84,52 +129,17 @@
       color: var(--color-secondary);
     }
     &:active {
-      background: var(--color-primary);
       color: white;
+      background: var(--color-primary);
     }
   }
-  h3 a {
-    display: block;
-    filter: drop-shadow(-2px 2px 0px #fff);
-    text-decoration: none;
-    position: relative;
 
-    &,
-    &:visited {
-      color: var(--color-primary);
-    }
-
-    @supports (-webkit-background-clip: text) {
-      &:not(:hover):not(:focus-visible)::first-letter {
-        background-image: linear-gradient(130deg, #f11717 20%, var(--color-primary) 55%);
-        color: transparent;
-        background-clip: text;
-        -webkit-background-clip: text;
-      }
-    }
-    @supports (background-clip: text) {
-      &:not(:hover):not(:focus-visible)::first-letter {
-        background-image: linear-gradient(130deg, #f11717 20%, var(--color-primary) 55%);
-        color: transparent;
-        background-clip: text;
-        -webkit-background-clip: text;
-      }
-    }
-
-    &::after {
-      color: transparent;
-      content: '#';
-      position: relative;
-      left: 8px;
-      transition: all 0.1s;
-    }
-    &:hover,
-    &:focus-visible {
-      color: var(--color-secondary);
-      &::after {
-        color: var(--color-dark-fade-300);
-      }
-    }
+  blockquote {
+    margin: 0;
+    padding: 20px;
+    font-size: small;
+    background: var(--color-dark-fade-100);
+    box-shadow: inset 2px 0 0 0 var(--color-primary-fade-500);
   }
 }
 
@@ -139,18 +149,17 @@
   }
   > section {
     position: relative;
+    display: flex;
+    margin: 48px 0;
     &::before {
-      content: '';
-      display: block;
       position: absolute;
       top: -24px;
-      left: 48px;
       right: 48px;
+      left: 48px;
+      display: block;
       border-top: 1px dotted #00000016;
+      content: '';
     }
-    margin: 48px 0;
-
-    display: flex;
     &.page-walker-markdown-demo-section > div:first-child {
       flex: 388px 0 0;
       margin-right: 24px;

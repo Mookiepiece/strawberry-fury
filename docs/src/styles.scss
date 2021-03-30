@@ -9,24 +9,24 @@ aside,
 }
 
 header.doc-nav {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 48px;
   background: white;
   box-shadow: 0 0 4px var(--color-dark-fade-300);
-  position: relative;
-  z-index: 1;
   a.button-link.doc-nav-logo-link {
+    position: absolute;
+    left: 0;
     display: flex;
     align-items: center;
     float: left;
     padding: 0 8px 0 0;
     color: inherit;
-    user-select: none;
     cursor: pointer;
-    position: absolute;
-    left: 0;
+    user-select: none;
     > img {
       width: 48px;
       height: 48px;
@@ -42,12 +42,12 @@ header.doc-nav {
 }
 
 main.doc-content {
-  height: calc(100vh - 48px);
   display: flex;
+  height: calc(100vh - 48px);
   > aside.doc-aside {
+    flex: 200px 0 0;
     height: calc(100vh - 48px);
     padding: 16px 0;
-    flex: 200px 0 0;
     box-shadow: var(--color-dark-fade-300) 0 0 4px;
     a {
       display: block;
@@ -56,19 +56,19 @@ main.doc-content {
 }
 
 article {
-  padding: 24px;
   flex-grow: 1;
+  padding: 24px;
   overflow: auto;
 }
 
-a.button-link,
 a.button-link {
   display: inline-block;
   align-items: center;
   margin: 0 2px;
   padding: 12px;
-  border-radius: 4px;
   text-decoration: none;
+  border-radius: 4px;
+  outline: none;
   &:visited,
   & {
     color: inherit;
@@ -82,19 +82,18 @@ a.button-link {
   &.active {
     color: var(--color-primary);
   }
-  outline: none;
   &:focus-visible {
     box-shadow: 0 0 0 4px #8cbaff80;
   }
 }
 
 .doc-button {
-  cursor: pointer;
-  border-radius: 4px;
   padding: 8px;
   background: white;
   border: 1px solid var(--color-primary);
+  border-radius: 4px;
   outline: none;
+  cursor: pointer;
   &:hover {
     background: #fcf1f1;
   }
@@ -104,6 +103,6 @@ a.button-link {
 }
 
 .doc-nav a.button-link {
-  text-align: center;
   min-width: 180px;
+  text-align: center;
 }

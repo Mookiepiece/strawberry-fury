@@ -90,7 +90,9 @@ const BasicUsage: React.FC = () => {
         >
           {({ value, onChange }) => <StInput value={value} onChange={onChange} />}
         </StForm.Item>
-        <StButton type="submit">提交 Submit</StButton>
+        <StForm.Content>
+          <StButton type="submit">提交 Submit</StButton>
+        </StForm.Content>
       </StForm>
       <br />
       <p>{isValidating || isSubmitting ? 'Validating...' : 'Idle'}</p>
