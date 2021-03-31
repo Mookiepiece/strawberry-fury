@@ -1,0 +1,50 @@
+.st-spin {
+  position: relative;
+  box-sizing: border-box;
+  width: 30px;
+  height: 30px;
+  border-radius: 7px;
+  animation: spin 3s ease infinite;
+
+  &::before {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 10px;
+    height: 10px;
+    border: 3px solid hsla(185, 100%, 62%, 0.75);
+    border-radius: 3px;
+    transform-origin: center;
+    animation: fill 3s linear infinite;
+    content: '';
+  }
+
+  &::after {
+    position: absolute;
+    right: 3px;
+    bottom: 3px;
+    width: 10px;
+    height: 10px;
+    border: 3px solid hsla(185, 100%, 62%, 0.75);
+    border-radius: 3px;
+    transform-origin: center;
+    animation: fill 2s linear reverse infinite;
+    content: '';
+  }
+
+  @keyframes spin {
+    30%,
+    100% {
+      border-radius: rotate(0deg);
+    }
+  }
+
+  @keyframes fill {
+    0% {
+      transform: rotate(0);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}

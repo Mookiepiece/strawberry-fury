@@ -78,7 +78,7 @@
     position: relative;
     display: block;
     text-decoration: none;
-    filter: drop-shadow(-2px 2px 0px #fff);
+    filter: drop-shadow(-2px 2px 0 #fff);
 
     &,
     &:visited {
@@ -135,7 +135,7 @@
   }
 
   blockquote {
-    margin: 0;
+    margin-left: 0;
     padding: 20px;
     font-size: small;
     background: var(--color-dark-fade-100);

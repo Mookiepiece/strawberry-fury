@@ -1,7 +1,12 @@
 import React from 'react';
 export type Language = 'zh' | 'en';
 
-type KEYS = 'IndexPageDesc' | 'IndexPageGetStarted' | 'NavbarHome' | 'NavbarComponents';
+type KEYS =
+  | 'IndexPageDesc'
+  | 'IndexPageGetStarted'
+  | 'NavbarHome'
+  | 'NavbarSfComponents'
+  | 'NavbarStComponents';
 
 const a: Record<
   KEYS,
@@ -22,9 +27,13 @@ const a: Record<
     en: 'Home',
     zh: '家',
   },
-  NavbarComponents: {
-    en: 'Components',
-    zh: '组件',
+  NavbarSfComponents: {
+    en: 'Strawberry Fury',
+    zh: 'Strawberry Fury',
+  },
+  NavbarStComponents: {
+    en: 'Starfall',
+    zh: 'Starfall',
   },
 };
 

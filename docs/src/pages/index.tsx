@@ -34,7 +34,7 @@ const Index: React.FC = () => {
         <button
           className="doc-button"
           style={{ marginTop: 24, padding: '12px 48px' }}
-          onClick={() => history.push('/components')}
+          onClick={() => history.push('/sf-components')}
         >
           {i18n.IndexPageGetStarted}
         </button>

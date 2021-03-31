@@ -25,7 +25,10 @@ export default {
       extensions: ['.ts', '.tsx', '.js', '.jsx', '.mjs'],
     }),
     alias({
-      entries: { '🦄': path.resolve(__dirname, '../src') },
+      entries: {
+        '🦄': path.resolve(__dirname, '../src'),
+        starfall: path.resolve(__dirname, '../../starfall/src'),
+      },
     }),
     babel({
       babelHelpers: 'runtime',

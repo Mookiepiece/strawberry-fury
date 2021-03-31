@@ -18,6 +18,7 @@ const basicConfig = {
     alias: {
       '🦌': path.resolve(__dirname, './src'),
       '🦄': path.resolve(__dirname, '../strawberry-fury/src'),
+      starfall: path.resolve(__dirname, '../starfall/src'),
     },
   },
   module: {

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { render } from 'react-dom';
-import { StCollapse, StForm, StInput } from 'strawberry-fury';
+import { StCollapse, StForm, StInput } from 'starfall';
+import 'starfall/src/_theme/common.scss';
 import 'strawberry-fury/src/_theme/common.scss';
 
 const App: React.FC = () => {

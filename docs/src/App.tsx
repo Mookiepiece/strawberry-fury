@@ -14,17 +14,9 @@ import logo from '🦌/strawberry-fury-LOGO.png';
 import { getCowboy, i18nContext, i18nStateContext, Language } from './utils/i18n';
 import './styles.scss';
 import '🦄/_theme/index.scss';
+import 'starfall/_theme/index.scss';
+import Routes from './Routes';
 
-import Button from '🦌/pages/components/Button';
-import Dialog from '🦌/pages/components/Dialog';
-import StCollapse from '🦌/pages/components/StCollapse';
-import StForm from '🦌/pages/components/StForm';
-const pages: Record<string, [string, React.FC]> = {
-  '/components/button': ['Button', Button],
-  '/components/dialog': ['Dialog', Dialog],
-  '/components/StCollapse': ['St| Collapse', StCollapse],
-  '/components/StForm': ['St| Form', StForm],
-};
 const Nav: React.FC<{ i18nState: Language; setI18nState: () => void }> = ({
   i18nState,
   setI18nState,
@@ -47,25 +39,14 @@ const Nav: React.FC<{ i18nState: Language; setI18nState: () => void }> = ({
         <NavLink className="button-link" to="/index">
           {i18n.NavbarHome}
         </NavLink>
-        <NavLink className="button-link" to="/components">
-          {i18n.NavbarComponents}
+        <NavLink className="button-link" to="/sf-components">
+          {i18n.NavbarSfComponents}
+        </NavLink>
+        <NavLink className="button-link" to="/st-components">
+          {i18n.NavbarStComponents}
         </NavLink>
       </div>
     </header>
-  );
-};
-
-const SideBar: React.FC = () => {
-  return (
-    <aside className="doc-aside">
-      {Object.entries(pages).map(([k, [v]]) => (
-        <div key={k}>
-          <NavLink className="button-link" to={k}>
-            {[v]}
-          </NavLink>
-        </div>
-      ))}
-    </aside>
   );
 };
 
@@ -98,26 +79,19 @@ const App: React.FC = () => {
           />
           <Switch>
             <ScrollToTop>
-              <Route path="/" exact render={() => <Redirect to="/index" />} />
-              <Route path="/index" exact component={Index} />
-              <Route
-                path="/components"
-                render={() => (
-                  <main className="doc-content">
-                    <SideBar />
-                    <Switch>
-                      <Route
-                        path="/components"
-                        exact
-                        render={() => <Redirect to="/components/button" />}
-                      />
-                      {Object.entries(pages).map(([k, [, v]]) => (
-                        <Route key={k} path={k} component={v} />
-                      ))}
-                    </Switch>
-                  </main>
-                )}
-              />
+              {Routes.map(({ path, exact, component, redirect }) => {
+                if (redirect) {
+                  return (
+                    <Route
+                      key={path}
+                      path={path}
+                      exact={exact}
+                      render={() => <Redirect to={redirect} />}
+                    />
+                  );
+                }
+                return <Route key={path} path={path} exact={exact} component={component} />;
+              })}
             </ScrollToTop>
           </Switch>
         </Router>

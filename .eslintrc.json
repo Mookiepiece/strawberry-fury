@@ -29,5 +29,10 @@
       "version": "detect"
     }
   },
-  "ignorePatterns": ["**/dist", "webpack.config.js", "strawberry-fury/lib/**/*"]
+  "ignorePatterns": [
+    "**/dist",
+    "webpack.config.js",
+    "starfall/lib/**/*",
+    "strawberry-fury/lib/**/*"
+  ]
 }

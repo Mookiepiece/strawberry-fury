@@ -33,6 +33,18 @@ const config = {
                 },
                 camel2DashComponentName: false,
               },
+              'strawberry-fury',
+            ],
+            [
+              'import',
+              {
+                libraryName: 'starfall',
+                customStyleName(name) {
+                  return `starfall/src/_theme/${name}.scss`;
+                },
+                camel2DashComponentName: false,
+              },
+              'starfall',
             ],
           ],
         },

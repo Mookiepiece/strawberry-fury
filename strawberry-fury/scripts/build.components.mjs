@@ -28,13 +28,14 @@ const runBuild = async () => {
           extensions: ['.ts', '.tsx', '.js', '.jsx', '.mjs'], // #3
         }),
       ],
-      external: [/@babel\/runtime/, /core-js/, /^🦄/],
+      external: [/@babel\/runtime/, /core-js/, /^🦄/, /^starfall/],
     };
     const outOptions = {
       dir: 'lib',
       entryFileNames: '[name]/index.js',
       format: 'es',
       paths(i) {
+        if (i.startsWith('starfall')) return i.replace('starfall', '..');
         if (i.startsWith('🦄')) return i.replace('🦄', '..'); // #4
       },
     };
@@ -62,12 +63,13 @@ const runBuild = async () => {
           extensions: ['.ts', '.tsx', '.js', '.jsx', '.mjs'],
         }),
       ],
-      external: [/@babel\/runtime/, /core-js/, /^🦄/],
+      external: [/@babel\/runtime/, /core-js/, /^🦄/, /^starfall/],
     };
     const outOptions = {
       dir: 'lib/_utils',
       format: 'es',
       paths(i) {
+        if (i.startsWith('starfall')) return i.replace('starfall', '..');
         if (i.startsWith('🦄')) return i.replace('🦄', '..');
       },
     };

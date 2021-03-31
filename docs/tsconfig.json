@@ -16,7 +16,8 @@
     "baseUrl": "src",
     "paths": {
       "🦌/*": ["./*"],
-      "🦄": ["../../strawberry-fury/src/index"]
+      "🦄": ["../../strawberry-fury/src/index"],
+      "starfall": ["../../starfall/src/index"]
     },
     "allowSyntheticDefaultImports": true,
     "noFallthroughCasesInSwitch": true

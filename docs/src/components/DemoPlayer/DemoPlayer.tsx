@@ -4,7 +4,7 @@ import vs from 'react-syntax-highlighter/dist/esm/styles/prism/vs';
 import './styles.scss';
 import tsx from 'react-syntax-highlighter/dist/esm/languages/prism/tsx';
 import clsx from 'clsx';
-import Collapse from '🦌/../../strawberry-fury/src/StCollapse';
+import { Collapse } from 'starfall';
 
 // reduce bundle size
 // https://github.com/react-syntax-highlighter/react-syntax-highlighter#light-build
