@@ -1,15 +1,16 @@
 import React from 'react';
-import { Switch, Route, NavLink, Redirect } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import { DocRoute, RouteView } from '🦌/utils/RouterView';
 
 const SideBar: React.FC<{
-  pages: Record<string, [string, React.FC]>;
-}> = ({ pages }) => {
+  nav: Record<string, string>;
+}> = ({ nav }) => {
   return (
     <aside className="doc-aside">
-      {Object.entries(pages).map(([k, [v]]) => (
+      {Object.entries(nav).map(([k, v]) => (
         <div key={k}>
           <NavLink className="button-link" to={k}>
-            {[v]}
+            {v}
           </NavLink>
         </div>
       ))}
@@ -18,17 +19,13 @@ const SideBar: React.FC<{
 };
 
 const DocLayout: React.FC<{
-  pages: Record<string, [string, React.FC]>;
-}> = ({ pages }) => {
+  children: DocRoute[];
+  nav: Record<string, string>;
+}> = ({ nav, children }) => {
   return (
     <main className="doc-content">
-      <SideBar pages={pages} />
-      <Switch>
-        <Route path="/components" exact render={() => <Redirect to="/components/button" />} />
-        {Object.entries(pages).map(([k, [, v]]) => (
-          <Route key={k} path={k} component={v} />
-        ))}
-      </Switch>
+      <SideBar nav={nav} />
+      <RouteView routes={children} />
     </main>
   );
 };

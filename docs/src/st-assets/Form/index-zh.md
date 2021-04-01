@@ -51,6 +51,7 @@ DEMO{{./remote.tsx}}
 - 点击标签能够定位到输入框
 
 > 太长不看: 添加 submit 按钮即可支持隐式提交表单
+>
 > 4.10.21.2 Implicit submission
 > A form element's default button is the first submit button in tree order whose form owner is that form element.
 >

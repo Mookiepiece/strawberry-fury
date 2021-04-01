@@ -8,7 +8,6 @@ import {
   Redirect,
   useLocation,
 } from 'react-router-dom';
-import Index from '🦌/pages';
 
 import logo from '🦌/strawberry-fury-LOGO.png';
 import { getCowboy, i18nContext, i18nStateContext, Language } from './utils/i18n';
@@ -16,6 +15,8 @@ import './styles.scss';
 import '🦄/_theme/index.scss';
 import 'starfall/_theme/index.scss';
 import Routes from './Routes';
+import { RouteView } from '🦌/utils/RouterView';
+import { Button } from 'starfall';
 
 const Nav: React.FC<{ i18nState: Language; setI18nState: () => void }> = ({
   i18nState,
@@ -29,11 +30,11 @@ const Nav: React.FC<{ i18nState: Language; setI18nState: () => void }> = ({
         <h3>Strawberry Fury</h3>
       </Link>
       <div>
-        <button className="doc-button" style={{ width: 120 }} onClick={setI18nState}>
+        <Button primary style={{ width: 120 }} onClick={setI18nState}>
           <sup>文</sup>
           <sub>A</sub>
           <span>&nbsp;&nbsp;&nbsp;{i18nState}</span>
-        </button>
+        </Button>
       </div>
       <div className="doc-nav-operations">
         <NavLink className="button-link" to="/index">
@@ -73,27 +74,13 @@ const App: React.FC = () => {
     <i18nContext.Provider value={i18n}>
       <i18nStateContext.Provider value={i18nState}>
         <Router>
-          <Nav
-            i18nState={i18nState}
-            setI18nState={() => setI18nState(i18nState === 'zh' ? 'en' : 'zh')}
-          />
-          <Switch>
-            <ScrollToTop>
-              {Routes.map(({ path, exact, component, redirect }) => {
-                if (redirect) {
-                  return (
-                    <Route
-                      key={path}
-                      path={path}
-                      exact={exact}
-                      render={() => <Redirect to={redirect} />}
-                    />
-                  );
-                }
-                return <Route key={path} path={path} exact={exact} component={component} />;
-              })}
-            </ScrollToTop>
-          </Switch>
+          <ScrollToTop>
+            <Nav
+              i18nState={i18nState}
+              setI18nState={() => setI18nState(i18nState === 'zh' ? 'en' : 'zh')}
+            />
+            <RouteView routes={Routes} />
+          </ScrollToTop>
         </Router>
       </i18nStateContext.Provider>
     </i18nContext.Provider>
