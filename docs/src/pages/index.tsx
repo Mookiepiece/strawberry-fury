@@ -2,16 +2,28 @@ import React, { useContext } from 'react';
 import { i18nContext } from '🦌/utils/i18n';
 import logo from '🦌/strawberry-fury-LOGO.png';
 import { useHistory } from 'react-router-dom';
-import './index.scss';
+import { Button } from 'starfall';
 
 const Index: React.FC = () => {
   const i18n = useContext(i18nContext);
   const history = useHistory();
 
   return (
-    <div className="index-page">
+    <div
+      style={{
+        textAlign: 'center',
+      }}
+    >
       <header>
-        <img src={logo} alt="logo" />
+        <img
+          src={logo}
+          alt="logo"
+          style={{
+            width: 240,
+            height: 240,
+            margin: 24,
+          }}
+        />
         <h2>Strawberry Fury</h2>
         <a
           className="button-link"
@@ -31,13 +43,13 @@ const Index: React.FC = () => {
           </svg>
         </a>
         <p>{i18n.IndexPageDesc}</p>
-        <button
-          className="doc-button"
-          style={{ marginTop: 24, padding: '12px 48px' }}
+        <Button
+          primary
+          style={{ marginTop: 24, width: 240 }}
           onClick={() => history.push('/sf-components')}
         >
           {i18n.IndexPageGetStarted}
-        </button>
+        </Button>
       </header>
     </div>
   );

@@ -20,9 +20,8 @@ DEMO{{./haircut.tsx}}
 
 ### 接口索引
 
-| Property | Description | Type                | Default | Required |
-| -------- | ----------- | ------------------- | ------- | -------- |
-| haircut  |             | `boolean`           | `false` |          |
-| children | description | `string`            |         |          |
-| width    |             | `string` / `number` |         |          |
-| height   |             | `string` / `number` |         |          |
+| Property | Description | Type                |
+| -------- | ----------- | ------------------- |
+| haircut  |             | `boolean`           |
+| width    |             | `string` / `number` |
+| height   |             | `string` / `number` |

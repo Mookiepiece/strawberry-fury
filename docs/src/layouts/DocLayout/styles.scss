@@ -1,0 +1,40 @@
+@import '🦌/mixins.scss';
+
+main.doc-layout {
+  display: flex;
+  align-items: stretch;
+  height: calc(100vh - 48px);
+  .doc-aside {
+    flex: 200px 0 0;
+    padding: 16px 0;
+    overflow: auto;
+    background-color: white;
+    box-shadow: var(--color-dark-fade-300) 0 0 4px;
+    a {
+      display: block;
+    }
+    &:not(.doc-aside--expanded) {
+      display: none;
+    }
+    @include tablet- {
+      position: absolute;
+      z-index: 1;
+      width: 200px;
+      & + * {
+        position: absolute;
+        z-index: 1;
+      }
+      &.doc-aside--expanded + * {
+        transform: translateX(200px);
+      }
+    }
+  }
+  .doc-content {
+    flex-grow: 1;
+    overflow: auto;
+    > article {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+  }
+}

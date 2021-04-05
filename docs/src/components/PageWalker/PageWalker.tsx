@@ -3,9 +3,11 @@ import React, { useContext, useEffect, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import DemoPlayer from '../DemoPlayer';
 import gfm from 'remark-gfm';
+import directive from 'remark-directive';
 import { i18nStateContext } from '🦌/utils/i18n';
-import './styles.scss';
 import { Link, useHistory } from 'react-router-dom';
+import clsx from 'clsx';
+import './styles.scss';
 
 //https://zhuanlan.zhihu.com/p/59564277 webpack中require.context的作用
 function getMarkdownAndDemo(requireDemo: any, requireRaw: any) {
@@ -46,24 +48,40 @@ const HashHeadingOfSection: React.FC<any> = ({ children }) => {
 const MyReactMarkdown: React.FC<{ children: string }> = ({ children }) => {
   return (
     <ReactMarkdown
-      plugins={[gfm]}
+      plugins={[gfm, directive]}
+      linkTarget="_blank"
       renderers={{
-        // eslint-disable-next-line react/display-name
-        link: props => {
-          const { href, children } = props;
-          return (
-            <a target="_blank" rel="noreferrer" href={href}>
-              {children}
-            </a>
-          );
-        },
+        // // eslint-disable-next-line react/display-name
+        // link: props => {
+        //   const { href, children } = props;
+        //   return (
+        //     <a target="_blank" rel="noreferrer" href={href}>
+        //       {children}
+        //     </a>
+        //   );
+        // },
         heading: props => {
           const { level, children } = props;
           if (level === 3) {
+            console.log(props, 123);
             return <HashHeadingOfSection {...props} />;
           } else {
             return React.createElement('h' + level, null, children);
           }
+        },
+        // eslint-disable-next-line react/display-name
+        containerDirective: props => {
+          const { name, children } = props;
+          console.log(props);
+          return <div className={clsx(`container-directive-${name}`)}>{children}</div>;
+        },
+        // eslint-disable-next-line react/display-name
+        textDirective: props => {
+          const { name, children } = props;
+          return <span className={clsx(`text-directive-${name}`)}>{children}</span>;
+        },
+        leafDirective: () => {
+          throw new Error();
         },
       }}
       className="page-walker-markdown"
@@ -77,13 +95,13 @@ const PageWalker: React.FC<{ requireDemo: any; requireRaw: any }> = ({
   requireDemo,
   requireRaw,
 }) => {
-  const i18nState = useContext(i18nStateContext);
+  const [i18nState] = useContext(i18nStateContext);
   const demosMap = getMarkdownAndDemo(requireDemo, requireRaw);
   const article = requireRaw(`./index-${i18nState}.md`).default;
 
   const [headSection, ...sections] = article.split(/.*(?=###)/) as string[];
   return (
-    <article className="page-walker">
+    <div className="page-walker">
       {<MyReactMarkdown>{headSection}</MyReactMarkdown>}
       {sections.map((section, index) => {
         if (/\nDEMO\{\{(.*?)\}\}/.test(section)) {
@@ -105,7 +123,7 @@ const PageWalker: React.FC<{ requireDemo: any; requireRaw: any }> = ({
           );
         }
       })}
-    </article>
+    </div>
   );
 };
 

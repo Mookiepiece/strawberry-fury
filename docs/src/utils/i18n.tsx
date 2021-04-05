@@ -1,15 +1,21 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 export type Language = 'zh' | 'en';
 
-type KEYS =
+export type I18nKeys =
   | 'IndexPageDesc'
   | 'IndexPageGetStarted'
   | 'NavbarHome'
   | 'NavbarSfComponents'
-  | 'NavbarStComponents';
+  | 'NavbarStComponents'
+  | 'SidebarStComponentButton'
+  | 'SidebarStComponentDialog'
+  | 'SidebarStComponentModal'
+  | 'SidebarStComponentCollapse'
+  | 'SidebarStComponentForm'
+  | 'SidebarStComponentLink';
 
 const a: Record<
-  KEYS,
+  I18nKeys,
   {
     en: string;
     zh: string;
@@ -35,21 +41,47 @@ const a: Record<
     en: 'Starfall',
     zh: 'Starfall',
   },
+  SidebarStComponentButton: {
+    en: 'Button 按钮',
+    zh: 'Button 按钮',
+  },
+  SidebarStComponentDialog: {
+    en: 'Dialog 对话框',
+    zh: 'Dialog 对话框',
+  },
+  SidebarStComponentModal: {
+    en: 'Modal 模态框',
+    zh: 'Modal 模态框',
+  },
+  SidebarStComponentCollapse: {
+    en: 'Collapse 折叠面板',
+    zh: 'Collapse 折叠面板',
+  },
+  SidebarStComponentForm: {
+    en: 'Form 表单',
+    zh: 'Form 表单',
+  },
+  SidebarStComponentLink: {
+    en: 'Link 链接',
+    zh: 'Link 链接',
+  },
 };
 
 export const mmm = new Map();
 
-export const getCowboy: (lang: Language) => Record<KEYS, string> = lang => {
+export const getCowboy: (lang: Language) => Record<I18nKeys, string> = lang => {
   if (mmm.has(lang)) {
-    return mmm.get(lang) as Record<KEYS, string>;
+    return mmm.get(lang) as Record<I18nKeys, string>;
   }
-  const r: Record<KEYS, string> = Object.keys(a).reduce(
-    (r, k) => ({ ...r, [k]: a[k as KEYS][lang] }),
+  const r: Record<I18nKeys, string> = Object.keys(a).reduce(
+    (r, k) => ({ ...r, [k]: a[k as I18nKeys][lang] }),
     {}
-  ) as Record<KEYS, string>;
+  ) as Record<I18nKeys, string>;
   mmm.set(lang, r);
   return r;
 };
 
-export const i18nContext = React.createContext<Record<KEYS, string>>(getCowboy('zh'));
-export const i18nStateContext = React.createContext<Language>('zh');
+export const i18nContext = React.createContext<Record<I18nKeys, string>>(getCowboy('zh'));
+export const i18nStateContext = React.createContext<[Language, Dispatch<SetStateAction<Language>>]>(
+  ['zh', () => []]
+);

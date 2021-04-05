@@ -25,33 +25,6 @@ const debounce = <T extends (...any: any[]) => any>(func: T, delay: number): T =
   }) as unknown) as T;
 };
 
-/**
- * @deprecated
- */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const throttleOneByOne = <T extends (...any: any[]) => Promise<any>>(func: T): (() => void) => {
-  let relay = false;
-  let executing = false;
-
-  const wrappedFunc = () => {
-    if (executing) {
-      relay = true;
-      return;
-    }
-    executing = true;
-    return func().then(v => {
-      executing = false;
-      if (relay) {
-        relay = false;
-        wrappedFunc();
-      }
-      return v;
-    });
-  };
-
-  return wrappedFunc;
-};
-
 export type ValidateStatus = {
   state: 'validating' | 'success' | 'error' | '';
   message: string;
@@ -81,8 +54,8 @@ export type FormItemFnChildren = React.FC<{
 
 export type FormItemProps = {
   name: string;
-  rules?: RuleItem | RuleItem[];
   label: string;
+  rules?: RuleItem | RuleItem[];
   children: React.ReactElement | FormItemFnChildren;
 };
 

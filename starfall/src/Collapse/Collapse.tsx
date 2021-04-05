@@ -2,6 +2,7 @@ import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } 
 import { CSSTransition } from 'react-transition-group';
 import clsx from 'clsx';
 import { useMount, useUnmount } from 'react-use';
+import { useEventCallback } from 'starfall/_utils/useEventCallback';
 
 const CollapseContext = React.createContext<{
   names: string[];
@@ -23,40 +24,24 @@ const CollapseItemContext = React.createContext<{
   toggle: (i: string) => void;
 }>({ active: false, toggle() {}, name: '' });
 
-export type CollapseProps = {
-  activeNames?: string[];
-};
-
-const Collapse: React.FC<CollapseProps> & {
+const Collapse: React.FC & {
   Panel: React.FC<CollapsePanelProps>;
   Item: React.FC;
   Summary: React.FC<CollapseSummaryProps>;
-} = ({ children, activeNames: _activeNames }) => {
+} = ({ children }) => {
   const [names, setNames] = useState<string[]>([]);
-  const [activeNames, setActiveNames] = useState<string[]>(_activeNames || []);
-
-  useEffect(() => {
-    setActiveNames(_activeNames || []);
-  }, [_activeNames]);
+  const [activeNames, setActiveNames] = useState<string[]>([]);
 
   const counter = useRef(0);
 
-  const register = useCallback(
-    (name?: string) => {
-      if (typeof name === 'string' && names.includes(name)) {
-        console.error(`[SF Collapse] duplicated names detected: ${name}`);
-        return name;
-      } else {
-        let i: string;
-        do {
-          i = (counter.current++).toString();
-        } while (names.includes(i));
-        setNames(names => [...names, i]);
-        return i;
-      }
-    },
-    [names]
-  );
+  const register = useEventCallback(() => {
+    let i: string;
+    do {
+      i = (counter.current++).toString();
+    } while (names.includes(i));
+    setNames(names => [...names, i]);
+    return i;
+  });
 
   const unregister = useCallback((i: string) => {
     setNames(names => {
@@ -156,18 +141,18 @@ const CollapseSummary: React.FC<CollapseSummaryProps> = ({ children }) => {
 
   return React.cloneElement(children, {
     className: clsx(children.props.className, active ? 'active' : ''),
-    onClick: () => toggle(name),
+    onClick: () => {
+      toggle(name);
+      children.props.onClick?.();
+    },
   });
 };
 
-type CollapseItemProps = {
-  name?: string;
-};
-const CollapseItem: React.FC<CollapseItemProps> = ({ children, name }) => {
+const CollapseItem: React.FC = ({ children }) => {
   const { register, unregister, activeNames, toggle } = useContext(CollapseContext);
   const [k, setK] = useState('');
 
-  useMount(() => setK(register(name)));
+  useMount(() => setK(register()));
   useUnmount(() => unregister(k));
 
   const value = useMemo(

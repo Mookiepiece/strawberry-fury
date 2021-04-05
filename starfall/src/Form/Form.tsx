@@ -48,10 +48,10 @@ type FormInstance = {
 
 type FormProps<T extends Record<string, unknown>> = {
   value: T;
+  onChange: (value: T) => void;
   onSubmit: (value: T) => void;
   onSubmitValidateFailed?: (err: ValidateError) => void;
   children?: React.ReactNode;
-  onChange: Dispatch<SetStateAction<T>>;
   onValidateStatusChange?: (isValidating: boolean) => void;
 };
 

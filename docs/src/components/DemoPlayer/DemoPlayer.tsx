@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import vs from 'react-syntax-highlighter/dist/esm/styles/prism/vs';
-import './styles.scss';
 import tsx from 'react-syntax-highlighter/dist/esm/languages/prism/tsx';
 import clsx from 'clsx';
 import { Collapse } from 'starfall';
+import './styles.scss';
 
 // reduce bundle size
 // https://github.com/react-syntax-highlighter/react-syntax-highlighter#light-build

@@ -31,8 +31,7 @@ DEMO{{./tank.tsx}}
 
 ### API
 
-| Property | Description   | Type      | Default | Required |
-| -------- | ------------- | --------- | ------- | -------- |
-| title    | title         | `string`  |         | true     |
-| children | description   | `string`  |         |          |
-| warning  | warning state | `boolean` | false   |          |
+| Property        | Description   | Type      | Default |
+| --------------- | ------------- | --------- | ------- |
+| title :required | title         | `string`  |         |
+| warning         | warning state | `boolean` | false   |

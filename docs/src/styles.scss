@@ -1,64 +1,17 @@
+@import './mixins.scss';
+
 header,
 aside,
 .page-walker-markdown {
+  overflow: auto;
   color: var(--color-dark);
 }
 
 * {
   box-sizing: border-box;
 }
-
-header.doc-nav {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 48px;
-  background: white;
-  box-shadow: 0 0 4px var(--color-dark-fade-300);
-  a.button-link.doc-nav-logo-link {
-    position: absolute;
-    left: 0;
-    display: flex;
-    align-items: center;
-    float: left;
-    padding: 0 8px 0 0;
-    color: inherit;
-    cursor: pointer;
-    user-select: none;
-    > img {
-      width: 48px;
-      height: 48px;
-      + * {
-        margin: 0 8px;
-      }
-    }
-  }
-  .doc-nav-operations {
-    position: absolute;
-    right: 16px;
-  }
-}
-
-main.doc-content {
-  display: flex;
-  height: calc(100vh - 48px);
-  > aside.doc-aside {
-    flex: 200px 0 0;
-    height: calc(100vh - 48px);
-    padding: 16px 0;
-    box-shadow: var(--color-dark-fade-300) 0 0 4px;
-    a {
-      display: block;
-    }
-  }
-}
-
 article {
-  flex-grow: 1;
   padding: 24px;
-  overflow: auto;
 }
 
 a.button-link {
@@ -103,6 +56,5 @@ a.button-link {
 }
 
 .doc-nav a.button-link {
-  min-width: 180px;
   text-align: center;
 }

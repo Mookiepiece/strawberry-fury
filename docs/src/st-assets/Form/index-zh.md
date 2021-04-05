@@ -1,5 +1,50 @@
 ## Form 表单
 
+### 基本用法
+
+`Form.Item`会接管子元素`value`和`onChange`属性，且 onChange 的第一参数是值而不是事件。同时也支持传入`render props`作子元素。
+
+`Form.Item`**输入时（onChange 时）校验**，`element`的输入框 Input 控件是失焦时触发校验，`antd`和`formik`[是输入时校验](https://formik.org/docs/examples/with-material-ui)。
+
+输入校验附带 200ms 防抖，节流规则是每次校验需等待上一次完成，连续输入时，最后一次输入必定在等待前面的校验结束后触发一次最终值校验。很多库没有预设节流，可能是这种异步校验的场景实在是太少了一般都是提交后等结果。
+
+如果是`Form`提交触发的校验，则会无视上面的规则立即抢占式地触发校验。
+
+默认的，当规则改变不会立即触发校验，如果改变了规则需要触发校验必须手动执行`form.validate([name])`。
+
+DEMO{{./basic.tsx}}
+
+### 高级示例
+
+这个示例里实现了一个架空的需求，后端不接收以数字开头的名字，当后端不接收此参数时，手动调用`setValidateStatus`将名称置错，并且改变名字的`rule`，用户再次输入同样的名字也会警告。
+
+为了防止重复提交，你应该为按钮加上 loading。
+
+DEMO{{./remote.tsx}}
+
+### 接口索引
+
+| Form Property          | Description                | Type                              |
+| ---------------------- | -------------------------- | --------------------------------- |
+| value:required         |                            | `Record<string, unknown>`         |
+| onChange:required      |                            | `(value: T) => void`              |
+| onSubmit:required      |                            | `(value: T) => void`              |
+| onSubmitValidateFailed | 提交时验证失败             | `(err: ValidateError) => void`    |
+| onValidateStatusChange | 监听验证过程以显示 loading | `(isValidating: boolean) => void` |
+
+| Form Instance     | Description                                | Type                                                          |
+| ----------------- | ------------------------------------------ | ------------------------------------------------------------- |
+| validate          | 触发某表单项的验证，此次验证视为抢占式验证 | `(names?: string[]) => Promise<void>`                         |
+| reset             | 清空某表单项的验证状态及数据               | `(names?: string[]) => void`                                  |
+| clearValidate     | 清空某表单项的验证状态                     | ` (names?: string[]) => void`                                 |
+| setValidateStatus | 设置某表单项的验证状态                     | `(name: string, validateStatus: ValidateStatusParam) => void` |
+
+| Form.Item Property | Description           | Type                    |
+| ------------------ | --------------------- | ----------------------- |
+| name:required      |                       | `string`                |
+| label:required     |                       | `string`                |
+| rules              | 查阅`async-validator` | `RuleItem`/`RuleItem[]` |
+
 ### 原理
 
 `material-ui` 和 `chakra-ui` `semantic-ui` `react-bootstrap`等大部分不具备表单验证功能，可选的验证工具是 [`formik`](https://github.com/formium/formik)， formik 使用 [`Yup`](https://formik.org/docs/tutorial#schema-validation-with-yup) 做 Schema 验证。
@@ -21,29 +66,7 @@ StForm 使用受控表单，使用 `async-validator`做 schema 验证。
 
 要说这表单真的有什么原理吧，其实核心并不难，和写 Collapse 一样用传统的订阅模式就能解决。
 
-推荐阅读：`element/element-plus` `muse-ui` `rc-field-form` `formik`
-
-### 基本用法
-
-`Form.Item`会接管子元素`value`和`onChange`属性，且 onChange 的第一参数是值而不是事件。同时也支持传入`render props`作子元素。
-
-`Form.Item`**输入时（onChange 时）校验**，`element`的输入框 Input 控件是失焦时触发校验，`antd`和`formik`[是输入时校验](https://formik.org/docs/examples/with-material-ui)。
-
-输入校验附带 200ms 防抖，节流规则是每次校验需等待上一次完成，连续输入时，最后一次输入必定在等待前面的校验结束后触发一次最终值校验。很多库没有预设节流，可能是这种异步校验的场景实在是太少了一般都是提交后等结果。
-
-如果是`Form`提交触发的校验，则会无视上面的规则立即触发校验。
-
-默认的，当规则改变不会立即触发校验，如果改变了规则需要触发校验必须手动执行`form.validate([name])`。
-
-DEMO{{./basic.tsx}}
-
-### 高级示例
-
-这个示例里实现了一个架空的需求，后端不接收以数字开头的名字，当后端不接收此参数时，手动调用`setValidateStatus`将名称置错，并且改变名字的`rule`，用户再次输入同样的名字也会警告。
-
-为了防止重复提交，你应该为按钮加上 loading。
-
-DEMO{{./remote.tsx}}
+推荐阅读： `muse-ui` `element/element-plus` `rc-field-form` `formik`
 
 ### Accessbility
 

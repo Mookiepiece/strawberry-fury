@@ -1,5 +1,10 @@
+@import '🦌/mixins.scss';
+
 .page-walker-markdown {
+  width: 100%;
   line-height: 1.35;
+
+  // FUNDAMENTALS
   code {
     margin: 2px;
     padding: 2px 4px;
@@ -8,7 +13,26 @@
     border-radius: 3px;
   }
 
+  a {
+    border-radius: 4px;
+
+    &:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 4px #8cbaff80;
+    }
+  }
+
+  blockquote {
+    margin-left: 0;
+    padding: 20px;
+    font-size: small;
+    background: var(--color-dark-fade-100);
+    box-shadow: inset 2px 0 0 0 var(--color-primary-fade-500);
+  }
+
+  // TABLE
   table {
+    width: 100%;
     margin-bottom: 24px;
     font-size: 14px;
     text-align: left;
@@ -20,22 +44,22 @@
   }
   th,
   td {
-    padding: 8px;
+    padding: 18px 8px;
     &:not(:last-child) {
       padding-right: 36px;
     }
   }
-
-  tbody > tr:nth-child(odd) {
+  tbody > tr:hover {
     background: #fafafa;
   }
   th {
     border-bottom: 1px solid #ddd;
   }
   td {
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #fafafa;
   }
 
+  // HEADINGS
   h2 {
     font-size: 42px;
   }
@@ -64,56 +88,47 @@
         2px -14px 0 6px var(--color-contrasting-fade-100);
       content: '';
     }
-  }
 
-  a {
-    border-radius: 4px;
-
-    &:focus-visible {
-      outline: none;
-      box-shadow: 0 0 0 4px #8cbaff80;
-    }
-  }
-  h3 a {
-    position: relative;
-    display: block;
-    text-decoration: none;
-    filter: drop-shadow(-2px 2px 0 #fff);
-
-    &,
-    &:visited {
-      color: var(--color-primary);
-    }
-
-    @supports (-webkit-background-clip: text) {
-      &:not(:hover):not(:focus-visible)::first-letter {
-        color: transparent;
-        background-image: linear-gradient(130deg, #f11717 20%, var(--color-primary) 55%);
-        -webkit-background-clip: text;
-        background-clip: text;
-      }
-    }
-    @supports (background-clip: text) {
-      &:not(:hover):not(:focus-visible)::first-letter {
-        color: transparent;
-        background-image: linear-gradient(130deg, #f11717 20%, var(--color-primary) 55%);
-        -webkit-background-clip: text;
-        background-clip: text;
-      }
-    }
-
-    &::after {
+    a {
       position: relative;
-      left: 8px;
-      color: transparent;
-      transition: all 0.1s;
-      content: '#';
-    }
-    &:hover,
-    &:focus-visible {
-      color: var(--color-secondary);
+      text-decoration: none;
+      filter: drop-shadow(-2px 2px 0 #fff);
+
+      &,
+      &:visited {
+        color: var(--color-primary);
+      }
+
+      @supports (-webkit-background-clip: text) {
+        &:not(:hover):not(:focus-visible)::first-letter {
+          color: transparent;
+          background-image: linear-gradient(130deg, #f11717 20%, var(--color-primary) 55%);
+          -webkit-background-clip: text;
+          background-clip: text;
+        }
+      }
+      @supports (background-clip: text) {
+        &:not(:hover):not(:focus-visible)::first-letter {
+          color: transparent;
+          background-image: linear-gradient(130deg, #f11717 20%, var(--color-primary) 55%);
+          -webkit-background-clip: text;
+          background-clip: text;
+        }
+      }
+
       &::after {
-        color: var(--color-dark-fade-300);
+        position: relative;
+        left: 8px;
+        color: transparent;
+        transition: all 0.1s;
+        content: '#';
+      }
+      &:hover,
+      &:focus-visible {
+        color: var(--color-secondary);
+        &::after {
+          color: var(--color-dark-fade-300);
+        }
       }
     }
   }
@@ -134,19 +149,16 @@
     }
   }
 
-  blockquote {
-    margin-left: 0;
-    padding: 20px;
-    font-size: small;
-    background: var(--color-dark-fade-100);
-    box-shadow: inset 2px 0 0 0 var(--color-primary-fade-500);
+  // CUSTOM ELEMENTS
+  .text-directive-required {
+    &::after {
+      color: var(--color-danger);
+      content: '*';
+    }
   }
 }
 
 .page-walker {
-  .page-walker-markdown-demo-section-divider {
-    margin: 24px 48px;
-  }
   > section {
     position: relative;
     display: flex;
@@ -161,8 +173,14 @@
       content: '';
     }
     &.page-walker-markdown-demo-section > div:first-child {
-      flex: 388px 0 0;
-      margin-right: 24px;
+      @include laptop {
+        flex: 388px 0 0;
+        margin-right: 24px;
+      }
+    }
+
+    @include laptop- {
+      flex-direction: column;
     }
   }
 }

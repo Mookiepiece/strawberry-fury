@@ -22,14 +22,13 @@ DEMO{{./hutao.tsx}}
 
 ### 超级用法
 
-当然你很无聊的话我们提供了坦克选项
+画坦克也不是不可以
 
 DEMO{{./tank.tsx}}
 
 ### 接口索引
 
-| Property | Description   | Type      | Default | Required |
-| -------- | ------------- | --------- | ------- | -------- |
-| title    | title         | `string`  |         | true     |
-| children | description   | `string`  |         |          |
-| warning  | warning state | `boolean` | false   |          |
+| Property        | Description   | Type      |
+| --------------- | ------------- | --------- |
+| title :required | title         | `string`  |
+| warning         | warning state | `boolean` |
