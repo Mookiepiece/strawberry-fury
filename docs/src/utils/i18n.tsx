@@ -12,7 +12,10 @@ export type I18nKeys =
   | 'SidebarStComponentModal'
   | 'SidebarStComponentCollapse'
   | 'SidebarStComponentForm'
-  | 'SidebarStComponentLink';
+  | 'SidebarStComponentLink'
+  | 'SidebarStComponentNotification'
+  | 'SidebarStDesignColor'
+  | 'SidebarStDesignLayout';
 
 const a: Record<
   I18nKeys,
@@ -64,6 +67,18 @@ const a: Record<
   SidebarStComponentLink: {
     en: 'Link 链接',
     zh: 'Link 链接',
+  },
+  SidebarStComponentNotification: {
+    en: 'Notification 通知提示',
+    zh: 'Notification 通知提示',
+  },
+  SidebarStDesignColor: {
+    en: 'Color 色彩',
+    zh: 'Color 色彩',
+  },
+  SidebarStDesignLayout: {
+    en: 'Layout 布局',
+    zh: 'Layout 布局',
   },
 };
 

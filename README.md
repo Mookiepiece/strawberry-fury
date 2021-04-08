@@ -39,7 +39,7 @@ Of course there are some interesting components included.
 - yarn dev: 开发，启动网页文档，然后便可以添加示例，修改组件并且在文档里实时看到变化.
 - yarn build: 构建
   - build_types: 使用 typescript cli 生成 ts 声明文件到`dist`，文件目录结构会被保留.
-  - build_comp: 执行 `scripts/build.components.mjs`, 使用 rollup 分别打包每个组件输出到 `dist/[Name]`,分文件夹打包是为了支持`babel-plugin-import`
+  - build_comp: 执行 `scripts/build.components.mjs`, 使用 rollup 打包每个组件文件夹输出到 `dist/[Name]`，并不是每个文件夹都打包一次！只有两次打包，一次是打包所有组件 components，一次是打包工具 utils，因为 rollup 支持设置多个入口，分文件夹打包是为了支持`babel-plugin-import`
   - build_bundle: run `scripts/rollup.bundle.config.js`, 使用 rollup 打包到单个文件输出到 `dist`.
 - yarn example: 在`yarn build` 执行后，本地测试打包后的文件是否正常运行.
 - yarn docs_build docs_deploy: 打包网站及上传到 github pages.
@@ -63,7 +63,7 @@ Of course there are some interesting components included.
 
 - yarn dev: run website, and you'll able to edit components and add examples and see changes.
 - yarn build_types: using typescript cli to generate ts declaration file to `dist`, folder structure is preserved.
-- yarn build_comp: excute `scripts/build.components.mjs`, using rollup to transfer every components, output to `dist/[Name]` for each folder/components. to supporting `babel-plugin-import`.
+- yarn build_comp: excute `scripts/build.components.mjs`, using rollup to transfer every components, output to `dist/[Name]` for each folder/components to supporting `babel-plugin-import`. This will not rollup each folder but only rollup twice! once for components another for utils, because rollup supports multiple entry points.
 - yarn build_bundle: excute `scripts/rollup.bundle.config.js`, using rollup to transfer and bundle in single output file to `dist`.
 - yarn example: require `yarn build` excuted, local testing dist files after build.
 - yarn docs_build docs_deploy: pack the website and upload to github pages.
@@ -117,7 +117,7 @@ NO English translations for rest sections in this chapter
 
 一些参考的项目如下(不一定全和准确)：
 
-- element-plus： 只介绍 build:bundle，和 build:esm 两个，[build:bundle 使用了 webpack](https://github.com/element-plus/element-plus/blob/f2091973c1/build/webpack.config.js) ，此次构建会生成单文件输出，同时可能是因为 webpack 加了`@babel/typescript`插件，会额外生成好各目录的 d.ts 文件，[build:esm 会跑一个脚本](https://github.com/element-plus/element-plus/blob/f2091973c191aad66e62ff2d890b8239dab7163f/package.json#L17)，这个脚本调用 rollup 对每个组件分别打包以支持前文提到的`babel-plugin-import`，d.ts 在这次不会生成，因为前一步生成好了
+- element-plus： 只介绍 build:bundle，和 build:esm 两个，[build:bundle 使用了 webpack](https://github.com/element-plus/element-plus/blob/f2091973c1/build/webpack.config.js) ，此次构建会生成单文件输出，同时可能是因为 webpack 加了`@babel/typescript`插件，会额外生成好各目录的 d.ts 文件，[build:esm 会跑一个脚本](https://github.com/element-plus/element-plus/blob/f2091973c191aad66e62ff2d890b8239dab7163f/package.json#L17)，这个脚本调用 rollup 对每个组件打包以支持前文提到的`babel-plugin-import`，build 目录有个 getCpus.js 很迷惑，因为前文提到 rollup 是设置了多个入口只进行一次打包就能处理这些文件夹。d.ts 在这次不会生成，因为前一步生成好了
 - zent：有很多 sh 脚本，windows 没有 rm 命令所以没办法跑，目测是 typescript-cli 直接转义成 js 和相关的 d.ts 文件，结果文件里能看到 polifill 从 tslib 引入，没有使用打包工具。
 - mui: 有看到使用[typescript-cli](https://github.com/mui-org/material-ui/blob/5511e9c32fda435d7de7c64a44ba8c32483dab44/scripts/buildTypes.js#L44)并且配置了`emitDeclarationOnly`专门生成 d.ts 文件，本项目的 build:types 参考了这个步骤，其余没看。
 - wojtekmaj/react-daterange-picker：生产环境下的小众库代表，用[babel-cli 和 less-cli 直接转义](https://github.com/wojtekmaj/react-daterange-picker/blob/f3fb47fee4afbfff838dc7f7a80081c8bcd4c40e/package.json#L8-L10)，没有使用打包工具。
@@ -131,3 +131,5 @@ NO English translations for rest sections in this chapter
 如果连接不上 github，fatal: unable to access，尝试把 git remote [从 https 改成 ssh](https://www.zhihu.com/question/26954892)
 
 为了支持 `babel-plugin-import`，每个组件只能有一个默认导出，这也意味着不能使用 `export types` 或者 `export const` 导出，需要导出的方法得挂到默认导出的对象的属性里，所以 antd 不是暴露`FormInstanceType`而是暴露了`Form.useForm`方法这个方法返回值是 instanceType。
+
+starfall 和 strawberry 的 tsconfig 路径映射会和 docs 冲突，尽量命名不冲突的映射。

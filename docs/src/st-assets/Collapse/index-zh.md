@@ -1,5 +1,11 @@
 ## Collapse 折叠面板
 
+### 独立面板
+
+只用 Panel 提供动画效果
+
+DEMO{{./individual.tsx}}
+
 ### 手风琴
 
 利用`React`的`Context`使`Collapse`和`Item`通讯。
@@ -10,17 +16,13 @@
 
 DEMO{{./basic.tsx}}
 
-### 独立面板
-
-只用 Panel 提供动画效果
-
-DEMO{{./individual.tsx}}
-
 ### 接口索引
 
 | Collapse.Panel Property | Description                                            | Type      |
 | ----------------------- | ------------------------------------------------------ | --------- |
 | active:required         | visibility control, could omit if inside Collapse.Item | `boolean` |
+
+\*除上述属性，折叠面板仍继承原生 `<div>` 属性
 
 ### 原理
 

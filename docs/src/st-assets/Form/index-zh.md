@@ -96,4 +96,4 @@ StForm 使用受控表单，使用 `async-validator`做 schema 验证。
 >
 > 即：当一个 form 元素中只有一个输入框时，在该输入框中按下回车应提交该表单。如果希望阻止这一默认行为，可以在 <el-form> 标签上添加 @submit.native.prevent。
 >
-> ---element
+> https://element-plus.org/#/zh-CN/component/form

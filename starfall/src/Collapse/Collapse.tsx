@@ -1,9 +1,8 @@
-import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
-import { CSSTransition } from 'react-transition-group';
+import React, { useCallback, useContext, useMemo, useRef, useState } from 'react';
 import clsx from 'clsx';
 import { useMount, useUnmount } from 'react-use';
 import { useEventCallback } from 'starfall/_utils/useEventCallback';
-
+import CollapsePanel, { CollapsePanelProps } from './CollapsePanel';
 const CollapseContext = React.createContext<{
   names: string[];
   activeNames: string[];
@@ -18,15 +17,11 @@ const CollapseContext = React.createContext<{
   toggle() {},
 });
 
-const CollapseItemContext = React.createContext<{
-  active: boolean;
-  name: string;
-  toggle: (i: string) => void;
-}>({ active: false, toggle() {}, name: '' });
-
 const Collapse: React.FC & {
   Panel: React.FC<CollapsePanelProps>;
-  Item: React.FC;
+  Item: React.FC<{
+    children: [React.ReactElement<CollapseSummaryProps>, React.ReactElement<CollapsePanelProps>];
+  }>;
   Summary: React.FC<CollapseSummaryProps>;
 } = ({ children }) => {
   const [names, setNames] = useState<string[]>([]);
@@ -84,87 +79,57 @@ const Collapse: React.FC & {
   );
 };
 
-type CollapsePanelProps = {
-  active?: boolean;
-};
-
-const CollapsePanel: React.FC<CollapsePanelProps> = ({ children, active: _active }) => {
-  const { active: upActive } = useContext(CollapseItemContext);
-
-  const controlled = typeof _active === 'boolean';
-
-  const active = controlled ? _active : upActive;
-
-  const ref = useRef<HTMLDivElement>(null);
-
-  return (
-    <CSSTransition
-      in={active}
-      classNames="uuz"
-      timeout={{ enter: 300, exit: 300 }}
-      onExit={() => {
-        if (ref.current) {
-          ref.current.style.height = `${ref.current.scrollHeight}px`;
-          ref.current?.scrollHeight; // trigger browsers reflow to apply the height.
-          // https://github.com/reactjs/react-transition-group/blob/master/src/CSSTransition.js#L193
-        }
-      }}
-    >
-      {state => (
-        <div
-          className="sf-collapse-panel"
-          ref={ref}
-          style={{
-            height: {
-              entering: ref.current?.scrollHeight,
-              entered: undefined,
-              unmounted: undefined,
-              exiting: 0,
-              exited: 0,
-            }[state],
-          }}
-        >
-          {children}
-        </div>
-      )}
-    </CSSTransition>
-  );
-};
-
 type CollapseSummaryProps = {
   children: React.ReactElement;
+  active?: boolean;
+  toggle: () => void;
 };
-const CollapseSummary: React.FC<CollapseSummaryProps> = ({ children }) => {
-  const { name, active, toggle } = useContext(CollapseItemContext);
-
+const CollapseSummary: React.FC<CollapseSummaryProps> = ({ children, active, toggle }) => {
   React.Children.only(children);
 
   return React.cloneElement(children, {
     className: clsx(children.props.className, active ? 'active' : ''),
     onClick: () => {
-      toggle(name);
+      toggle();
       children.props.onClick?.();
     },
   });
 };
 
-const CollapseItem: React.FC = ({ children }) => {
+const CollapseItem: React.FC<{
+  children: [React.ReactElement<CollapseSummaryProps>, React.ReactElement<CollapsePanelProps>];
+}> = ({ children }) => {
   const { register, unregister, activeNames, toggle } = useContext(CollapseContext);
-  const [k, setK] = useState('');
+  const [name, setName] = useState('');
 
-  useMount(() => setK(register()));
-  useUnmount(() => unregister(k));
+  useMount(() => setName(register()));
+  useUnmount(() => unregister(name));
 
   const value = useMemo(
     () => ({
-      toggle,
-      active: activeNames.includes(k),
-      name: k,
+      toggle: () => toggle(name),
+      active: activeNames.includes(name),
+      name: name,
     }),
-    [activeNames, k, toggle]
+    [activeNames, name, toggle]
   );
 
-  return <CollapseItemContext.Provider value={value}>{children}</CollapseItemContext.Provider>;
+  const summary = children[0];
+  const panel = children[1];
+
+  return (
+    <>
+      {React.cloneElement(summary, {
+        ...summary.props,
+        active: value.active,
+        toggle: value.toggle,
+      })}
+      {React.cloneElement(panel, {
+        ...panel.props,
+        active: value.active,
+      })}
+    </>
+  );
 };
 
 Collapse.Panel = CollapsePanel;

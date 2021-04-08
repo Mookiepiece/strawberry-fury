@@ -4,6 +4,14 @@ export { default as Button } from './Button';
 
 export { default as Link } from './Link';
 
+export { default as Modal } from './Modal';
+
+export { default as Row } from './Row';
+
+export { default as Col } from './Col';
+
+export { default as Notification } from './Notification';
+
 export { default as Form } from './Form';
 
 export { default as Input } from './Input';

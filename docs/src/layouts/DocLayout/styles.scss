@@ -6,10 +6,18 @@ main.doc-layout {
   height: calc(100vh - 48px);
   .doc-aside {
     flex: 200px 0 0;
-    padding: 16px 0;
     overflow: auto;
     background-color: white;
-    box-shadow: var(--color-dark-fade-300) 0 0 4px;
+    border-right: 1px solid var(--color-dark-fade-200);
+
+    dt {
+      margin-top: 20px;
+      margin-bottom: 0.3em;
+      padding-left: 14px;
+      color: var(--color-dark-fade-400);
+      font-size: 14px;
+    }
+
     a {
       display: block;
     }
@@ -33,7 +41,7 @@ main.doc-layout {
     flex-grow: 1;
     overflow: auto;
     > article {
-      max-width: 1000px;
+      max-width: 1200px;
       margin: 0 auto;
     }
   }

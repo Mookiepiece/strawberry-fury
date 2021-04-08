@@ -1,12 +1,11 @@
 header.doc-nav {
   position: relative;
-  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 48px;
   background: white;
-  box-shadow: 0 0 4px var(--color-dark-fade-300);
+  border-bottom: 1px solid var(--color-dark-fade-200);
   > div {
     display: flex;
     align-items: center;

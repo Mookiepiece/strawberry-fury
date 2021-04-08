@@ -51,15 +51,6 @@ const MyReactMarkdown: React.FC<{ children: string }> = ({ children }) => {
       plugins={[gfm, directive]}
       linkTarget="_blank"
       renderers={{
-        // // eslint-disable-next-line react/display-name
-        // link: props => {
-        //   const { href, children } = props;
-        //   return (
-        //     <a target="_blank" rel="noreferrer" href={href}>
-        //       {children}
-        //     </a>
-        //   );
-        // },
         heading: props => {
           const { level, children } = props;
           if (level === 3) {
@@ -69,13 +60,11 @@ const MyReactMarkdown: React.FC<{ children: string }> = ({ children }) => {
             return React.createElement('h' + level, null, children);
           }
         },
-        // eslint-disable-next-line react/display-name
         containerDirective: props => {
           const { name, children } = props;
           console.log(props);
           return <div className={clsx(`container-directive-${name}`)}>{children}</div>;
         },
-        // eslint-disable-next-line react/display-name
         textDirective: props => {
           const { name, children } = props;
           return <span className={clsx(`text-directive-${name}`)}>{children}</span>;

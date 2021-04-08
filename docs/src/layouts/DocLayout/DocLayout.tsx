@@ -7,7 +7,7 @@ import { DocRoute, RouteView } from '🦌/utils/RouterView';
 import './styles.scss';
 
 const SideBar: React.FC<{
-  nav: Record<string, I18nKeys>;
+  nav: Record<string, Record<string, I18nKeys>>;
 }> = ({ nav }) => {
   const [sidebarExpanded, setSidebarExpanded] = useState(true);
   const i18n = useContext(i18nContext);
@@ -15,13 +15,22 @@ const SideBar: React.FC<{
   return (
     <>
       <aside className={clsx('doc-aside', sidebarExpanded && 'doc-aside--expanded')}>
-        {Object.entries(nav).map(([k, v]) => (
-          <div key={k}>
-            <NavLink className="button-link" to={k}>
-              {i18n[v]}
-            </NavLink>
-          </div>
-        ))}
+        {Object.entries(nav).map(([t, c]) => {
+          return (
+            <dl key={t}>
+              <dt>{t}</dt>
+              <dd>
+                {Object.entries(c).map(([k, v]) => (
+                  <div key={k}>
+                    <NavLink className="button-link" to={k}>
+                      {i18n[v]}
+                    </NavLink>
+                  </div>
+                ))}
+              </dd>
+            </dl>
+          );
+        })}
       </aside>
       <Button textual onClick={() => setSidebarExpanded(v => !v)}>
         <div
@@ -34,7 +43,7 @@ const SideBar: React.FC<{
 
 const DocLayout: React.FC<{
   children: DocRoute[];
-  nav: Record<string, I18nKeys>;
+  nav: Record<string, Record<string, I18nKeys>>;
 }> = ({ nav, children }) => {
   return (
     <main className="doc-layout">

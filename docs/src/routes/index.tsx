@@ -4,11 +4,15 @@ import React from 'react';
 import Index from '🦌/pages';
 import DocLayout from '🦌/layouts/DocLayout';
 
-import Button from '🦌/pages/sf-components/Button';
-import Dialog from '🦌/pages/sf-components/Dialog';
+import SfButton from '🦌/pages/sf-components/Button';
+import SfDialog from '🦌/pages/sf-components/Dialog';
 
 import StButton from '🦌/pages/st-components/Button';
 import StLink from '🦌/pages/st-components/Link';
+import Modal from '🦌/pages/st-components/Modal';
+import StColor from '🦌/pages/st-components/Color';
+import StLayout from '🦌/pages/st-components/Layout';
+import Notification from '🦌/pages/st-components/Notification';
 import Collapse from '🦌/pages/st-components/Collapse';
 import Form from '🦌/pages/st-components/Form';
 import SfIndex from '🦌/pages/sf-components';
@@ -31,8 +35,10 @@ export default [
         component: (props: { children: DocRoute[] }) => (
           <DocLayout
             nav={{
-              '/sf-components/button': 'SidebarStComponentButton',
-              '/sf-components/dialog': 'SidebarStComponentDialog',
+              Components: {
+                '/sf-components/button': 'SidebarStComponentButton',
+                '/sf-components/dialog': 'SidebarStComponentDialog',
+              },
             }}
             {...props}
           />
@@ -45,11 +51,11 @@ export default [
           },
           {
             path: '/sf-components/button',
-            component: Button,
+            component: SfButton,
           },
           {
             path: '/sf-components/dialog',
-            component: Dialog,
+            component: SfDialog,
           },
         ],
       },
@@ -58,10 +64,18 @@ export default [
         component: (props: { children: DocRoute[] }) => (
           <DocLayout
             nav={{
-              '/st-components/button': 'SidebarStComponentButton',
-              '/st-components/collapse': 'SidebarStComponentCollapse',
-              '/st-components/form': 'SidebarStComponentForm',
-              '/st-components/link': 'SidebarStComponentLink',
+              Design: {
+                '/st-components/color': 'SidebarStDesignColor',
+                '/st-components/layout': 'SidebarStDesignLayout',
+              },
+              Components: {
+                '/st-components/button': 'SidebarStComponentButton',
+                '/st-components/collapse': 'SidebarStComponentCollapse',
+                '/st-components/form': 'SidebarStComponentForm',
+                '/st-components/link': 'SidebarStComponentLink',
+                '/st-components/modal': 'SidebarStComponentModal',
+                '/st-components/notification': 'SidebarStComponentNotification',
+              },
             }}
             {...props}
           />
@@ -71,6 +85,14 @@ export default [
             path: '/st-components',
             exact: true,
             component: StIndex,
+          },
+          {
+            path: '/st-components/color',
+            component: StColor,
+          },
+          {
+            path: '/st-components/layout',
+            component: StLayout,
           },
           {
             path: '/st-components/collapse',
@@ -87,6 +109,14 @@ export default [
           {
             path: '/st-components/link',
             component: StLink,
+          },
+          {
+            path: '/st-components/modal',
+            component: Modal,
+          },
+          {
+            path: '/st-components/notification',
+            component: Notification,
           },
         ],
       },
