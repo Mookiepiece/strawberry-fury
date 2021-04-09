@@ -1,8 +1,7 @@
 @import './mixins.scss';
 
 header,
-aside,
-.page-walker-markdown {
+aside {
   overflow: auto;
   color: var(--color-dark);
 }

@@ -1,5 +1,7 @@
 ## Form 表单
 
+:::demo{./basic.tsx}
+
 ### 基本用法
 
 `Form.Item`会接管子元素`value`和`onChange`属性，且 onChange 的第一参数是值而不是事件。同时也支持传入`render props`作子元素。
@@ -12,7 +14,9 @@
 
 默认的，当规则改变不会立即触发校验，如果改变了规则需要触发校验必须手动执行`form.validate([name])`。
 
-DEMO{{./basic.tsx}}
+:::
+
+:::demo{./remote.tsx}
 
 ### 高级示例
 
@@ -20,7 +24,7 @@ DEMO{{./basic.tsx}}
 
 为了防止重复提交，你应该为按钮加上 loading。
 
-DEMO{{./remote.tsx}}
+:::
 
 ### 接口索引
 

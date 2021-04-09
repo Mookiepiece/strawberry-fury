@@ -45,7 +45,16 @@ const HashHeadingOfSection: React.FC<any> = ({ children }) => {
   );
 };
 
-const MyReactMarkdown: React.FC<{ children: string }> = ({ children }) => {
+const MyReactMarkdown: React.FC<{
+  children: string;
+  demosMap: Record<
+    string,
+    {
+      demo: any;
+      raw: string;
+    }
+  >;
+}> = ({ children, demosMap }) => {
   return (
     <ReactMarkdown
       plugins={[gfm, directive]}
@@ -61,16 +70,31 @@ const MyReactMarkdown: React.FC<{ children: string }> = ({ children }) => {
           }
         },
         containerDirective: props => {
-          const { name, children } = props;
-          console.log(props);
+          const { name, attributes, children } = props;
+
+          if (name === 'demo') {
+            return (
+              <section className="container-directive-markdown-with-demo-section">
+                <div className="page-walker-markdown">{children}</div>
+                <DemoPlayer src={demosMap['.' + attributes.class.replace(/ /g, '.')]} />
+              </section>
+            );
+          }
+
           return <div className={clsx(`container-directive-${name}`)}>{children}</div>;
         },
         textDirective: props => {
-          const { name, children } = props;
+          const { name, attributes, children } = props;
+
           return <span className={clsx(`text-directive-${name}`)}>{children}</span>;
         },
-        leafDirective: () => {
-          throw new Error();
+        leafDirective: props => {
+          const { name, attributes, children } = props;
+
+          if (name === 'demo') {
+            return <DemoPlayer src={demosMap['.' + attributes.class.replace(/ /g, '.')]} />;
+          }
+          return <span className={clsx(`leaf-directive-${name}`)}>{children}</span>;
         },
       }}
       className="page-walker-markdown"
@@ -88,30 +112,9 @@ const PageWalker: React.FC<{ requireDemo: any; requireRaw: any }> = ({
   const demosMap = getMarkdownAndDemo(requireDemo, requireRaw);
   const article = requireRaw(`./index-${i18nState}.md`).default;
 
-  const [headSection, ...sections] = article.split(/.*(?=###)/) as string[];
   return (
     <div className="page-walker">
-      {<MyReactMarkdown>{headSection}</MyReactMarkdown>}
-      {sections.map((section, index) => {
-        if (/\nDEMO\{\{(.*?)\}\}/.test(section)) {
-          // section with a demo
-          const [md, demoName] = section.split(/\nDEMO\{\{(.*?)\}\}/);
-
-          return (
-            <section key={index} className="page-walker-markdown-demo-section">
-              <MyReactMarkdown>{md}</MyReactMarkdown>
-              <DemoPlayer src={demosMap[demoName]} />
-            </section>
-          );
-        } else {
-          // section without demo
-          return (
-            <section key={index}>
-              <MyReactMarkdown>{section}</MyReactMarkdown>
-            </section>
-          );
-        }
-      })}
+      <MyReactMarkdown demosMap={demosMap}>{article}</MyReactMarkdown>
     </div>
   );
 };

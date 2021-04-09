@@ -2,7 +2,7 @@
 
 ### 基本用法
 
-DEMO{{./basic.tsx}}
+::demo{./basic.tsx}
 
 ### 接口索引
 

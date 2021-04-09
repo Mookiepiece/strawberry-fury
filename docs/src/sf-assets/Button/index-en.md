@@ -2,21 +2,27 @@
 
 a basic component
 
+:::demo{./basic.tsx}
+
 ### Basic Usage
 
-DEMO{{./basic.tsx}}
+:::
+
+:::demo{./custom-width.tsx}
 
 ### Custom Style
 
 Buttons could have custom `width` and `height`
 
-DEMO{{./custom-width.tsx}}
+:::
+
+:::demo{./haircut.tsx}
 
 ### Haircut
 
 You can attach a nice haircut to the button to decorate it.
 
-DEMO{{./haircut.tsx}}
+:::
 
 ### API
 

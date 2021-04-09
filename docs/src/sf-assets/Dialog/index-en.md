@@ -1,37 +1,41 @@
 ## Dialog
 
-dialog is a powerful component that renders a dialog
-
-which is especially useful when you wants to render a dialog
+:::demo{./index.tsx}
 
 ### Basic Usage
 
 This is a basic dialog
 
-DEMO{{./index.tsx}}
+:::
+
+:::demo{./warning.tsx}
 
 ### Warning State
 
 render a more eye-catching, inspiring and passionate dialog.
 
-DEMO{{./warning.tsx}}
+:::
+
+:::demo{./hutao.tsx}
 
 ### Advanced Usage
 
 If you dislike the character, you can change the character.
 u can actually summor a Hu Tao instead,
 
-DEMO{{./hutao.tsx}}
+:::
+
+:::demo{./tank.tsx}
 
 ### Super Advanced Usage
 
 And If you feeling boring. we built a tank for u
 
-DEMO{{./tank.tsx}}
+:::
 
 ### API
 
-| Property        | Description   | Type      | Default |
-| --------------- | ------------- | --------- | ------- |
-| title :required | title         | `string`  |         |
-| warning         | warning state | `boolean` | false   |
+| Property        | Description   | Type      |
+| --------------- | ------------- | --------- |
+| title :required | title         | `string`  |
+| warning         | warning state | `boolean` |

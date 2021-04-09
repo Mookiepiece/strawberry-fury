@@ -7,7 +7,9 @@ const BasicUsage: React.FC = () => {
       <Button primary>主要按钮</Button>
       <Button>次级按钮</Button>
       <Button textual>文字按钮</Button>
-      <hr />
+      <br />
+      <br />
+      <br />
       <Button block>块状按钮</Button>
     </>
   );

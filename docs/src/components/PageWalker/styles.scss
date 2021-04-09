@@ -1,28 +1,52 @@
 @import '🦌/mixins.scss';
 
 .page-walker-markdown {
-  width: 100%;
+  color: var(--color-dark);
   line-height: 1.35;
 
   // FUNDAMENTALS
-  code {
-    margin: 2px;
-    padding: 2px 4px;
-    font-family: Consolas, 'Courier New', Courier, FreeMono, monospace;
-    background: linear-gradient(45deg, #f2f2f2, #fcfcfc, #f2f2f2);
-    border-radius: 3px;
-  }
+  > table,
+  > h1,
+  > h2,
+  > h3,
+  > h4,
+  > h5,
+  > h6,
+  > p,
+  > blockquote,
+  > ul,
+  > ol {
+    code {
+      margin: 2px;
+      padding: 2px 4px;
+      font-family: Consolas, 'Courier New', Courier, FreeMono, monospace;
+      background: linear-gradient(45deg, #f2f2f2, #fcfcfc, #f2f2f2);
+      border-radius: 3px;
+    }
 
-  a {
-    border-radius: 4px;
+    a {
+      &,
+      &:visited {
+        color: var(--color-primary);
+      }
+      &:hover,
+      &:focus-visible {
+        color: var(--color-secondary);
+      }
+      &:active {
+        color: white;
+        background: var(--color-primary);
+      }
+      border-radius: 4px;
 
-    &:focus-visible {
-      outline: none;
-      box-shadow: 0 0 0 4px #8cbaff80;
+      &:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 4px #8cbaff80;
+      }
     }
   }
 
-  blockquote {
+  > blockquote {
     margin-left: 0;
     padding: 20px;
     font-size: small;
@@ -31,7 +55,7 @@
   }
 
   // TABLE
-  table {
+  > table {
     width: 100%;
     margin-bottom: 24px;
     font-size: 14px;
@@ -41,29 +65,30 @@
       color: var(--color-primary);
       background: var(--color-primary-fade-100);
     }
-  }
-  th,
-  td {
-    padding: 18px 8px;
-    &:not(:last-child) {
-      padding-right: 36px;
+
+    th,
+    td {
+      padding: 18px 8px;
+      &:not(:last-child) {
+        padding-right: 36px;
+      }
     }
-  }
-  tbody > tr:hover {
-    background: #fafafa;
-  }
-  th {
-    border-bottom: 1px solid #ddd;
-  }
-  td {
-    border-bottom: 1px solid #fafafa;
+    tbody > tr:hover {
+      background: #fafafa;
+    }
+    th {
+      border-bottom: 1px solid #ddd;
+    }
+    td {
+      border-bottom: 1px solid #fafafa;
+    }
   }
 
   // HEADINGS
-  h2 {
+  > h2 {
     font-size: 42px;
   }
-  h3 {
+  > h3 {
     margin: 0;
     padding: 12px;
     color: var(--color-primary);
@@ -133,22 +158,6 @@
     }
   }
 
-  p a,
-  ul a {
-    &,
-    &:visited {
-      color: var(--color-primary);
-    }
-    &:hover,
-    &:focus-visible {
-      color: var(--color-secondary);
-    }
-    &:active {
-      color: white;
-      background: var(--color-primary);
-    }
-  }
-
   // CUSTOM ELEMENTS
   .text-directive-required {
     &::after {
@@ -156,10 +165,16 @@
       content: '*';
     }
   }
+
+  // UNSAFE
+  .demo-player {
+    color: initial;
+    line-height: initial;
+  }
 }
 
 .page-walker {
-  > section {
+  section {
     position: relative;
     display: flex;
     margin: 48px 0;
@@ -172,7 +187,7 @@
       border-top: 1px dotted #00000016;
       content: '';
     }
-    &.page-walker-markdown-demo-section > div:first-child {
+    &.container-directive-markdown-with-demo-section > div:first-child {
       @include laptop {
         flex: 388px 0 0;
         margin-right: 24px;

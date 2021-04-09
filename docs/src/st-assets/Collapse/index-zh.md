@@ -1,10 +1,12 @@
 ## Collapse 折叠面板
 
+:::demo{./individual.tsx}
+
 ### 独立面板
 
 只用 Panel 提供动画效果
 
-DEMO{{./individual.tsx}}
+:::
 
 ### 手风琴
 
@@ -14,7 +16,7 @@ DEMO{{./individual.tsx}}
 
 示例只是偷懒用了按钮，设计上是要求另外写过
 
-DEMO{{./basic.tsx}}
+::demo{./basic.tsx}
 
 ### 接口索引
 

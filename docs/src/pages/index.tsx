@@ -46,7 +46,7 @@ const Index: React.FC = () => {
         <Button
           primary
           style={{ marginTop: 24, width: 240 }}
-          onClick={() => history.push('/sf-components')}
+          onClick={() => history.push('/st-components')}
         >
           {i18n.IndexPageGetStarted}
         </Button>
