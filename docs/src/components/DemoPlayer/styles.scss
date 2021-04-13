@@ -34,7 +34,8 @@
       border-radius: 2px 2px 12px 12px;
       box-shadow: 0 4px 2px -2px var(--color-contrasting);
     }
-    &:hover {
+    &:hover,
+    &:focus-visible {
       background: var(--color-contrasting-fade-100);
     }
     &:active {

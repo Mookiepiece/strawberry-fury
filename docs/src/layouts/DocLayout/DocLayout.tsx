@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import React, { useContext, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import NavLink from '🦌/components/NavLink';
 import { Button } from 'starfall';
 import { i18nContext, I18nKeys } from '🦌/utils/i18n';
 import { DocRoute, RouteView } from '🦌/utils/RouterView';
@@ -22,9 +22,7 @@ const SideBar: React.FC<{
               <dd>
                 {Object.entries(c).map(([k, v]) => (
                   <div key={k}>
-                    <NavLink className="button-link" to={k}>
-                      {i18n[v]}
-                    </NavLink>
+                    <NavLink to={k}>{i18n[v]}</NavLink>
                   </div>
                 ))}
               </dd>
@@ -47,12 +45,12 @@ const DocLayout: React.FC<{
 }> = ({ nav, children }) => {
   return (
     <main className="doc-layout">
-      <SideBar nav={nav} />
       <div className="doc-content">
         <article>
           <RouteView routes={children} />
         </article>
       </div>
+      <SideBar nav={nav} />
     </main>
   );
 };

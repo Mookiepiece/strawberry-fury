@@ -9,7 +9,6 @@ const BasicUsage: React.FC = () => {
       <Button textual>文字按钮</Button>
       <br />
       <br />
-      <br />
       <Button block>块状按钮</Button>
     </>
   );

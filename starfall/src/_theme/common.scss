@@ -40,6 +40,7 @@
   --color-danger-fade-500: #{transparentize(#f73c2f, 0.6)};
   --color-danger-fade-600: #{transparentize(#f73c2f, 0.4)};
   --color-danger-fade-700: #{transparentize(#f73c2f, 0.2)};
+  --color-spin: currentColor;
 }
 
 $mp: 2, 5, 10, 20, 30, 50;

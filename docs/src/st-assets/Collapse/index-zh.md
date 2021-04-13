@@ -30,14 +30,13 @@
 
 如果你的面板有设置`height`，那么传统的动画方案就能实现。但面板是没有自定义设置高度属性时默认是 `height:auto`，此时动画不生效，所以应提前一帧设置高度。
 
-Bootstrap 和 W3Schools 使用了 scrollHeight，这个属性有意思的地方在于它的值只和内部内容有关，你设置了`height`或者`max-height`它依旧保持不变。
-所以我们的折叠面板的最大值是固定的，最小值也是固定的 0。
-试想一下这种情况，折叠到了一半突然点击又反着折回去了，
-因为折叠到一半的时候 clientHeight 和 offsetHeight 都是当前值，而通过永远不变的 scrollHeight 你可以知道最大值并且以此折返。
+Bootstrap 和 W3Schools 使用了 `scrollHeight` ，它的值只和内部内容有关，内容不变它也保持不变。
+所以我们的折叠面板的最大值是固定的 `scrollHeight` ，最小值也是固定的 0。
+试想一下这种情况，折叠到了一半突然点击又反着折回去了，因为折叠到一半的时候 `clientHeight` 和 `offsetHeight` 都是当前值，而通过永远不变的 `scrollHeight` 你可以知道最大值并且以此折返。
 
 哪怕子元素设置了`height:0`，`scrollHeight` 依旧会将子元素的实际高度纳入计算，
 以及可能会把子元素的下`margin`纳入计算导致出现一个`margin`距离的动画断层，
-解决方法是新建[块格式化上下文 👍](https://zhuanlan.zhihu.com/p/131402341)，很简单，给 panel 设置 overflow:hidden 就可以了
+解决方法是新建[块格式化上下文 👍](https://zhuanlan.zhihu.com/p/131402341)，给 panel 设置 `overflow:hidden` 就可以了
 
 - [Bootstrap: collapse.js](https://github.com/twbs/bootstrap/blob/main/js/src/collapse.js#L202)
 - [W3schools: Collapse 👍](https://www.w3schools.com/howto/howto_js_collapsible.asp)

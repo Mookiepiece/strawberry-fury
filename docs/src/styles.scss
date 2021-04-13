@@ -15,53 +15,9 @@ article {
 
 dd,
 dl,
-dt {
+dt,
+h3 {
   margin: 0;
   padding: 0;
   border: 0;
-}
-
-a.button-link {
-  display: inline-block;
-  align-items: center;
-  margin: 0 2px;
-  padding: 12px;
-  text-decoration: none;
-  border-radius: 4px;
-  outline: none;
-  &:visited,
-  & {
-    color: inherit;
-  }
-  &:hover {
-    background: #f4f4f4;
-  }
-  &:active {
-    background: #ddd;
-  }
-  &.active {
-    color: var(--color-primary);
-  }
-  &:focus-visible {
-    box-shadow: 0 0 0 4px #8cbaff80;
-  }
-}
-
-.doc-button {
-  padding: 8px;
-  background: white;
-  border: 1px solid var(--color-primary);
-  border-radius: 4px;
-  outline: none;
-  cursor: pointer;
-  &:hover {
-    background: #fcf1f1;
-  }
-  &:active {
-    background: rgb(243, 202, 202);
-  }
-}
-
-.doc-nav a.button-link {
-  text-align: center;
 }

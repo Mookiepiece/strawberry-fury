@@ -14,6 +14,8 @@ const BasicUsage: React.FC = () => {
     .🎃🎊🧧🧵 div {
       height: 50px;
       background: var(--color-dark-fade-500);
+      border-radius: 3px;
+      padding: 2px 5px;
     }
 
     `}</style>
@@ -25,7 +27,7 @@ const BasicUsage: React.FC = () => {
         }}
       >
         <div className="🎃🎊🧧🧵">
-          <div></div>
+          <div>default</div>
         </div>
         <div className="🎃🎊🧧🧵 pr-10">
           <div>pr-10</div>
@@ -40,15 +42,13 @@ const BasicUsage: React.FC = () => {
           <div>py-10</div>
         </div>
         <div className="🎃🎊🧧🧵">
-          <div className="mr-10">mr-10</div>
+          <div className="mr-10"></div> mr-10
         </div>
         <div className="🎃🎊🧧🧵">
-          <div className="mx-10">mr-10</div>
+          <div className="mx-10"></div> mr-10
         </div>
         <div className="🎃🎊🧧🧵">
-          <div className="mx-auto" style={{ width: 30 }}>
-            mx-auto
-          </div>
+          <div className="mx-auto" style={{ width: 30 }}></div> mx-auto
         </div>
       </div>
     </>

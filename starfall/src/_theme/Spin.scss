@@ -1,18 +1,20 @@
 .st-spin {
   position: relative;
+  display: inline-block;
   box-sizing: border-box;
   width: 30px;
   height: 30px;
-  border-radius: 7px;
-  animation: spin 3s ease infinite;
+  overflow: hidden;
+  vertical-align: middle;
+  border-radius: 6px;
 
   &::before {
     position: absolute;
-    top: 3px;
-    left: 3px;
+    top: calc(7px - var(--st-spin-border));
+    left: calc(7px - var(--st-spin-border));
     width: 10px;
     height: 10px;
-    border: 3px solid hsla(185, 100%, 62%, 0.75);
+    border: var(--st-spin-border) solid var(--color-spin);
     border-radius: 3px;
     transform-origin: center;
     animation: fill 3s linear infinite;
@@ -21,30 +23,40 @@
 
   &::after {
     position: absolute;
-    right: 3px;
-    bottom: 3px;
+    right: calc(7px - var(--st-spin-border));
+    bottom: calc(7px - var(--st-spin-border));
     width: 10px;
     height: 10px;
-    border: 3px solid hsla(185, 100%, 62%, 0.75);
+    border: var(--st-spin-border) solid var(--color-spin);
     border-radius: 3px;
     transform-origin: center;
     animation: fill 2s linear reverse infinite;
     content: '';
   }
+}
 
-  @keyframes spin {
-    30%,
-    100% {
-      border-radius: rotate(0deg);
-    }
+.st-spin-enter {
+  width: 0;
+}
+
+.st-spin-enter-active {
+  width: 30px;
+  transition: width 0.3s;
+}
+
+.st-spin-exit-active {
+  width: 0;
+  transition: width 0.3s;
+}
+.st-spin-exit-done {
+  width: 0;
+}
+
+@keyframes fill {
+  0% {
+    transform: rotate(0);
   }
-
-  @keyframes fill {
-    0% {
-      transform: rotate(0);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
+  100% {
+    transform: rotate(360deg);
   }
 }

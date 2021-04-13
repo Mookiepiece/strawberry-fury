@@ -1,11 +1,18 @@
 @import './mixins.scss';
 
-a.st-link {
+.st-link {
   text-decoration: none;
+
+  > span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
 }
 
-a.st-link.st-link--default {
-  border-radius: 4px;
+.st-link--default {
+  border-radius: 3px;
 
   &:focus-visible {
     outline: none;
@@ -13,19 +20,22 @@ a.st-link.st-link--default {
   }
 }
 
-a.st-link.st-link--button {
+.st-link--button {
   position: relative;
   display: inline-block;
-  height: 36px;
-  padding: 0 10px;
+  min-height: 36px;
+  padding: 10px;
   color: currentColor;
   font-size: 14px;
-  line-height: 36px;
   background-color: transparent;
-  border-radius: 2px;
+  border-radius: 3px;
   outline: 0;
   cursor: pointer;
-  transition: all 0.1s, box-shadow 0.3s;
+  transition: all 0.1s, box-shadow 0.3s, outline 0s;
+
+  &.st-link--active {
+    color: var(--color-primary);
+  }
 
   &:hover,
   &:focus-visible {
@@ -33,5 +43,8 @@ a.st-link.st-link--button {
   }
   &:active {
     background-color: var(--color-dark-fade-300);
+  }
+  &:focus-visible {
+    outline: 2px dashed var(--color-primary);
   }
 }

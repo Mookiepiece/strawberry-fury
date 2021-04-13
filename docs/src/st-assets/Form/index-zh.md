@@ -20,7 +20,7 @@
 
 ### 高级示例
 
-这个示例里实现了一个架空的需求，后端不接收以数字开头的名字，当后端不接收此参数时，手动调用`setValidateStatus`将名称置错，并且改变名字的`rule`，用户再次输入同样的名字也会警告。
+这个示例里实现了一个架空的需求，服务器不接收以数字开头的名字，当不接收此参数时，手动调用`setValidateStatus`将名称置错，并且改变名字的`rule`，用户再次输入同样的名字也会警告。
 
 为了防止重复提交，你应该为按钮加上 loading。
 
@@ -55,20 +55,18 @@
 
 `antd` 即 `rc-field-form` 和 `element/element-plus` 使用[`async-validator`](https://github.com/yiminghe/async-validator) 做 Schema 验证。
 
-`antd` 和 `formik` 倾向使用非受控模式，即表单的值外部不可访问，这样的好处一个是输入时只有表单内部在刷新。
+`antd` 和 `formik` 倾向使用非受控模式，即表单的值外部不可访问，这样的好处一个是输入时只有表单内部在重渲染。
 
-因为假如表单的值放外面，每次输入(即`setState`)都会引起持有该状态的组件（很可能是页面组件）的整体刷新(即`rerender`)。但其实没有什么必要，因为不使用任何表单组件的情况下，大部分人还是会倾向于状态提升到页面组件...而且很多业务倾向于外部要访问到表单的值。比如用户输入了 a 就显示 b 输入框，这个在非受控模式是做不到的，因为外面获取不到表单里的状态。
-
-表单组件高频触发 onChange 使其成为性能瓶颈。
+因为假如表单的值放外面，每次输入(即`setState`)都会引起持有该状态的组件（很可能是页面）的整体刷新。很多业务倾向于外部要访问到表单的值。比如用户输入了 a 就显示 b 输入框，这个在非受控模式是做不到的，因为外面获取不到表单里的状态。
 
 - `antd` 默认非受控模式支持局部刷新，即输入哪个框就更新哪个框，不会刷新整个表单，因为每次更新会触发所有[Field 的回调](https://github.com/react-component/field-form/blob/e118381c2102b36c4ffe7e17a6415df091e772b7/src/Field.tsx#L216)让其各自比对新旧值判断是否需要更新
   在使用[render props 模式](https://github.com/react-component/field-form/blob/e118381c2102b36c4ffe7e17a6415df091e772b7/docs/examples/renderProps.tsx#L17)此功能失效，表单整体刷新。
 - `formik` 默认整体刷新表单，额外的优化手段是 FastField 组件，该组件有 shouldComponentUpdate 方法各自比对新旧值，能够判断是否需要更新。
-- `element` 是外置表单的值，vue 的渲染模式不太清楚，但应该是整体刷新，没有性能优化手段的主要原因是因为 vue 没有手动优化性能的手段。毕竟 setup 只执行一次，只要够快就不用优化。
+- `element` 是外置表单的值，没有性能优化手段的主要原因是因为 vue 没有手动优化性能的手段。毕竟 setup 只执行一次，只要够快就不用优化。
 
-StForm 使用受控表单，使用 `async-validator`做 schema 验证。
+`starfall` 使用受控表单，使用 `async-validator`做 schema 验证。
 
-要说这表单真的有什么原理吧，其实核心并不难，和写 Collapse 一样用传统的订阅模式就能解决。
+要说这表单真的有什么原理吧，其实核心并不难，和写折叠面板一样用传统的订阅模式就能解决。
 
 推荐阅读： `muse-ui` `element/element-plus` `rc-field-form` `formik`
 

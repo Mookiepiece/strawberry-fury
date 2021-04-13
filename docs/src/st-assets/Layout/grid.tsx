@@ -15,6 +15,8 @@ const BasicUsage: React.FC = () => {
       width: 50px;
       min-height: 50px;
       background: var(--color-contrasting-fade-500);
+      border-radius: 3px;
+      padding: 2px 5px;
     }
 
     `}</style>

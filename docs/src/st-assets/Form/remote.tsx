@@ -91,11 +91,11 @@ const BasicUsage: React.FC = () => {
           {({ value, onChange }) => <Input value={value} onChange={onChange} />}
         </Form.Item>
         <Form.Content>
-          <Button type="submit">提交 Submit</Button>
+          <Button type="submit" loading={isValidating || isSubmitting}>
+            提交 Submit
+          </Button>
         </Form.Content>
       </Form>
-      <br />
-      <p>{isValidating || isSubmitting ? 'Validating...' : 'Idle'}</p>
     </>
   );
 };

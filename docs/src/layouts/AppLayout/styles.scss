@@ -4,25 +4,26 @@ header.doc-nav {
   align-items: center;
   justify-content: space-between;
   height: 48px;
+  padding: 3px;
   background: white;
   border-bottom: 1px solid var(--color-dark-fade-200);
   > div {
     display: flex;
     align-items: center;
   }
-  a.button-link.doc-nav-logo-link {
+  .doc-nav-logo-link {
     display: flex;
     align-items: center;
-    padding: 0;
+    padding: 0 10px 0 3px;
     color: inherit;
     cursor: pointer;
     user-select: none;
-    > img {
-      width: 42px;
-      height: 42px;
-      + * {
-        margin: 0 8px;
-      }
+    img {
+      width: 40px;
+      height: 40px;
+    }
+    & + * {
+      margin: 0 8px;
     }
   }
 }

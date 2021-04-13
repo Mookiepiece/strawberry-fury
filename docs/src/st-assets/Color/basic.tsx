@@ -34,11 +34,12 @@ const BasicUsage: React.FC = () => {
 
       .🎏🧥🩳🎲 {
         font-size: 14px;
-        height: 200px;
-        flex-grow: 1;
-        width: 200px;
+        height: 150px;
+        width: 150px;
         user-select: all;
         vertical-align: middle;
+        margin: 12px;
+        border-radius: 35% 45%/50% 80%;
       }
       .🎏🧥🩳🎲 span {
         font-family: Consolas, sans-serif;

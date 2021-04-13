@@ -8,7 +8,7 @@ const BasicUsage: React.FC = () => {
       <Button primary onClick={() => setState(true)}>
         打开对话框
       </Button>
-      <Modal visible={state} onClose={() => setState(false)}>
+      <Modal title="标题" visible={state} onClose={() => setState(false)}>
         内容
       </Modal>
     </>

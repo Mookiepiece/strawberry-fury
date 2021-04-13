@@ -7,17 +7,19 @@
   padding: 0 10px;
   color: currentColor;
   font-size: 14px;
-  line-height: 36px;
   vertical-align: middle;
   background-color: transparent;
-  border-radius: 2px;
+  border-radius: 3px;
   outline: 0;
-  cursor: pointer;
-  transition: all 0.1s, box-shadow 0.3s;
-  &.st-button--default {
+  transition: all 0.1s, outline 0s;
+
+  &:not(:disabled):not(.st-button--loading) {
+    cursor: pointer;
+  }
+
+  &.st-button--default:not(:disabled):not(.st-button--loading) {
     color: var(--color-dark-fade-700);
     border: 1px solid var(--color-dark-fade-700);
-    box-shadow: 0 0 0 0 var(--color-dark-fade-400);
 
     &:hover,
     &:focus-visible {
@@ -29,10 +31,15 @@
       border-color: var(--color-dark-fade-300);
     }
   }
-  &.st-button--primary {
+  &.st-button--default.st-button--loading,
+  &.st-button--default:disabled {
+    color: var(--color-dark-fade-500);
+    border: 1px solid var(--color-dark-fade-300);
+  }
+
+  &.st-button--primary:not(:disabled):not(.st-button--loading) {
     color: var(--color-primary-darken);
     border: 1px solid var(--color-primary);
-    box-shadow: 0 0 0 0 var(--color-primary-fade-500);
 
     &:hover,
     &:focus-visible {
@@ -44,7 +51,14 @@
       border-color: var(--color-primary-fade-400);
     }
   }
-  &.st-button--textual {
+  &.st-button--primary.st-button--loading,
+  &.st-button--primary:disabled {
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary-fade-500);
+  }
+
+  &.st-button--textual:not(:disabled):not(.st-button--loading) {
+    color: var(--color-dark);
     border: 0;
     &:hover,
     &:focus-visible {
@@ -54,6 +68,12 @@
       background-color: var(--color-dark-fade-300);
     }
   }
+  &.st-button--textual.st-button--loading,
+  &.st-button--textual:disabled {
+    color: var(--color-dark-fade-500);
+    border: 0;
+  }
+
   &.st-button--block {
     display: block;
     width: 100%;
@@ -62,4 +82,11 @@
   &:not(.st-button--block) + .st-button:not(.st-button--block) {
     margin-left: 10px;
   }
+  &:focus-visible {
+    outline: 1px dashed var(--color-primary);
+  }
+}
+
+.st-button__content {
+  vertical-align: middle;
 }

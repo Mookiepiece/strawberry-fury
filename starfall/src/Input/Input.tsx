@@ -3,7 +3,7 @@ import React from 'react';
 type InputProps = {
   value?: string;
   onChange?: (value: string) => void;
-} & React.HtmlHTMLAttributes<HTMLInputElement>;
+} & React.HTMLProps<HTMLInputElement>;
 
 const Input: React.FC<InputProps> = ({ value, onChange }) => {
   if (typeof value !== 'string' || !onChange) {

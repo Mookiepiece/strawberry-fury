@@ -4,22 +4,25 @@ import React from 'react';
 type LinkProps = {
   type?: 'button';
   href?: string;
-} & React.HtmlHTMLAttributes<HTMLAnchorElement>;
+  active?: boolean;
+} & React.HTMLProps<HTMLAnchorElement>;
 
 const Link: React.FC<LinkProps> = props => {
-  const { children, type, href, className, ...rest } = props;
+  const { children, type, href, className, active, ...rest } = props;
 
   return (
     <a
       className={clsx(
+        className,
         'st-link',
         type === 'button' ? 'st-link--button' : 'st-link--default',
-        className
+        active && 'st-link--active'
       )}
+      tabIndex={0}
       href={href}
       {...rest}
     >
-      {children}
+      <span>{children}</span>
     </a>
   );
 };
