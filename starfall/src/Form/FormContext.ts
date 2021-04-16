@@ -3,7 +3,7 @@ import { ValidateStatusParam } from './FormItem';
 
 export type FormItemsRegisterProps = {
   name: string;
-  validate: () => void;
+  validate: () => Promise<void>;
   cancelValidate: () => void;
   clearValidate: () => void;
   setValidateStatus: (s: ValidateStatusParam) => void;
@@ -14,11 +14,11 @@ export const FormContext = React.createContext<{
   setValue: (pathes: string[], propValue: unknown) => void;
   register: (i: FormItemsRegisterProps) => void;
   unregister: (i: FormItemsRegisterProps) => void;
-  submit: () => void;
+  submitting: boolean;
 }>({
   value: {},
   setValue: () => {},
   register: () => {},
   unregister() {},
-  submit: () => {},
+  submitting: false,
 });

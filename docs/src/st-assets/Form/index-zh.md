@@ -6,13 +6,21 @@
 
 `Form.Item`会接管子元素`value`和`onChange`属性，且 onChange 的第一参数是值而不是事件。同时也支持传入`render props`作子元素。
 
-`Form.Item`**输入时（onChange 时）校验**，`element`的输入框 Input 控件是失焦时触发校验，`antd`和`formik`[是输入时校验](https://formik.org/docs/examples/with-material-ui)。
+`Form.Item`**仅主动输入时触发（onChange ）校验**。
 
-输入校验附带 200ms 防抖，节流规则是每次校验需等待上一次完成，连续输入时，最后一次输入必定在等待前面的校验结束后触发一次最终值校验。很多库没有预设节流，可能是这种异步校验的场景实在是太少了一般都是提交后等结果。
+输入校验附带 200ms 防抖，节流规则是每次校验需等待上一次完成，连续输入时，最后一次输入必定在等待前面的校验结束后触发一次最终值校验。
 
 如果是`Form`提交触发的校验，则会无视上面的规则立即抢占式地触发校验。
 
-默认的，当规则改变不会立即触发校验，如果改变了规则需要触发校验必须手动执行`form.validate([name])`。
+默认的，。
+
+> 表单会有自己的一套默认行为，如在 value 改变时就会校验，如果出现同名情况，不会两边一起验证，如示例的 2、3 输入框其实在设计里是不合理的，如果要延展这种默认行为，不传 rules， 提交时在外边自己校验
+
+第一个表单传入`action`，自动校验自动提交，里面的 submit 按钮会自动切换到加载状态。
+
+第二个表单传入`onSubmit`，需要在外面手动校验手动提交手动切换加载状态。
+
+这两个参数互斥
 
 :::
 
@@ -20,34 +28,31 @@
 
 ### 高级示例
 
-这个示例里实现了一个架空的需求，服务器不接收以数字开头的名字，当不接收此参数时，手动调用`setValidateStatus`将名称置错，并且改变名字的`rule`，用户再次输入同样的名字也会警告。
-
-为了防止重复提交，你应该为按钮加上 loading。
+这个示例里实现了一个架空的场景，服务器不接收以数字开头的名字，当不接收此参数时，调用`setValidateStatus`将名称置错，并且改变`rules`，再次输入同样的名字也会警告。
 
 :::
 
 ### 接口索引
 
-| Form Property          | Description                | Type                              |
-| ---------------------- | -------------------------- | --------------------------------- |
-| value:required         |                            | `Record<string, unknown>`         |
-| onChange:required      |                            | `(value: T) => void`              |
-| onSubmit:required      |                            | `(value: T) => void`              |
-| onSubmitValidateFailed | 提交时验证失败             | `(err: ValidateError) => void`    |
-| onValidateStatusChange | 监听验证过程以显示 loading | `(isValidating: boolean) => void` |
+| Form Property     | Description                                                                                                          | Type                                         |
+| ----------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------- |
+| value:required    |                                                                                                                      | `Record<string, unknown>`                    |
+| onChange:required |                                                                                                                      | `(value: T) => void`                         |
+| action            | 表单验证成功后调用的方法,不要抛异常，这里已经是处理返回值阶段了, 也能传数组，第一个是 action，第二个是校验失败时执行 | `((value: T) => Promise<void> / void) / [?]` |
+| onSubmit          | 监听表单的提交，此时需要手动校验和提交和禁用按钮，和`action`互斥                                                     | `(value: T) => void`                         |
 
-| Form Instance     | Description                                | Type                                                          |
-| ----------------- | ------------------------------------------ | ------------------------------------------------------------- |
-| validate          | 触发某表单项的验证，此次验证视为抢占式验证 | `(names?: string[]) => Promise<void>`                         |
-| reset             | 清空某表单项的验证状态及数据               | `(names?: string[]) => void`                                  |
-| clearValidate     | 清空某表单项的验证状态                     | ` (names?: string[]) => void`                                 |
-| setValidateStatus | 设置某表单项的验证状态                     | `(name: string, validateStatus: ValidateStatusParam) => void` |
+| Form Instance     | Description                  | Type                                                          |
+| ----------------- | ---------------------------- | ------------------------------------------------------------- |
+| validate          | 抢占地触发某表单项的验证     | `(names?: string[]) => Promise<void>`                         |
+| reset             | 清空某表单项的验证状态及数据 | `(names?: string[]) => void`                                  |
+| clearValidate     | 清空某表单项的验证状态       | ` (names?: string[]) => void`                                 |
+| setValidateStatus | 设置某表单项的验证状态       | `(name: string, validateStatus: ValidateStatusParam) => void` |
 
-| Form.Item Property | Description           | Type                    |
-| ------------------ | --------------------- | ----------------------- |
-| name:required      |                       | `string`                |
-| label:required     |                       | `string`                |
-| rules              | 查阅`async-validator` | `RuleItem`/`RuleItem[]` |
+| Form.Item Property | Description                                         | Type                    |
+| ------------------ | --------------------------------------------------- | ----------------------- |
+| name:required      |                                                     | `string`                |
+| label:required     |                                                     | `string`                |
+| rules              | 查阅`async-validator`，当规则改变时不会自动触发校验 | `RuleItem`/`RuleItem[]` |
 
 ### 原理
 
@@ -59,23 +64,21 @@
 
 因为假如表单的值放外面，每次输入(即`setState`)都会引起持有该状态的组件（很可能是页面）的整体刷新。很多业务倾向于外部要访问到表单的值。比如用户输入了 a 就显示 b 输入框，这个在非受控模式是做不到的，因为外面获取不到表单里的状态。
 
-- `antd` 默认非受控模式支持局部刷新，即输入哪个框就更新哪个框，不会刷新整个表单，因为每次更新会触发所有[Field 的回调](https://github.com/react-component/field-form/blob/e118381c2102b36c4ffe7e17a6415df091e772b7/src/Field.tsx#L216)让其各自比对新旧值判断是否需要更新
-  在使用[render props 模式](https://github.com/react-component/field-form/blob/e118381c2102b36c4ffe7e17a6415df091e772b7/docs/examples/renderProps.tsx#L17)此功能失效，表单整体刷新。
+- `antd` 默认非受控模式支持局部刷新，即输入哪个框就更新哪个框，不会刷新整个表单，因为每次更新会触发所有[Field 的回调](https://github.com/react-component/field-form/blob/e118381c2102b36c4ffe7e17a6415df091e772b7/src/Field.tsx#L216)让其各自比对新旧值判断是否需要更新，在使用[render props 模式](https://github.com/react-component/field-form/blob/e118381c2102b36c4ffe7e17a6415df091e772b7/docs/examples/renderProps.tsx#L17)此功能失效，表单整体刷新，所以文档里提示这个性能更差。
 - `formik` 默认整体刷新表单，额外的优化手段是 FastField 组件，该组件有 shouldComponentUpdate 方法各自比对新旧值，能够判断是否需要更新。
 - `element` 是外置表单的值，没有性能优化手段的主要原因是因为 vue 没有手动优化性能的手段。毕竟 setup 只执行一次，只要够快就不用优化。
 
 `starfall` 使用受控表单，使用 `async-validator`做 schema 验证。
 
-要说这表单真的有什么原理吧，其实核心并不难，和写折叠面板一样用传统的订阅模式就能解决。
+表单核心和写折叠面板一样用传统的订阅模式就能解决。
 
-推荐阅读： `muse-ui` `element/element-plus` `rc-field-form` `formik`
+`muse-ui`的源码比较精简，推荐入门阅读，然后是`element/element-plus`。
 
 ### Accessbility
 
-- 依据表单规范，支持回车键隐式提交
-- 点击标签能够定位到输入框
+- 依据表单规范，支持隐式提交
 
-> 太长不看: 添加 submit 按钮即可支持隐式提交表单
+> 太长不看: **添加 submit 按钮即可支持隐式提交表单,即支持回车键提交**
 >
 > 4.10.21.2 Implicit submission
 > A form element's default button is the first submit button in tree order whose form owner is that form element.

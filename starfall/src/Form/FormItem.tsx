@@ -4,7 +4,6 @@ import { RuleItem } from 'async-validator';
 import { FormContext } from './FormContext';
 import { useEventCallback } from 'starfall/_utils/useEventCallback';
 import clsx from 'clsx';
-import { useFirstMountState } from 'react-use';
 
 export function getProp(obj: Record<string, unknown>, pathes: string[]): unknown {
   return pathes.reduce((tempObj, k) => {
@@ -87,15 +86,11 @@ const FormItem: React.FC<FormItemProps> = ({ rules = [], label, name, children }
     }
   }, []);
 
-  const touchedRef = useRef(false);
-
   const validateKey = useRef(0);
   const nextTickToValidate = useRef(false);
   const [nextTickToValidateValue, setNextTickToValidateValue] = useState<boolean>(false);
 
-  const cancelValidate = useCallback(() => {
-    ++validateKey.current;
-  }, []);
+  const cancelValidate = useCallback(() => ++validateKey.current, []);
 
   const validate = useEventCallback(async (method: 'change' | 'force') => {
     const validator = new AsyncValidator({ [name]: rules });
@@ -141,7 +136,6 @@ const FormItem: React.FC<FormItemProps> = ({ rules = [], label, name, children }
   }, [nextTickToValidateValue, validate]);
 
   const clearValidate = useCallback(() => {
-    touchedRef.current = false;
     setValidateStatus('');
   }, [setValidateStatus]);
 
@@ -162,27 +156,15 @@ const FormItem: React.FC<FormItemProps> = ({ rules = [], label, name, children }
     validate,
   ]);
 
-  const isFirstMount = useFirstMountState();
-  const lastValueRef = useRef<unknown>();
-  useEffect(() => {
-    if (!isFirstMount) {
-      // the value has changed and not triggered by clear, try to validate
-      if (lastValueRef.current !== value && touchedRef.current) {
-        lastValueRef.current = value;
-        debouncedValidate();
-      }
-    }
-  }, [debouncedValidate, isFirstMount, value]);
-
   const onChange = useCallback(
     v => {
       setValue(pathes, v);
-      touchedRef.current = true;
+      debouncedValidate();
     },
-    [pathes, setValue]
+    [debouncedValidate, pathes, setValue]
   );
 
-  let ohMyChild: React.ReactElement | null = null;
+  let childNode: React.ReactElement | null = null;
   if (React.isValidElement(children)) {
     if ('value' in children.props) {
       throw new Error('[ST Form.Item] remove prop `value` form input inside a form item');
@@ -191,9 +173,9 @@ const FormItem: React.FC<FormItemProps> = ({ rules = [], label, name, children }
       children.props;
     }
 
-    ohMyChild = React.cloneElement(children, { ...children.props, value, onChange });
+    childNode = React.cloneElement(children, { ...children.props, value, onChange });
   } else if (typeof children === 'function') {
-    ohMyChild = children({
+    childNode = children({
       value,
       onChange,
       validate,
@@ -212,7 +194,7 @@ const FormItem: React.FC<FormItemProps> = ({ rules = [], label, name, children }
     >
       <label>
         <span className={clsx('st-label', asterisk && 'st-label-asterisk')}>{label}:</span>
-        {ohMyChild}
+        {childNode}
       </label>
       <FormContent>
         <div>

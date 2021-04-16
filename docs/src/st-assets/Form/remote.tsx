@@ -10,6 +10,11 @@ const apiUser = (s: string) => {
           code: 666,
           message: 'username cannot starts with number 1234567890',
         });
+      } else if (s === 'hack') {
+        reject({
+          code: 555,
+          message: 'server error',
+        });
       }
       resolve(0);
     }, 2000);
@@ -21,8 +26,6 @@ const BasicUsage: React.FC = () => {
     name: '',
     hair: '',
   });
-  const [isValidating, setIsValidating] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const formRef = Form.useRef();
 
@@ -37,33 +40,37 @@ const BasicUsage: React.FC = () => {
         value={value}
         onChange={setValue}
         ref={formRef}
-        onSubmit={v => {
-          setIsSubmitting(true);
-          apiUser(v.name)
-            .then(() => {
-              alert('🎉');
-            })
-            .catch(e => {
-              if (e.code === 666 && e.message) {
-                formRef.current?.setValidateStatus('name', { state: 'error', message: e.message });
-              }
-              setNameRule([
-                { required: true },
-                {
-                  validator(r, value, callback) {
-                    if (value === v.name) {
-                      callback('our api seems to not like this name, please pick another');
-                    }
-                    callback();
-                  },
-                },
-              ]);
-            })
-            .finally(() => {
-              setIsSubmitting(false);
-            });
-        }}
-        onValidateStatusChange={setIsValidating}
+        action={[
+          async v =>
+            apiUser(v.name)
+              .then(() => {
+                alert('🎉');
+              })
+              .catch(async e => {
+                if (e.code === 666 && e.message) {
+                  formRef.current?.setValidateStatus('name', {
+                    state: 'error',
+                    message: e.message,
+                  });
+                  setNameRule([
+                    { required: true },
+                    {
+                      validator(r, value, callback) {
+                        if (value === v.name) {
+                          callback('our api seems to not like this name, please pick another');
+                        }
+                        callback();
+                      },
+                    },
+                  ]);
+                } else {
+                  alert('💢 server error');
+                }
+              }),
+          errors => {
+            alert('💢' + JSON.stringify(errors, null, 4));
+          },
+        ]}
       >
         <Form.Item label="User Name" name="name" rules={nameRule}>
           <Input />
@@ -91,9 +98,7 @@ const BasicUsage: React.FC = () => {
           {({ value, onChange }) => <Input value={value} onChange={onChange} />}
         </Form.Item>
         <Form.Content>
-          <Button type="submit" loading={isValidating || isSubmitting}>
-            提交 Submit
-          </Button>
+          <Form.SubmitButton>提交 Submit</Form.SubmitButton>
         </Form.Content>
       </Form>
     </>

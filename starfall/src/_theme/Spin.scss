@@ -43,7 +43,10 @@
   width: 30px;
   transition: width 0.3s;
 }
-
+.st-spin-exit {
+  width: 0;
+  transition: width 0.3s;
+}
 .st-spin-exit-active {
   width: 0;
   transition: width 0.3s;
