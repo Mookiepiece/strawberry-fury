@@ -8,6 +8,7 @@ type ButtonProps = {
   primary?: boolean;
   textual?: boolean;
   block?: boolean;
+  solid?: boolean;
   loading?: boolean;
 } & React.HTMLProps<HTMLButtonElement>;
 
@@ -18,11 +19,11 @@ const Button: React.FC<ButtonProps> = ({
   primary,
   textual,
   block,
+  solid,
+  loading = false,
+  disabled,
   children,
   className,
-  loading = false,
-  onClick = noop,
-
   ...rest
 }) => {
   return (
@@ -33,12 +34,11 @@ const Button: React.FC<ButtonProps> = ({
         'st-button',
         primary ? 'st-button--primary' : textual ? 'st-button--textual' : 'st-button--default',
         block && 'st-button--block',
-        loading && 'st-button--loading'
+        loading && 'st-button--loading',
+        solid && 'st-button--solid'
       )}
+      disabled={disabled || loading}
       {...rest}
-      onClick={e => {
-        !loading && onClick(e);
-      }}
     >
       <Spin border={1} visible={loading} />
       <span className="st-button__content">{children}</span>

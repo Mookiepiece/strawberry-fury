@@ -193,7 +193,7 @@ const FormItem: React.FC<FormItemProps> = ({ rules = [], label, name, children }
       className={clsx('st-form-item', validateStatus.state === 'error' && 'st-form-item--error')}
     >
       <label>
-        <span className={clsx('st-label', asterisk && 'st-label-asterisk')}>{label}:</span>
+        <span className={clsx('st-label', asterisk && 'st-label-asterisk')}>{label}</span>
         {childNode}
       </label>
       <FormContent>

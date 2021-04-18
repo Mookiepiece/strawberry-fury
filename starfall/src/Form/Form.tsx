@@ -65,7 +65,7 @@ const _Form = <T extends Record<string, unknown>>(props: FormProps<T>, ref: Reac
   const [submitting, setSubmitting] = useState(false);
 
   if ((props.action && props.onSubmit) || (!props.action && !props.onSubmit)) {
-    throw new Error('[st-form] prop `action` and `onSubmit` conflicts or not be provided');
+    throw new Error('[ST form] prop `action` and `onSubmit` conflicts or not be provided');
   }
 
   const onChange = useEventCallback(props.onChange);

@@ -68,6 +68,7 @@ const basicConfig = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './index.html',
+      favicon: './src/strawberry-fury-LOGO.png',
     }),
     new WebpackBar({ color: '#DC9FB4' }),
   ],

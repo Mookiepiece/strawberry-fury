@@ -1,20 +1,10 @@
 /* eslint-disable react/display-name */
 import React from 'react';
+import loadable from '@loadable/component';
 
 import Index from '🦌/pages';
 import DocLayout from '🦌/layouts/DocLayout';
 
-import SfButton from '🦌/pages/sf-components/Button';
-import SfDialog from '🦌/pages/sf-components/Dialog';
-
-import StButton from '🦌/pages/st-components/Button';
-import StLink from '🦌/pages/st-components/Link';
-import Modal from '🦌/pages/st-components/Modal';
-import StColor from '🦌/pages/st-components/Color';
-import StLayout from '🦌/pages/st-components/Layout';
-import Notification from '🦌/pages/st-components/Notification';
-import Collapse from '🦌/pages/st-components/Collapse';
-import Form from '🦌/pages/st-components/Form';
 import SfIndex from '🦌/pages/sf-components';
 import StIndex from '🦌/pages/st-components';
 import { DocRoute } from '🦌/utils/RouterView';
@@ -51,11 +41,11 @@ export default [
           },
           {
             path: '/sf-components/button',
-            component: SfButton,
+            component: loadable(() => import('🦌/pages/sf-components/Button')),
           },
           {
             path: '/sf-components/dialog',
-            component: SfDialog,
+            component: loadable(() => import('🦌/pages/sf-components/Dialog')),
           },
         ],
       },
@@ -88,35 +78,35 @@ export default [
           },
           {
             path: '/st-components/color',
-            component: StColor,
+            component: loadable(() => import('🦌/pages/st-components/Color')),
           },
           {
             path: '/st-components/layout',
-            component: StLayout,
+            component: loadable(() => import('🦌/pages/st-components/Layout')),
           },
           {
             path: '/st-components/collapse',
-            component: Collapse,
+            component: loadable(() => import('🦌/pages/st-components/Collapse')),
           },
           {
             path: '/st-components/form',
-            component: Form,
+            component: loadable(() => import('🦌/pages/st-components/Form')),
           },
           {
             path: '/st-components/button',
-            component: StButton,
+            component: loadable(() => import('🦌/pages/st-components/Button')),
           },
           {
             path: '/st-components/link',
-            component: StLink,
+            component: loadable(() => import('🦌/pages/st-components/Link')),
           },
           {
             path: '/st-components/modal',
-            component: Modal,
+            component: loadable(() => import('🦌/pages/st-components/Modal')),
           },
           {
             path: '/st-components/notification',
-            component: Notification,
+            component: loadable(() => import('🦌/pages/st-components/Notification')),
           },
         ],
       },

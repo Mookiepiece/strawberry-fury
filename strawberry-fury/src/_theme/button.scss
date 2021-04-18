@@ -10,14 +10,7 @@
   cursor: pointer;
   transition: all 0.06s, box-shadow 0.2s;
 
-  &:focus-visible {
-    box-shadow: 0 0 0 4px var(--color-primary-fade-300);
-  }
-  &:hover {
-    background-color: var(--color-primary-fade-200);
-  }
   &:active {
-    background-color: var(--color-primary-fade-300);
     transform: scale(0.95);
   }
 

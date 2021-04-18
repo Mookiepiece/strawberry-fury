@@ -2,34 +2,9 @@ import React from 'react';
 import { Row } from 'starfall';
 
 const BasicUsage: React.FC = () => {
-  const styleSheet = [
-    'color-primary',
-    'color-secondary',
-    'color-dark',
-    'color-contrasting',
-    'color-danger',
-  ]
-    .map(
-      n =>
-        ` .🎏🧥🩳🎲${n} {
-          background: var(--${n});
-        }
-      ` +
-        [...Array(7).keys()]
-          .map(
-            i => `
-        .🎏🧥🩳🎲${n}${i * 100 + 100} {
-          background: var(--${n}-fade-${i * 100 + 100});
-        }`
-          )
-          .join(' ')
-    )
-    .join(' ');
-
   return (
     <>
       <style>
-        {`${styleSheet}`}
         {`
 
       .🎏🧥🩳🎲 {
@@ -56,6 +31,69 @@ const BasicUsage: React.FC = () => {
       </style>
       <div>
         {[
+          [
+            {
+              color: '--color-primary',
+            },
+            {
+              color: '--color-primary-fade-200',
+            },
+            {
+              color: '--color-primary-fade-100',
+            },
+          ],
+          [
+            {
+              color: '--color-dark',
+            },
+            {
+              color: '--color-dark-fade-200',
+            },
+            {
+              color: '--color-dark-fade-100',
+            },
+          ],
+          [
+            {
+              color: '--color-contrasting',
+            },
+            {
+              color: '--color-contrasting-fade-200',
+            },
+            {
+              color: '--color-contrasting-fade-100',
+            },
+          ],
+          [
+            {
+              color: '--color-danger',
+            },
+            {
+              color: '--color-danger-fade-200',
+            },
+            {
+              color: '--color-danger-fade-100',
+            },
+          ],
+        ].map((row, rowIndex) => (
+          <Row key={rowIndex} wrap>
+            {/* <div className={`🎏🧥🩳🎲 🎏🧥🩳🎲${n}`}>
+              <span>{`--${n}`}</span>
+            </div> */}
+            {row.map(({ color }, index) => (
+              <div
+                className={`🎏🧥🩳🎲 🎏🧥🩳🎲`}
+                key={index}
+                style={{
+                  background: `var(${color})`,
+                }}
+              >
+                <span>{color}</span>
+              </div>
+            ))}
+          </Row>
+        ))}
+        {/* {[
           'color-primary',
           'color-secondary',
           'color-dark',
@@ -74,7 +112,7 @@ const BasicUsage: React.FC = () => {
               ))
               .reverse()}
           </Row>
-        ))}
+        ))} */}
       </div>
     </>
   );

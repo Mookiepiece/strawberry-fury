@@ -8,12 +8,13 @@ const BasicUsage: React.FC = () => {
     .🎃🎊🧧🧵{
       width: 100px;
       height: 100px;
-      background: var(--color-dark-fade-300);
-      color: white;
+      background: var(--color-dark-fade-100);
+      color:  var(--color-dark);
     }
     .🎃🎊🧧🧵 div {
+      color: white;
       height: 50px;
-      background: var(--color-dark-fade-500);
+      background: var(--color-dark-fade-200);
       border-radius: 3px;
       padding: 2px 5px;
     }

@@ -3,75 +3,18 @@
 .st-button {
   position: relative;
   display: inline-block;
-  height: 36px;
-  padding: 0 10px;
+  height: 40px;
+  padding: 0 20px;
   color: currentColor;
   font-size: 14px;
   vertical-align: middle;
-  background-color: transparent;
+  background: transparent;
   border-radius: 3px;
   outline: 0;
   transition: all 0.1s, outline 0s;
 
-  &:not(:disabled):not(.st-button--loading) {
+  &:not(:disabled) {
     cursor: pointer;
-  }
-
-  &.st-button--default:not(:disabled):not(.st-button--loading) {
-    color: var(--color-dark-fade-700);
-    border: 1px solid var(--color-dark-fade-700);
-
-    &:hover,
-    &:focus-visible {
-      background-color: var(--color-dark-fade-200);
-      border-color: var(--color-dark-fade-200);
-    }
-    &:active {
-      background-color: var(--color-dark-fade-300);
-      border-color: var(--color-dark-fade-300);
-    }
-  }
-  &.st-button--default.st-button--loading,
-  &.st-button--default:disabled {
-    color: var(--color-dark-fade-500);
-    border: 1px solid var(--color-dark-fade-300);
-  }
-
-  &.st-button--primary:not(:disabled):not(.st-button--loading) {
-    color: var(--color-primary-darken);
-    border: 1px solid var(--color-primary);
-
-    &:hover,
-    &:focus-visible {
-      background-color: var(--color-primary-fade-300);
-      border-color: var(--color-primary-fade-300);
-    }
-    &:active {
-      background-color: var(--color-primary-fade-400);
-      border-color: var(--color-primary-fade-400);
-    }
-  }
-  &.st-button--primary.st-button--loading,
-  &.st-button--primary:disabled {
-    color: var(--color-primary);
-    border: 1px solid var(--color-primary-fade-500);
-  }
-
-  &.st-button--textual:not(:disabled):not(.st-button--loading) {
-    color: var(--color-dark);
-    border: 0;
-    &:hover,
-    &:focus-visible {
-      background-color: var(--color-dark-fade-200);
-    }
-    &:active {
-      background-color: var(--color-dark-fade-300);
-    }
-  }
-  &.st-button--textual.st-button--loading,
-  &.st-button--textual:disabled {
-    color: var(--color-dark-fade-500);
-    border: 0;
   }
 
   &.st-button--block {
@@ -79,14 +22,88 @@
     width: 100%;
   }
 
-  &:not(.st-button--block) + .st-button:not(.st-button--block) {
-    margin-left: 10px;
-  }
   &:focus-visible {
-    outline: 1px dashed var(--color-primary);
+    outline: 2px dashed var(--color-primary);
   }
 }
 
 .st-button__content {
   vertical-align: middle;
+}
+
+.st-button--default {
+  border: 1px solid var(--color-dark);
+  &:not(:disabled) {
+    color: var(--color-dark);
+
+    &:hover,
+    &:focus-visible {
+      background: var(--color-dark-fade-100);
+      border-color: transparent;
+    }
+    &:active {
+      background: var(--color-dark-fade-200);
+      border-color: transparent;
+    }
+  }
+  &:disabled {
+    color: var(--color-dark-fade-200);
+    border-color: var(--color-dark-fade-100);
+  }
+}
+
+.st-button--primary {
+  border: 1px solid var(--color-primary);
+
+  &:not(:disabled) {
+    color: var(--color-primary);
+
+    &:hover,
+    &:focus-visible {
+      background: var(--color-primary-fade-100);
+      border-color: transparent;
+    }
+    &:active {
+      background: var(--color-primary-fade-200);
+      border-color: transparent;
+    }
+  }
+  &:disabled {
+    color: var(--color-primary-fade-200);
+    border-color: var(--color-primary-fade-100);
+  }
+
+  &.st-button--solid {
+    color: white;
+    background: var(--color-primary);
+    border-color: transparent;
+    &:not(:disabled) {
+      &:hover,
+      &:focus-visible {
+        background: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)) var(--color-primary);
+      }
+      &:active {
+        background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)) var(--color-primary);
+      }
+    }
+    &:disabled {
+      background: var(--color-primary-fade-200);
+    }
+  }
+}
+
+.st-button--textual:not(:disabled) {
+  color: var(--color-dark);
+  border: 0;
+  &:hover,
+  &:focus-visible {
+    background: var(--color-dark-fade-100);
+  }
+  &:active {
+    background: var(--color-dark-fade-200);
+  }
+}
+.st-button--textual:disabled {
+  color: var(--color-dark-fade-200);
+  border: 0;
 }

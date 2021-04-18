@@ -7,14 +7,14 @@ const BasicUsage: React.FC = () => {
       <style>{`
     .🎃🎊🧧{
       height: 110px;
-      background: var(--color-contrasting-fade-400);
+      background: var(--color-contrasting-fade-100);
       color: white;
     }
     .🎃🎊🧧 div {
       margin: 2px;
       width: 50px;
       min-height: 50px;
-      background: var(--color-contrasting-fade-500);
+      background: var(--color-contrasting-fade-200);
       border-radius: 3px;
       padding: 2px 5px;
     }
