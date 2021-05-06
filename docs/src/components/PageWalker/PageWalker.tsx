@@ -63,7 +63,6 @@ const MyReactMarkdown: React.FC<{
         heading: props => {
           const { level, children } = props;
           if (level === 3) {
-            console.log(props, 123);
             return <HashHeadingOfSection {...props} />;
           } else {
             return React.createElement('h' + level, null, children);

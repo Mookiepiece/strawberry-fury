@@ -57,7 +57,7 @@
     border-collapse: collapse;
     code {
       color: var(--color-primary);
-      background: var(--color-primary-fade-100);
+      background: linear-gradient(#fffa, #fffa) var(--color-primary-fade-100);
     }
 
     th,
