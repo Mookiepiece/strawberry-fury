@@ -4,98 +4,104 @@ import { RuleItem } from 'async-validator';
 import { FormContext } from './FormContext';
 import { useEventCallback } from 'starfall/_utils/useEventCallback';
 import clsx from 'clsx';
-
-export function getProp(obj: Record<string, unknown>, pathes: string[]): unknown {
-  return pathes.reduce((tempObj, k) => {
-    if (k in tempObj) {
-      return tempObj[k] as Record<string, unknown>;
-    } else {
-      throw new Error(`[ST form] cannot get value by ${pathes} on object ${obj}`);
-    }
-  }, obj);
-}
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const debounce = <T extends (...any: any[]) => any>(func: T, delay: number): T => {
-  let timeout: NodeJS.Timeout;
-  return (((...args: unknown[]) => {
-    clearTimeout(timeout);
-    timeout = setTimeout(() => func(...args), delay);
-  }) as unknown) as T;
-};
+import { getProp, UNDEFINED_VALUE } from './getProp';
+import { useMountedState } from 'react-use';
 
 export type ValidateStatus = {
-  state: 'validating' | 'success' | 'error' | '';
+  state: 'error' | '';
   message: string;
 };
 
 // error messages has a exit animation so we dont reset messages
 export type ValidateStatusParam =
-  | 'validating'
   | ''
-  | 'success'
   | {
       state: 'error';
       message: string;
     };
 
-export type FormItemFnChildren = React.FC<{
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  value: any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onChange: (value: any) => void;
+export type FormItemFnChildren<T> = (props: {
+  value: T;
+  onChange: (value: T) => void;
+  withLabel: (children: React.ReactNode) => React.ReactNode;
   validate: (method: 'change' | 'force') => Promise<void>;
   validateStatus: ValidateStatus;
   setValidateStatus: (s: ValidateStatusParam) => void;
-  clearValidate: () => void;
   cancelValidate: () => void;
-}>;
+}) => React.ReactNode;
 
-export type FormItemProps = {
+export type FormItemProps<T> = {
   name: string;
-  label: string;
+  label?: string;
   rules?: RuleItem | RuleItem[];
-  children: React.ReactElement | FormItemFnChildren;
+  children: React.ReactElement | FormItemFnChildren<T>;
 };
 
-const FormContent: React.FC = ({ children }) => {
-  return <div className="st-form-content">{children}</div>;
-};
+const FormItem = <T extends any = any>({
+  rules = [],
+  label,
+  name,
+  children,
+}: FormItemProps<T>): React.ReactElement => {
+  const { register, unregister, formMitt } = useContext(FormContext);
+  const mounted = useMountedState();
+  const [state, setState] = useState<{
+    model: T;
+    validateStatus: ValidateStatus;
+  }>({
+    model: UNDEFINED_VALUE as T,
+    validateStatus: {
+      state: '',
+      message: '',
+    },
+  });
+  const validating = useRef(false);
 
-const FormItem: React.FC<FormItemProps> = ({ rules = [], label, name, children }) => {
-  const { value: formValue, setValue, register, unregister } = useContext(FormContext);
+  const value = state.model;
+  const validateStatus = state.validateStatus;
 
   const pathes = useMemo(() => {
     return name.replace(/\[(\w+)\]/g, '.$1').split('.');
   }, [name]);
 
-  const value = getProp(formValue, pathes);
-
-  const [validateStatus, _setValidateStatus] = useState<ValidateStatus>({
-    state: '',
-    message: '',
-  });
-  const setValidateStatus = useCallback((validateStatusParam: ValidateStatusParam) => {
-    if (typeof validateStatusParam === 'string') {
-      _setValidateStatus(({ message }) => ({
-        state: validateStatusParam,
-        message,
-      }));
-    } else {
-      _setValidateStatus(validateStatusParam);
-    }
-  }, []);
+  const setValidateStatus = useCallback(
+    (validateStatusParam: ValidateStatusParam) => {
+      if (mounted())
+        if (typeof validateStatusParam === 'string') {
+          setState(state => {
+            if (state.validateStatus.state === '') {
+              return state;
+            }
+            return {
+              ...state,
+              validateStatus: {
+                state: validateStatusParam,
+                message: state.validateStatus.message,
+              },
+            };
+          });
+        } else {
+          setState(state => ({
+            ...state,
+            validateStatus: validateStatusParam,
+          }));
+        }
+    },
+    [mounted]
+  );
 
   const validateKey = useRef(0);
   const nextTickToValidate = useRef(false);
-  const [nextTickToValidateValue, setNextTickToValidateValue] = useState<boolean>(false);
-
   const cancelValidate = useCallback(() => ++validateKey.current, []);
 
   const validate = useEventCallback(async (method: 'change' | 'force') => {
-    const validator = new AsyncValidator({ [name]: rules });
+    const fixedRules = Array.isArray(rules) ? rules : [rules];
+    if (!fixedRules.length) {
+      return;
+    }
+    const validator = new AsyncValidator({ [name]: fixedRules });
 
-    if (method === 'change' && validateStatus.state === 'validating') {
+    if (method === 'change' && validating.current) {
       nextTickToValidate.current = true;
       return;
     }
@@ -105,10 +111,10 @@ const FormItem: React.FC<FormItemProps> = ({ rules = [], label, name, children }
     const key = ++validateKey.current;
 
     try {
-      setValidateStatus('validating');
+      validating.current = true;
       await validator.validate({ [name]: value }, { firstFields: true });
       if (key === validateKey.current) {
-        setValidateStatus('success');
+        setValidateStatus('');
       }
     } catch (e) {
       if (key === validateKey.current) {
@@ -119,94 +125,144 @@ const FormItem: React.FC<FormItemProps> = ({ rules = [], label, name, children }
         if (method === 'force') throw e;
       }
     } finally {
+      // consume validate callbacks when this validation finished
+      // this is not duplicated with the useEffect below, because we may
+      // not call setState to trigger rerender in setValidateStatus.
       if (key === validateKey.current) {
+        validating.current = false;
         if (nextTickToValidate.current === true) {
           nextTickToValidate.current = false;
-          setNextTickToValidateValue(true);
+          validate('change');
         }
       }
     }
   });
 
   useEffect(() => {
-    if (nextTickToValidateValue === true) {
-      setNextTickToValidateValue(false);
+    const handleUpdate = ({
+      value: formValue,
+      pathes: triggerPathes,
+    }: {
+      value: unknown;
+      pathes: string[];
+    }): void => {
+      const newValue = getProp(formValue as Record<string, unknown>, pathes) as T;
+      // immutablility makes all changes will change the root object
+      // if this is a `parent form item` and has `child form items`
+      // and the child form items changed their `deep data`
+      // we don't re-render this item, it will
+      // rerender automatically as long as parent rerenders
+      // because we are using `render props` to render child base on parent
+      // in some edge case we want get the child data and display them in parent item
+      // we passing the parent's onChange to child item instead of it's own
+      if (triggerPathes.length <= pathes.length) {
+        if (state.model !== newValue) {
+          // state has been updated, cause a rerender in which we validate the new value in useEffect.
+          setState(state => ({
+            ...state,
+            model: newValue,
+          }));
+          nextTickToValidate.current = true;
+        }
+      }
+    };
+    formMitt.on('UPDATE', handleUpdate);
+    return () => {
+      formMitt.off('UPDATE', handleUpdate);
+    };
+  }, [formMitt, pathes, state.model]);
+
+  useEffect(() => {
+    if (nextTickToValidate.current === true) {
+      nextTickToValidate.current = false;
       validate('change');
     }
-  }, [nextTickToValidateValue, validate]);
+  });
 
-  const clearValidate = useCallback(() => {
-    setValidateStatus('');
-  }, [setValidateStatus]);
+  const reset = useCallback(
+    (value: T) => {
+      setValidateStatus('');
+      cancelValidate();
+      setState(state => ({
+        ...state,
+        model: value,
+      }));
+    },
+    [cancelValidate, setValidateStatus]
+  );
 
   useEffect(() => {
     const v = {
       name,
+      pathes,
       validate: () => validate('force'),
       setValidateStatus,
-      clearValidate,
       cancelValidate,
+      reset,
     };
     register(v);
 
     return () => unregister(v);
-  }, [register, unregister, name, validate, clearValidate, cancelValidate, setValidateStatus]);
-
-  const debouncedValidate = useCallback(() => debounce(() => validate('change'), 200)(), [
-    validate,
-  ]);
+  }, [register, unregister, name, validate, cancelValidate, setValidateStatus, pathes, reset]);
 
   const onChange = useCallback(
-    v => {
-      setValue(pathes, v);
-      debouncedValidate();
+    value => {
+      formMitt.emit('CHANGE', { pathes, value });
     },
-    [debouncedValidate, pathes, setValue]
+    [formMitt, pathes]
   );
 
-  let childNode: React.ReactElement | null = null;
+  const asterisk =
+    !!(Array.isArray(rules) ? rules : [rules]).find(r => r.required) && 'st-label-asterisk';
+
+  const errorMessageNode = validateStatus.message ? (
+    <span className="st-error-message">{validateStatus.message}</span>
+  ) : (
+    <span className="st-error-message">&nbsp;</span>
+  );
+
+  const withLabel = (children: React.ReactNode) =>
+    label ? (
+      <div
+        className={clsx('st-form-item', validateStatus.state === 'error' && 'st-form-item--error')}
+      >
+        <label>
+          <span className={clsx('st-label', asterisk)}>{label}</span>
+          {children}
+        </label>
+        {errorMessageNode}
+      </div>
+    ) : (
+      <>{children}</>
+    );
+
+  if (value === UNDEFINED_VALUE) {
+    return <></>;
+  }
+
+  let childNode: React.ReactNode | null = null;
   if (React.isValidElement(children)) {
     if ('value' in children.props) {
-      throw new Error('[ST Form.Item] remove prop `value` form input inside a form item');
+      throw new Error('[ST Form.Item] remove prop `value` from input inside a form item');
     }
     if ('onChange' in children.props) {
-      children.props;
+      throw new Error('[ST Form.Item] remove prop `onChange` from input inside a form item');
     }
 
-    childNode = React.cloneElement(children, { ...children.props, value, onChange });
+    childNode = withLabel(React.cloneElement(children, { ...children.props, value, onChange }));
   } else if (typeof children === 'function') {
     childNode = children({
       value,
       onChange,
       validate,
+      withLabel,
       validateStatus,
       setValidateStatus,
-      clearValidate,
       cancelValidate,
     });
   }
 
-  const asterisk = !!(Array.isArray(rules) ? rules : [rules]).find(r => r.required);
-
-  return (
-    <div
-      className={clsx('st-form-item', validateStatus.state === 'error' && 'st-form-item--error')}
-    >
-      <label>
-        <span className={clsx('st-label', asterisk && 'st-label-asterisk')}>{label}</span>
-        {childNode}
-      </label>
-      <FormContent>
-        <div>
-          {validateStatus.message ? (
-            <span className="st-error-message">{validateStatus.message}</span>
-          ) : (
-            <span className="st-error-message">&nbsp;</span>
-          )}
-        </div>
-      </FormContent>
-    </div>
-  );
+  return <>{childNode}</>;
 };
 
-export { FormItem, FormContent };
+export { FormItem };

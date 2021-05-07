@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { Form, Button, Input } from 'starfall';
 
 const BasicUsage: React.FC = () => {
-  const [value, setValue] = useState({
-    name: '',
+  const [initialValue] = useState({
+    name: '12',
     hair: '',
   });
-  const [value2, setValue2] = useState({
+  const [initialValue2] = useState({
     name: '',
     hair: '',
   });
@@ -37,8 +37,7 @@ const BasicUsage: React.FC = () => {
           name: string;
           hair: string;
         }>
-          value={value}
-          onChange={setValue}
+          initialValue={initialValue}
           action={async value =>
             new Promise(resolve => {
               setTimeout(() => {
@@ -91,13 +90,15 @@ const BasicUsage: React.FC = () => {
               },
             ]}
           >
-            {({ value, onChange }) => <Input value={value} onChange={onChange} />}
+            {({ withLabel, value, onChange }) =>
+              withLabel(<Input value={value} onChange={onChange} />)
+            }
           </Form.Item>
-          <Form.Content>
+          <div>
             <Form.SubmitButton primary>提交 Submit</Form.SubmitButton>
             &nbsp;
             <Button type="reset">重置 Reset</Button>
-          </Form.Content>
+          </div>
         </Form>
       </div>
       <br />
@@ -107,8 +108,7 @@ const BasicUsage: React.FC = () => {
           name: string;
           hair: string;
         }>
-          value={value2}
-          onChange={setValue2}
+          initialValue={initialValue2}
           ref={formRef}
           onSubmit={mannuallySubmit}
         >
@@ -155,13 +155,15 @@ const BasicUsage: React.FC = () => {
               },
             ]}
           >
-            {({ value, onChange }) => <Input value={value} onChange={onChange} />}
+            {({ withLabel, value, onChange }) =>
+              withLabel(<Input value={value} onChange={onChange} />)
+            }
           </Form.Item>
-          <Form.Content>
+          <div>
             <Form.SubmitButton primary>提交 Submit</Form.SubmitButton>
             &nbsp;
             <Button type="reset">重置 Reset</Button>
-          </Form.Content>
+          </div>
         </Form>
       </div>
       <br />

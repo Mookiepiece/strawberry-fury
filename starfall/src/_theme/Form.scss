@@ -1,7 +1,5 @@
 .st-label {
   display: block;
-  // display: inline-block;
-  width: 120px;
   margin-right: 10px;
   margin-bottom: 8px;
   color: var(--color-dark);
@@ -16,25 +14,19 @@
   }
 }
 
-.st-form-content {
-  // padding-left: 130px;
+.st-error-message {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--color-danger);
+  font-size: 12.7px;
+  line-height: 1;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: all 0.1s;
 }
 
-.st-form-item {
+.st-form-item--error {
   .st-error-message {
-    display: block;
-    margin-bottom: 8px;
-    color: var(--color-danger);
-    font-size: 12.7px;
-    line-height: 1;
-    transform: scaleY(0);
-    transform-origin: top;
-    transition: all 0.1s;
-  }
-
-  &.st-form-item--error {
-    .st-error-message {
-      transform: scaleY(1);
-    }
+    transform: scaleY(1);
   }
 }

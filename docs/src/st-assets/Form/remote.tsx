@@ -22,29 +22,25 @@ const apiUser = (s: string) => {
 };
 
 const BasicUsage: React.FC = () => {
-  const [value, setValue] = useState({
+  const [initialValue] = useState({
     name: '',
-    hair: '',
   });
 
   const formRef = Form.useRef();
 
   const [nameRule, setNameRule] = useState<RuleItem[]>([{ required: true }]);
-
   return (
     <>
       <Form<{
         name: string;
-        hair: string;
       }>
-        value={value}
-        onChange={setValue}
+        initialValue={initialValue}
         ref={formRef}
         action={[
           async v =>
             apiUser(v.name)
               .then(() => {
-                alert('🎉');
+                alert('🎉 ' + v.name);
               })
               .catch(async e => {
                 if (e.code === 666 && e.message) {
@@ -75,31 +71,7 @@ const BasicUsage: React.FC = () => {
         <Form.Item label="User Name" name="name" rules={nameRule}>
           <Input />
         </Form.Item>
-        <Form.Item
-          label="User Hair Plus"
-          name="hair"
-          rules={[
-            {
-              type: 'string',
-              asyncValidator: (rule, value) => {
-                return new Promise((resolve, reject) => {
-                  setTimeout(() => {
-                    if (value.length < 5) {
-                      reject('too short');
-                    } else {
-                      resolve();
-                    }
-                  }, 2000);
-                });
-              },
-            },
-          ]}
-        >
-          {({ value, onChange }) => <Input value={value} onChange={onChange} />}
-        </Form.Item>
-        <Form.Content>
-          <Form.SubmitButton>提交 Submit</Form.SubmitButton>
-        </Form.Content>
+        <Form.SubmitButton>提交 Submit</Form.SubmitButton>
       </Form>
     </>
   );

@@ -1,4 +1,4 @@
-import { ErrorList, ValidateError } from 'async-validator';
+import { ErrorList } from 'async-validator';
 import React, {
   useCallback,
   useImperativeHandle,
@@ -7,49 +7,34 @@ import React, {
   FormEvent,
   useState,
   useContext,
+  useEffect,
 } from 'react';
+import { useMount } from 'react-use';
+import Mitt from 'starfall/_utils/mitt';
+import type { Emitter } from 'starfall/_utils/mitt';
 import Button from '../Button';
 import { useEventCallback } from '../_utils/useEventCallback';
 import { FormContext, FormItemsRegisterProps } from './FormContext';
-import { FormItem, FormContent, FormItemProps, ValidateStatusParam } from './FormItem';
-
-function setProp<T extends Record<string, unknown>>(obj: T, pathes: string[], value: unknown): T {
-  const ans = { ...obj }; // answer
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let curr: any = ans; // an cursor to walk deep into the obj
-
-  let i = 0;
-  for (; i < pathes.length - 1; i++) {
-    const path = pathes[i];
-    const next = curr[path];
-    if (Array.isArray(next)) {
-      curr = curr[path] = [...next];
-    } else if (typeof next === 'object') {
-      curr = curr[path] = { ...next };
-    } else {
-      throw new Error(`[ST form] cannot get prop on ${obj} by [${pathes.join(' ')}]`);
-    }
-  }
-
-  if (value === undefined) {
-    delete curr[pathes[i]];
-  } else {
-    curr[pathes[i]] = value;
-  }
-
-  return ans;
-}
+import { FormItem, ValidateStatusParam } from './FormItem';
+import { getProp, setProp } from './getProp';
 
 type FormInstance<T extends Record<string, unknown>> = {
+  setInitialValue: (initialValue: T) => void;
   validate: (names?: string[]) => Promise<T>;
   reset: (names?: string[]) => void;
-  clearValidate: (names?: string[]) => void;
+  set: (callback: (value: T) => T) => void;
+  value: T;
   setValidateStatus: (name: string, validateStatus: ValidateStatusParam) => void;
 };
 
+export type FormMitt = Emitter<{
+  CHANGE: { pathes: string[]; value: any };
+  UPDATE: { value: unknown; pathes: string[] };
+  SUBMITTING_CHANGE: boolean;
+}>;
+
 type FormProps<T extends Record<string, unknown>> = {
-  value: T;
-  onChange: (value: T) => void;
+  initialValue: T;
   children?: React.ReactNode;
   /** provide api and indicates the Form do internal submit, pick one from `action` and `onSubmit` */
   action?:
@@ -60,23 +45,28 @@ type FormProps<T extends Record<string, unknown>> = {
 };
 
 const _Form = <T extends Record<string, unknown>>(props: FormProps<T>, ref: React.Ref<unknown>) => {
-  const { value, children } = props;
-
-  const [submitting, setSubmitting] = useState(false);
-
   if ((props.action && props.onSubmit) || (!props.action && !props.onSubmit)) {
     throw new Error('[ST form] prop `action` and `onSubmit` conflicts or not be provided');
   }
 
-  const onChange = useEventCallback(props.onChange);
+  const initialValue = useRef(props.initialValue);
+  const valueRef = useRef<T>(initialValue.current);
 
-  const initialValue = useRef(value);
+  const [formMitt] = useState(() => Mitt() as FormMitt);
 
   const items = useRef<FormItemsRegisterProps[]>([]);
 
-  const register = useCallback(i => {
+  useMount(() => {
+    formMitt.on('CHANGE', ({ pathes, value: propValue }) => {
+      valueRef.current = setProp<T>(valueRef.current, pathes, propValue);
+      formMitt.emit('UPDATE', { value: valueRef.current, pathes });
+    });
+  });
+
+  const register = useEventCallback((i: FormItemsRegisterProps) => {
     items.current = [...items.current, i];
-  }, []);
+    i.reset(getProp(valueRef.current, i.pathes));
+  });
   const unregister = useCallback(i => {
     const index = items.current.findIndex(k => k === i);
     if (index !== -1) {
@@ -92,6 +82,7 @@ const _Form = <T extends Record<string, unknown>>(props: FormProps<T>, ref: Reac
 
       let t = 0;
       const errors: ErrorList = [];
+      const value = valueRef.current;
       return new Promise((resolve, reject) => {
         const callback = (e?: { errors: ErrorList }) => {
           if (e) {
@@ -110,19 +101,15 @@ const _Form = <T extends Record<string, unknown>>(props: FormProps<T>, ref: Reac
     }
   );
 
-  const clearValidate = useCallback((names: string[] = []) => {
-    const i = names.length
-      ? items.current.filter(({ name }) => names.includes(name))
-      : items.current;
-    i.forEach(item => item.clearValidate());
-  }, []);
-
   const reset = useEventCallback(async (names: string[] = []) => {
     const i = names.length
       ? items.current.filter(({ name }) => names.includes(name))
       : items.current;
-    i.forEach(item => (item.cancelValidate(), item.clearValidate()));
-    onChange(initialValue.current);
+    i.forEach(item => {
+      const i = getProp(initialValue.current, item.pathes);
+      item.reset(i);
+      valueRef.current = setProp(valueRef.current, item.pathes, i);
+    });
   });
 
   const setValidateStatus = useCallback((name: string, validateStatus: ValidateStatusParam) => {
@@ -132,55 +119,66 @@ const _Form = <T extends Record<string, unknown>>(props: FormProps<T>, ref: Reac
     });
   }, []);
 
-  const setValue = useEventCallback((pathes: string[], propValue: unknown) => {
-    onChange(setProp<T>(value, pathes, propValue));
-  });
+  const set = useCallback(
+    (callback: (value: T) => T) => {
+      formMitt.emit('UPDATE', {
+        value: (valueRef.current = callback(valueRef.current)),
+        pathes: [],
+      });
+    },
+    [formMitt]
+  );
 
   const formContextValue = useMemo(
     () => ({
-      value,
-      setValue,
       register,
       unregister,
-      submitting,
+      formMitt,
     }),
-    [value, setValue, register, unregister, submitting]
+    [register, unregister, formMitt]
   );
 
   useImperativeHandle(
     ref,
     (): FormInstance<T> => ({
+      setInitialValue(v) {
+        initialValue.current = v;
+      },
       validate,
       setValidateStatus,
-      clearValidate,
+      set,
+      get value() {
+        return valueRef.current;
+      },
       reset,
     }),
-    [validate, setValidateStatus, clearValidate, reset]
+    [validate, setValidateStatus, set, reset]
   );
 
+  const submitting = useRef(false);
   const handleSubmit = useEventCallback(async (e: FormEvent) => {
     e.preventDefault();
-
     if (props.action) {
+      if (submitting.current) return;
+      // internal submit
       const [successAction, failedAction] = Array.isArray(props.action)
         ? props.action
         : [props.action, () => {}];
 
-      // internal submit
-      setSubmitting(() => true);
-
+      formMitt.emit('SUBMITTING_CHANGE', (submitting.current = true));
+      const v = valueRef.current;
       try {
         await validate();
 
         try {
-          await successAction(value);
+          await successAction(v);
         } catch (_) {
           void 0;
         }
       } catch (e) {
         failedAction(e);
       } finally {
-        setSubmitting(() => false);
+        formMitt.emit('SUBMITTING_CHANGE', (submitting.current = false));
       }
     } else {
       // external submit
@@ -188,24 +186,28 @@ const _Form = <T extends Record<string, unknown>>(props: FormProps<T>, ref: Reac
     }
   });
 
-  const handleReset = useCallback(
-    (e: FormEvent) => {
-      e.preventDefault();
-      reset();
-    },
-    [reset]
-  );
-
   return (
-    <form onSubmit={handleSubmit} onReset={handleReset}>
-      <FormContext.Provider value={formContextValue}>{children}</FormContext.Provider>
+    <form
+      onSubmit={handleSubmit}
+      onReset={(e: FormEvent) => {
+        e.preventDefault();
+        reset();
+      }}
+    >
+      <FormContext.Provider value={formContextValue}>{props.children}</FormContext.Provider>
     </form>
   );
 };
 _Form.displayName = 'Form';
 
 const FormSubmitButton: typeof Button = props => {
-  const { submitting } = useContext(FormContext);
+  const { formMitt } = useContext(FormContext);
+
+  const [submitting, setSubmitting] = useState(false);
+  useEffect(() => {
+    formMitt.on('SUBMITTING_CHANGE', setSubmitting);
+    return () => formMitt.off('SUBMITTING_CHANGE', setSubmitting);
+  }, [formMitt]);
 
   return <Button {...props} type="submit" loading={props.loading || submitting} />;
 };
@@ -213,13 +215,11 @@ const FormSubmitButton: typeof Button = props => {
 const Form: (<T extends Record<string, unknown>>(
   props: FormProps<T> & React.RefAttributes<unknown>
 ) => React.ReactElement) & {
-  Item: React.FC<FormItemProps>;
-  Content: React.FC;
+  Item: typeof FormItem;
   SubmitButton: typeof Button;
   useRef: <T extends Record<string, unknown>>() => React.RefObject<FormInstance<T>>;
 } = Object.assign(React.forwardRef(_Form), {
   Item: FormItem,
-  Content: FormContent,
   SubmitButton: FormSubmitButton,
   useRef: <T extends Record<string, unknown>>() => React.useRef<FormInstance<T>>(null),
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

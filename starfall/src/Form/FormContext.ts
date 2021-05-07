@@ -1,24 +1,22 @@
 import React from 'react';
+import { FormMitt } from './Form';
 import { ValidateStatusParam } from './FormItem';
 
 export type FormItemsRegisterProps = {
   name: string;
+  pathes: string[];
   validate: () => Promise<void>;
   cancelValidate: () => void;
-  clearValidate: () => void;
+  reset: (value: any) => void;
   setValidateStatus: (s: ValidateStatusParam) => void;
 };
 
 export const FormContext = React.createContext<{
-  value: Record<string, unknown>;
-  setValue: (pathes: string[], propValue: unknown) => void;
   register: (i: FormItemsRegisterProps) => void;
   unregister: (i: FormItemsRegisterProps) => void;
-  submitting: boolean;
+  formMitt: FormMitt;
 }>({
-  value: {},
-  setValue: () => {},
-  register: () => {},
+  register() {},
   unregister() {},
-  submitting: false,
+  formMitt: { on() {}, off() {}, emit() {} },
 });
