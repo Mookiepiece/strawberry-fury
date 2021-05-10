@@ -54,6 +54,7 @@ const _Form = <T extends Record<string, unknown>>(props: FormProps<T>, ref: Reac
 
   const [formMitt] = useState(() => Mitt() as FormMitt);
 
+  // using Map will make things complicated because map could not support `multiple same name` without using array
   const items = useRef<FormItemsRegisterProps[]>([]);
 
   useMount(() => {
