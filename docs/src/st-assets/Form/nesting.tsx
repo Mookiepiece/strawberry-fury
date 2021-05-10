@@ -11,8 +11,8 @@ const List: React.FC = () => {
 
   const formRef = Form.useRef<{
     user: {
-      name: '';
-      hair: '';
+      name: string;
+      hair: string;
     };
   }>();
 
