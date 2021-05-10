@@ -1,9 +1,9 @@
 import mitt from 'mitt';
 
 export interface Emitter<T> {
-  on(type: T, handler: (event?: T) => void): void;
-  off(type: T, handler: (event?: T) => void): void;
-  emit(type: T, event?: (event?: T) => void): void;
+  on<K extends keyof T>(type: K, handler: (event: T[K]) => void): void;
+  off<K extends keyof T>(type: K, handler: (event: T[K]) => void): void;
+  emit<K extends keyof T>(type: K, event: T[K]): void;
 }
 
 const Mitt = <T>(): Emitter<T> => (mitt() as unknown) as Emitter<T>;
