@@ -7,6 +7,9 @@ export type I18nKeys =
   | 'NavbarHome'
   | 'NavbarSfComponents'
   | 'NavbarStComponents'
+  | 'SidebarSfComponentButton'
+  | 'SidebarSfComponentDialog'
+  | 'SidebarSfComponentFarm'
   | 'SidebarStComponentButton'
   | 'SidebarStComponentDialog'
   | 'SidebarStComponentModal'
@@ -43,6 +46,18 @@ const a: Record<
   NavbarStComponents: {
     en: 'Starfall',
     zh: 'Starfall',
+  },
+  SidebarSfComponentButton: {
+    en: 'Button 按钮',
+    zh: 'Button 按钮',
+  },
+  SidebarSfComponentDialog: {
+    en: 'Dialog 对话框',
+    zh: 'Dialog 对话框',
+  },
+  SidebarSfComponentFarm: {
+    en: 'Farm 农场',
+    zh: 'Farm 农场',
   },
   SidebarStComponentButton: {
     en: 'Button 按钮',

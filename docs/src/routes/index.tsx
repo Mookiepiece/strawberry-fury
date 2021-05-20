@@ -26,8 +26,9 @@ export default [
           <DocLayout
             nav={{
               Components: {
-                '/sf-components/button': 'SidebarStComponentButton',
-                '/sf-components/dialog': 'SidebarStComponentDialog',
+                '/sf-components/button': 'SidebarSfComponentButton',
+                '/sf-components/dialog': 'SidebarSfComponentDialog',
+                '/sf-components/farm': 'SidebarSfComponentFarm',
               },
             }}
             {...props}
@@ -46,6 +47,10 @@ export default [
           {
             path: '/sf-components/dialog',
             component: loadable(() => import('🦌/pages/sf-components/Dialog')),
+          },
+          {
+            path: '/sf-components/farm',
+            component: loadable(() => import('🦌/pages/sf-components/Farm')),
           },
         ],
       },
