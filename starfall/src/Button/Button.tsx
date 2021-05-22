@@ -40,7 +40,7 @@ const Button: React.FC<ButtonProps> = ({
       disabled={disabled || loading}
       {...rest}
     >
-      <Spin border={1} visible={loading} />
+      <Spin weight={1} loading={loading} />
       <span className="st-button__content">{children}</span>
     </button>
   );

@@ -70,6 +70,7 @@ export default [
                 '/st-components/link': 'SidebarStComponentLink',
                 '/st-components/modal': 'SidebarStComponentModal',
                 '/st-components/notification': 'SidebarStComponentNotification',
+                '/st-components/spin': 'SidebarStComponentSpin',
               },
             }}
             {...props}
@@ -112,6 +113,10 @@ export default [
           {
             path: '/st-components/notification',
             component: loadable(() => import('🦌/pages/st-components/Notification')),
+          },
+          {
+            path: '/st-components/spin',
+            component: loadable(() => import('🦌/pages/st-components/Spin')),
           },
         ],
       },

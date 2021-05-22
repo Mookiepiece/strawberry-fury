@@ -7,7 +7,8 @@
   overflow: hidden;
   vertical-align: middle;
   border-radius: 6px;
-
+  user-select: none;
+  pointer-events: none;
   &::before {
     position: absolute;
     top: calc(7px - var(--st-spin-border));
@@ -33,6 +34,31 @@
     animation: fill 2s linear reverse infinite;
     content: '';
   }
+}
+
+.st-spin-container {
+  position: relative;
+  transition: opacity 0.1s;
+}
+
+.st-spin-container__overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.6;
+  user-select: none;
+  pointer-events: none;
+}
+
+.st-spin-container--loading .st-spin-container__inner {
+  opacity: 0.6;
+  user-select: none;
+  pointer-events: none;
 }
 
 .st-spin-enter {
