@@ -7,10 +7,16 @@
   "module": "lib/index.esm.js",
   "scripts": {
     "build": "yarn clean && yarn build:types && yarn build:bundle && yarn build:comp",
+    "test": "jest",
     "build:bundle": "rollup --config ../strawberry-fury/scripts/rollup.bundle.config.js",
     "build:types": "tsc -p ./tsconfig.json",
     "build:comp": "node ../strawberry-fury/scripts/build.components.mjs",
     "clean": "rimraf lib"
+  },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "./jest.setup.js"
+    ]
   },
   "devDependencies": {
     "@babel/core": "^7.13.8",
@@ -23,10 +29,16 @@
     "@rollup/plugin-commonjs": "^17.1.0",
     "@rollup/plugin-node-resolve": "^11.2.0",
     "@rollup/plugin-typescript": "^8.2.0",
+    "@types/enzyme": "^3.10.8",
+    "@types/jest": "^26.0.23",
     "@types/react": "^17.0.2",
     "@types/react-dom": "^17.0.1",
     "@types/react-transition-group": "^4.4.1",
+    "babel-plugin-module-resolver": "^4.1.0",
     "clsx": "^1.1.1",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.6",
+    "jest": "^26.6.3",
     "mitt": "^2.1.0",
     "postcss": "^8.2.7",
     "prettier": "^2.2.1",

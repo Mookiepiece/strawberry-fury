@@ -19,9 +19,8 @@ const App: React.FC = () => {
         <Form<{
           name: string;
         }>
-          onSubmit={alert}
-          value={form}
-          onChange={setForm}
+          onSubmit={() => alert(1)}
+          initialValue={form}
         >
           <Form.Item label="Name" name="name" rules={[{ required: true }]}>
             <Input />

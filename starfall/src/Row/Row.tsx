@@ -65,5 +65,9 @@ const RowCreator = (displayName: string, defaultClassName: string): React.FC<Row
   return Row;
 };
 
-export const Row = RowCreator('Row', 'row');
-export const Col = RowCreator('Col', 'col');
+export const Row: React.FC<RowProps> & { Col: React.FC<RowProps> } = Object.assign(
+  RowCreator('Row', 'row'),
+  {
+    Col: RowCreator('Col', 'col'),
+  }
+);

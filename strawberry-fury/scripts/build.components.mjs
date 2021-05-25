@@ -94,7 +94,7 @@ runBuild();
 // this can be remove if we import typescript from 'rollup-plugin-typescript2'
 
 // #3
-// this is not verbose, we tells babel to transform ts files
+// we tell babel to process `--extensions` files
 // like setting [ test: /.ts/ ] in webpack
 // https://babeljs.io/docs/en/babel-preset-typescript
 
@@ -104,13 +104,22 @@ runBuild();
 // use @rollup/plugin-alias only if those modules are not external
 // eg: ./Button/index.js -> import '🦄/utils' -> import '../utils'
 // element-plus have did this
-// this works even pathes are nested eg: ./Button/src/helpers/a.js -> import '🦄/utils' -> ???
+// this works even pathes are nested
+// eg: ./Button/src/helpers/a.js -> import '🦄/utils' -> ./Button/index.(bundle.)js + import '../utils'
 // because this only affects the output file which is a single file named lib/button/index.js
-// we just ensure the path maps is working on our final output index directory/index file
-// think our 🦄 imports are reactjs, and this is the way rollup pack reactjs
-// rollup treat pathes as strings
+// ---
+// we use `rollup-plugin-alias` in rollup.bundle.config.js because every imports are internal
+// may be we'll using `babel-plugin-module-resolver` to resolve pathes for jest...
+// ---
+// now we have many resolvers for each build tool
+// tsconfig.json                 -> typescript + vscode intellisense
+// eslintrc import resolver      -> if `eslint-plugin-import` installed
+// rollup config.output.alias    -> rollup (signle component/util)
+// rollup-plugin-alias           -> rollup (bundle everything)
+// babel-plugin-module-resolver  -> jest
 
 // #5
 // we assume that our utils directory has no sub directory
 // and when a util file wants import from another util file
 // also imports need starts with 🦄 to avoid not to be bundled in.
+// same as other components

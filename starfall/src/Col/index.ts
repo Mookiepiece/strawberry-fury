@@ -1,3 +1,2 @@
-import { Col } from '../Row/Row';
-
-export default Col;
+import Row from '../Row';
+export default Row.Col;
