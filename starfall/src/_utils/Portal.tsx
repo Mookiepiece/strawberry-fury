@@ -29,6 +29,7 @@ export const setup = (key: 'Modal' | 'Notification'): HTMLDivElement => {
 export const Portal: React.FC = ({ children }) => {
   if (typeof document !== 'object') return null;
   const starfallModalRoot = setup('Modal');
+
   return ReactDOM.createPortal(children, starfallModalRoot);
 };
 

@@ -1,7 +1,6 @@
 {
-  "name": "strawberry-fury",
+  "name": "@mookiepiece/strawberry-fury",
   "version": "0.0.1",
-  "private": true,
   "description": "vanilla react.js components.",
   "main": "lib/index.js",
   "module": "lib/index.esm.js",

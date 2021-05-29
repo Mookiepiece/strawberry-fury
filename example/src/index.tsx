@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import { render } from 'react-dom';
-import { Col, Row, Collapse, Form, Input } from 'starfall';
-import 'starfall/src/_theme/common.scss';
-import 'strawberry-fury/src/_theme/common.scss';
+import { Col, Row, Collapse, Form, Input, Button } from '@mookiepiece/starfall';
+import '@mookiepiece/starfall/src/_theme/common.scss';
 
 const App: React.FC = () => {
   const [active, setActive] = useState(false);
   const [form, setForm] = useState({ name: 'uuuu' });
   return (
     <>
-      <button onClick={() => setActive(!active)}>toggle</button>
+      <Button onClick={() => setActive(!active)}>toggle</Button>
       <Collapse.Panel active={active}>
         <p>
           Lorem, ipsum dolor sit amet consectetur adipisicing elit. Expedita libero iste quis,

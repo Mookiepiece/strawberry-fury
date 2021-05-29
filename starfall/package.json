@@ -1,7 +1,6 @@
 {
-  "name": "starfall",
-  "version": "0.0.1",
-  "private": true,
+  "name": "@mookiepiece/starfall",
+  "version": "0.0.0",
   "description": "react.js components for learning",
   "main": "lib/index.js",
   "module": "lib/index.esm.js",
@@ -74,7 +73,7 @@
   "author": "Mookiepiece",
   "license": "WTFPL",
   "files": [
-    "src/",
+    "src/_theme",
     "lib/"
   ]
 }

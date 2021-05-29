@@ -27,24 +27,24 @@ const config = {
             [
               'import',
               {
-                libraryName: 'strawberry-fury',
+                libraryName: '@mookiepiece/strawberry-fury',
                 customStyleName(name) {
-                  return `strawberry-fury/src/_theme/${name}.scss`;
+                  return `@mookiepiece/strawberry-fury/src/_theme/${name}.scss`;
                 },
                 camel2DashComponentName: false,
               },
-              'strawberry-fury',
+              '@mookiepiece/strawberry-fury',
             ],
             [
               'import',
               {
-                libraryName: 'starfall',
+                libraryName: '@mookiepiece/starfall',
                 customStyleName(name) {
-                  return `starfall/src/_theme/${name}.scss`;
+                  return `@mookiepiece/starfall/src/_theme/${name}.scss`;
                 },
                 camel2DashComponentName: false,
               },
-              'starfall',
+              '@mookiepiece/starfall',
             ],
           ],
         },
