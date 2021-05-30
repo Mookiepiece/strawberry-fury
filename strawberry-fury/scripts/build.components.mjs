@@ -33,7 +33,8 @@ const runBuild = async () => {
     const outOptions = {
       dir: 'lib',
       entryFileNames: '[name]/index.js',
-      format: 'es',
+      format: 'commonjs',
+      exports: 'auto',
       paths(i) {
         if (i.startsWith('starfall')) return i.replace('starfall', '..');
         if (i.startsWith('🦄')) return i.replace('🦄', '..'); // #4
@@ -67,7 +68,8 @@ const runBuild = async () => {
     };
     const outOptions = {
       dir: 'lib/_utils',
-      format: 'es',
+      format: 'commonjs',
+      exports: 'auto',
       paths(i) {
         if (i.startsWith('starfall')) return i.replace('starfall', '..');
         if (i.startsWith('🦄')) return i.replace('🦄', '..');

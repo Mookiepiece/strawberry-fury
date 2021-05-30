@@ -39,7 +39,7 @@ Of course there are some interesting components included.
 - yarn dev: 开发，启动网页文档，然后便可以添加示例，修改组件并且在文档里实时看到变化.
 - yarn build: 构建
   - build_types: 使用 typescript cli 生成 ts 声明文件到`dist`，文件目录结构会被保留.
-  - build_comp: 执行 `scripts/build.components.mjs`, 使用 rollup 打包每个组件文件夹输出到 `dist/[Name]`，并不是每个文件夹都打包一次！只有两次打包，一次是打包所有组件 components，一次是打包工具 utils，因为 rollup 支持设置多个入口，分文件夹打包是为了支持`babel-plugin-import`
+  - build_comp: 执行 `scripts/build.components.mjs`, 使用 rollup 打包每个组件文件夹输出到 `dist/[Name]`，并不是每个文件夹都打包一次！只有两次打包，一次是打包所有组件 components，一次是打包工具 utils，因为 rollup 支持设置多个入口，分文件夹打包是为了支持`babel-plugin-import`。webpack 不支持 es module 输出，所以有服务端渲染就该用 commonjs，所以 components 是 commonjs 形式。
   - build_bundle: run `scripts/rollup.bundle.config.js`, 使用 rollup 打包到单个文件输出到 `dist`.
 - yarn example: 在`yarn build` 执行后，本地测试打包后的文件是否正常运行.
 - yarn docs_build docs_deploy: 打包网站及上传到 github pages.
@@ -103,7 +103,7 @@ NO English translations for rest sections in this chapter
 
 `tree shaking`只对`ES Module (ESM)` 文件生效。所以本项目用 `rollup` 构建`ESM` 输出。`webpack` 的 `ESM` 输出还在实验阶段。`typescript-cli`也支持`ESNext`输出，`babel-cli`也支持配置不转换模块语法。
 
-`webpack` 是不会在开发模式启动`tree shaking`的，生产环境才会启用，[material-ui: minimizing-bundle-size](https://material-ui.com/guides/minimizing-bundle-size/#when-and-how-to-use-tree-shaking)这篇指南介绍得非常详细，所以如果你的库很大，需要借助`babel-plugin-import`将 `import { Component } from 'my-lib'`转换成`import Component from 'my-lib/Component'`提升开发模式的编译速度，因为前者在`tree shaking`没有启用的情况会引入文件的整个内容，后者因为路径写得更细，所以只引入你需要的文件
+`webpack` 生产环境才会启用`tree shaking`，[material-ui: minimizing-bundle-size](https://material-ui.com/guides/minimizing-bundle-size/#when-and-how-to-use-tree-shaking)这篇指南介绍得非常详细，所以如果你的库很大，需要借助`babel-plugin-import`将 `import { Component } from 'my-lib'`转换成`import Component from 'my-lib/Component'`提升开发模式的编译速度，因为前者在`tree shaking`没有启用的情况会引入文件的整个内容，后者因为路径写得更细，所以只引入需要的文件。
 
 #### 关于 css
 
