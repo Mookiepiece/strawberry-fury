@@ -4,23 +4,10 @@ import ReactMarkdown from 'react-markdown';
 import DemoPlayer from '../DemoPlayer';
 import gfm from 'remark-gfm';
 import directive from 'remark-directive';
-import { i18nStateContext } from '🦌/utils/i18n';
+import { i18nStateContext } from '@docs/utils/i18n';
 import { Link, useHistory } from 'react-router-dom';
 import clsx from 'clsx';
 import './styles.scss';
-
-//https://zhuanlan.zhihu.com/p/59564277 webpack中require.context的作用
-function getMarkdownAndDemo(requireDemo: any, requireRaw: any) {
-  const map: Record<string, { demo: any; raw: string }> = requireDemo.keys().reduce(
-    (map: any, key: any) => ({
-      ...map,
-      [key]: { demo: requireDemo(key).default, raw: requireRaw(key).default },
-    }),
-    {}
-  );
-
-  return map;
-}
 
 const HashHeadingOfSection: React.FC<any> = ({ children }) => {
   const hash = '#' + children[0].props.value;
@@ -75,7 +62,7 @@ const MyReactMarkdown: React.FC<{
             return (
               <section className="container-directive-markdown-with-demo-section">
                 <div className="page-walker-markdown">{children}</div>
-                <DemoPlayer src={demosMap['.' + attributes.class.replace(/ /g, '.')]} />
+                <DemoPlayer src={demosMap[[...Object.keys(attributes)][0]]} />
               </section>
             );
           }
@@ -91,7 +78,9 @@ const MyReactMarkdown: React.FC<{
           const { name, attributes, children } = props;
 
           if (name === 'demo') {
-            return <DemoPlayer src={demosMap['.' + attributes.class.replace(/ /g, '.')]} />;
+            //   console.log(props);
+            return <DemoPlayer src={demosMap[[...Object.keys(attributes)][0]]} />;
+            //   // return <DemoPlayer src={demosMap['.' + attributes.class.replace(/ /g, '.')]} />;
           }
           return <span className={clsx(`leaf-directive-${name}`)}>{children}</span>;
         },
@@ -103,13 +92,19 @@ const MyReactMarkdown: React.FC<{
   );
 };
 
-const PageWalker: React.FC<{ requireDemo: any; requireRaw: any }> = ({
+const PageWalker: React.FC<{ requireDemo: any; requireRaw: any; requireMd: any }> = ({
   requireDemo,
   requireRaw,
+  requireMd,
 }) => {
   const [i18nState] = useContext(i18nStateContext);
-  const demosMap = getMarkdownAndDemo(requireDemo, requireRaw);
-  const article = requireRaw(`./index-${i18nState}.md`).default;
+  const demosMap = Object.keys(requireDemo).reduce((map, _key) => {
+    const key = _key.split('/').slice(-1)[0].split('.')[0]; // _key === 'bla/bla/basicDemo.tsx'
+    return { ...map, [key]: { demo: requireDemo[_key], raw: requireRaw[key] } };
+  }, {});
+
+  const article = requireMd[i18nState];
+  console.log(demosMap);
 
   return (
     <div className="page-walker">

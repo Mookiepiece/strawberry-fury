@@ -4,6 +4,6 @@
 
 打开一个通知框，里面能够嵌入任意`React`节点
 
-::demo{./basic.tsx}
+::demo{basic}
 
 ### 接口索引

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Button } from 'starfall';
 
 const BasicUsage: React.FC = () => {
   return (
@@ -8,6 +7,7 @@ const BasicUsage: React.FC = () => {
     .🎃🎊🧧🧵{
       width: 100px;
       height: 100px;
+      box-sizing: border-box;
       background: var(--color-dark-fade-100);
       color:  var(--color-dark);
     }

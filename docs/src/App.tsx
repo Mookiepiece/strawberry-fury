@@ -1,9 +1,9 @@
 import React, { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
 import { HashRouter as Router } from 'react-router-dom';
 import { getCowboy, i18nContext, i18nStateContext, Language } from './utils/i18n';
-import '🦌/styles.scss';
+import '@docs/styles.scss';
 import Routes from './routes';
-import { RouteView } from '🦌/utils/RouterView';
+import { RouteView } from '@docs/utils/RouterView';
 
 import '🦄/_theme/index.scss';
 import 'starfall/_theme/index.scss';

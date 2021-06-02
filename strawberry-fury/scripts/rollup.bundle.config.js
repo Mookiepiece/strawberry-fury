@@ -26,8 +26,8 @@ export default {
     }),
     alias({
       entries: {
-        '🦄': path.resolve(__dirname, '../src'),
-        starfall: path.resolve(__dirname, '../../starfall/src'),
+        '@strawberry': path.resolve(__dirname, '../src'),
+        '@starfall': path.resolve(__dirname, '../../starfall/src'),
       },
     }),
     babel({

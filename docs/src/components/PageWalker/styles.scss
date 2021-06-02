@@ -1,4 +1,4 @@
-@import '🦌/mixins.scss';
+@import '@docs/mixins.scss';
 
 .page-walker-markdown {
   color: var(--color-dark);
@@ -50,6 +50,7 @@
 
   // TABLE
   > table {
+    box-sizing: border-box;
     width: 100%;
     margin-bottom: 24px;
     font-size: 14px;

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
-import Mitt from '🦄/_utils/mitt';
+import Mitt from '@strawberry/_utils/mitt';
 import {
   FarmBagItem,
   FarmMitt,

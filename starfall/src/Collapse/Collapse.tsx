@@ -1,7 +1,7 @@
 import React, { useCallback, useContext, useMemo, useRef, useState } from 'react';
 import clsx from 'clsx';
 import { useMount, useUnmount } from 'react-use';
-import { useEventCallback } from 'starfall/_utils/useEventCallback';
+import { useEventCallback } from '@starfall/_utils/useEventCallback';
 import CollapsePanel, { CollapsePanelProps } from './CollapsePanel';
 const CollapseContext = React.createContext<{
   names: string[];
@@ -82,15 +82,13 @@ const Collapse: React.FC & {
 type CollapseSummaryProps = {
   children: React.ReactElement;
   active?: boolean;
-  toggle: () => void;
 };
-const CollapseSummary: React.FC<CollapseSummaryProps> = ({ children, active, toggle }) => {
+const CollapseSummary: React.FC<CollapseSummaryProps> = ({ children, active }) => {
   React.Children.only(children);
 
   return React.cloneElement(children, {
     className: clsx(children.props.className, active ? 'active' : ''),
     onClick: () => {
-      toggle();
       children.props.onClick?.();
     },
   });
@@ -122,7 +120,6 @@ const CollapseItem: React.FC<{
       {React.cloneElement(summary, {
         ...summary.props,
         active: value.active,
-        toggle: value.toggle,
       })}
       {React.cloneElement(panel, {
         ...panel.props,

@@ -2,13 +2,13 @@
 
 基本组件
 
-:::demo{./basic.tsx}
+:::demo{basic}
 
 ### 基本用法
 
 :::
 
-:::demo{./custom-width.tsx}
+:::demo{customWidth}
 
 ### 自定义样式
 
@@ -16,7 +16,7 @@
 
 :::
 
-:::demo{./haircut.tsx}
+:::demo{haircut}
 
 ### 发型
 

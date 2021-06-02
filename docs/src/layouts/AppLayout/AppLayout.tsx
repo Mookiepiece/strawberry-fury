@@ -1,12 +1,12 @@
 import React, { useContext, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import NavLink from '🦌/components/NavLink';
+import NavLink from '@docs/components/NavLink';
 
-import logo from '🦌/strawberry-fury-LOGO.png';
-import { i18nContext, i18nStateContext, Language } from '🦌/utils/i18n';
-import { DocRoute, RouteView } from '🦌/utils/RouterView';
+import logo from '@docs/strawberry-fury-LOGO.png';
+import { i18nContext, i18nStateContext, Language } from '@docs/utils/i18n';
+import { DocRoute, RouteView } from '@docs/utils/RouterView';
 import { Button } from 'starfall';
-import useBreakpoints from '🦌/utils/useBreakpoints';
+import useBreakpoints from '@docs/utils/useBreakpoints';
 import './styles.scss';
 
 const Nav: React.FC<{ i18nState: Language; setI18nState: () => void }> = ({

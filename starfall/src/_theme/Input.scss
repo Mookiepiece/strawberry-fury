@@ -1,6 +1,7 @@
 @import './mixins.scss';
 
 input.st-input {
+  box-sizing: border-box;
   width: 100%;
   height: 40px;
   padding: 0 12px;

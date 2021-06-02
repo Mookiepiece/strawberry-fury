@@ -2,13 +2,13 @@
 
 a basic component
 
-:::demo{./basic.tsx}
+:::demo{basic}
 
 ### Basic Usage
 
 :::
 
-:::demo{./custom-width.tsx}
+:::demo{customWidth}
 
 ### Custom Style
 
@@ -16,7 +16,7 @@ Buttons could have custom `width` and `height`
 
 :::
 
-:::demo{./haircut.tsx}
+:::demo{haircut}
 
 ### Haircut
 

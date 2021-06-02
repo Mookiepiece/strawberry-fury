@@ -1,14 +1,14 @@
 ## Dialog 对话框
 
-:::demo{./index.tsx}
+:::demo{index}
 
-#### 基本用法
+### 基本用法
 
 渲染一个基本的对话框
 
 :::
 
-:::demo{./warning.tsx}
+:::demo{warning}
 
 ### 警告状态
 
@@ -16,7 +16,7 @@
 
 :::
 
-:::demo{./hutao.tsx}
+:::demo{hutao}
 
 ### 高级用法
 
@@ -24,7 +24,7 @@
 
 :::
 
-:::demo{./tank.tsx}
+:::demo{tank}
 
 ### 超级用法
 

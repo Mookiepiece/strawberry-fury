@@ -4,4 +4,4 @@
 
 ### 展示
 
-::demo{./basic.tsx}
+::demo{basic}

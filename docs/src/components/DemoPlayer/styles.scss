@@ -17,6 +17,7 @@
   }
   .demo-control {
     display: block;
+    box-sizing: border-box;
     width: 100%;
     color: var(--color-dark);
     font-weight: 700;
@@ -31,7 +32,7 @@
     transition: all 0.06s, box-shadow 0.2s;
     user-select: none;
     &.active {
-      border-radius: 2px 2px 12px 12px;
+      border-radius: 2px 2px 2px 2px;
       box-shadow: 0 4px 2px -2px var(--color-contrasting);
     }
     &:hover,

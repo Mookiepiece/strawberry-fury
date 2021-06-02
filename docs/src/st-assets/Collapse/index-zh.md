@@ -1,6 +1,6 @@
 ## Collapse 折叠面板
 
-:::demo{./individual.tsx}
+:::demo{individual}
 
 ### 独立面板
 
@@ -16,7 +16,7 @@
 
 示例只是偷懒用了按钮，设计上是要求另外写过
 
-::demo{./basic.tsx}
+::demo{basic}
 
 ### 接口索引
 

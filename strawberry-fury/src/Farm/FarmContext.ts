@@ -1,5 +1,5 @@
 import React from 'react';
-import { Emitter } from '🦄/_utils/mitt';
+import { Emitter } from '@strawberry/_utils/mitt';
 
 let seed = 0;
 export const uuid = (): number => seed++;

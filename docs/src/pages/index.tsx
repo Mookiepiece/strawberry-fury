@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import { i18nContext } from '🦌/utils/i18n';
-import logo from '🦌/strawberry-fury-LOGO.png';
+import { i18nContext } from '@docs/utils/i18n';
+import logo from '@docs/strawberry-fury-LOGO.png';
 import { useHistory } from 'react-router-dom';
 import { Button, Link } from 'starfall';
 

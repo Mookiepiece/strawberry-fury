@@ -2,13 +2,13 @@
 import React from 'react';
 import loadable from '@loadable/component';
 
-import Index from '🦌/pages';
-import DocLayout from '🦌/layouts/DocLayout';
+import Index from '@docs/pages';
+import DocLayout from '@docs/layouts/DocLayout';
 
-import SfIndex from '🦌/pages/sf-components';
-import StIndex from '🦌/pages/st-components';
-import { DocRoute } from '🦌/utils/RouterView';
-import AppLayout from '🦌/layouts/AppLayout';
+import SfIndex from '@docs/pages/sf-components';
+import StIndex from '@docs/pages/st-components';
+import { DocRoute } from '@docs/utils/RouterView';
+import AppLayout from '@docs/layouts/AppLayout';
 
 export default [
   {
@@ -42,15 +42,15 @@ export default [
           },
           {
             path: '/sf-components/button',
-            component: loadable(() => import('🦌/pages/sf-components/Button')),
+            component: loadable(() => import('@docs/pages/sf-components/Button')),
           },
           {
             path: '/sf-components/dialog',
-            component: loadable(() => import('🦌/pages/sf-components/Dialog')),
+            component: loadable(() => import('@docs/pages/sf-components/Dialog')),
           },
           {
             path: '/sf-components/farm',
-            component: loadable(() => import('🦌/pages/sf-components/Farm')),
+            component: loadable(() => import('@docs/pages/sf-components/Farm')),
           },
         ],
       },
@@ -84,39 +84,39 @@ export default [
           },
           {
             path: '/st-components/color',
-            component: loadable(() => import('🦌/pages/st-components/Color')),
+            component: loadable(() => import('@docs/pages/st-components/Color')),
           },
           {
             path: '/st-components/layout',
-            component: loadable(() => import('🦌/pages/st-components/Layout')),
+            component: loadable(() => import('@docs/pages/st-components/Layout')),
           },
           {
             path: '/st-components/collapse',
-            component: loadable(() => import('🦌/pages/st-components/Collapse')),
+            component: loadable(() => import('@docs/pages/st-components/Collapse')),
           },
           {
             path: '/st-components/form',
-            component: loadable(() => import('🦌/pages/st-components/Form')),
+            component: loadable(() => import('@docs/pages/st-components/Form')),
           },
           {
             path: '/st-components/button',
-            component: loadable(() => import('🦌/pages/st-components/Button')),
+            component: loadable(() => import('@docs/pages/st-components/Button')),
           },
           {
             path: '/st-components/link',
-            component: loadable(() => import('🦌/pages/st-components/Link')),
+            component: loadable(() => import('@docs/pages/st-components/Link')),
           },
           {
             path: '/st-components/modal',
-            component: loadable(() => import('🦌/pages/st-components/Modal')),
+            component: loadable(() => import('@docs/pages/st-components/Modal')),
           },
           {
             path: '/st-components/notification',
-            component: loadable(() => import('🦌/pages/st-components/Notification')),
+            component: loadable(() => import('@docs/pages/st-components/Notification')),
           },
           {
             path: '/st-components/spin',
-            component: loadable(() => import('🦌/pages/st-components/Spin')),
+            component: loadable(() => import('@docs/pages/st-components/Spin')),
           },
         ],
       },

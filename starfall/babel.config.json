@@ -19,18 +19,7 @@
   ],
   "env": {
     "test": {
-      "presets": [["@babel/env"], "@babel/preset-react", "@babel/preset-typescript"],
-      "plugins": [
-        [
-          "module-resolver",
-          {
-            "root": ["."],
-            "alias": {
-              "starfall": "./src"
-            }
-          }
-        ]
-      ]
+      "presets": [["@babel/env"], "@babel/preset-react", "@babel/preset-typescript"]
     }
   }
 }

@@ -1,6 +1,6 @@
 ## Dialog
 
-:::demo{./index.tsx}
+:::demo{index}
 
 ### Basic Usage
 
@@ -8,7 +8,7 @@ This is a basic dialog
 
 :::
 
-:::demo{./warning.tsx}
+:::demo{warning}
 
 ### Warning State
 
@@ -16,7 +16,7 @@ render a more eye-catching, inspiring and passionate dialog.
 
 :::
 
-:::demo{./hutao.tsx}
+:::demo{hutao}
 
 ### Advanced Usage
 
@@ -25,7 +25,7 @@ u can actually summor a Hu Tao instead,
 
 :::
 
-:::demo{./tank.tsx}
+:::demo{tank}
 
 ### Super Advanced Usage
 

@@ -28,7 +28,7 @@ const runBuild = async () => {
           extensions: ['.ts', '.tsx', '.js', '.jsx', '.mjs'], // #3
         }),
       ],
-      external: [/@babel\/runtime/, /core-js/, /^🦄/, /^starfall/],
+      external: [/@babel\/runtime/, /core-js/, /^@strawberry/, /^@starfall/],
     };
     const outOptions = {
       dir: 'lib',
@@ -36,8 +36,8 @@ const runBuild = async () => {
       format: 'commonjs',
       exports: 'auto',
       paths(i) {
-        if (i.startsWith('starfall')) return i.replace('starfall', '..');
-        if (i.startsWith('🦄')) return i.replace('🦄', '..'); // #4
+        if (i.startsWith('@starfall')) return i.replace('@starfall', '..');
+        if (i.startsWith('@strawberry')) return i.replace('@strawberry', '..'); // #4
       },
     };
 
@@ -64,15 +64,15 @@ const runBuild = async () => {
           extensions: ['.ts', '.tsx', '.js', '.jsx', '.mjs'],
         }),
       ],
-      external: [/@babel\/runtime/, /core-js/, /^🦄/, /^starfall/],
+      external: [/@babel\/runtime/, /core-js/, /^@strawberry/, /^@starfall/],
     };
     const outOptions = {
       dir: 'lib/_utils',
       format: 'commonjs',
       exports: 'auto',
       paths(i) {
-        if (i.startsWith('starfall')) return i.replace('starfall', '..');
-        if (i.startsWith('🦄')) return i.replace('🦄', '..');
+        if (i.startsWith('@starfall')) return i.replace('@starfall', '..');
+        if (i.startsWith('@strawberry')) return i.replace('@strawberry', '..');
       },
     };
 
@@ -89,7 +89,7 @@ runBuild();
 // generated chunk names will follow the output.entryFileNames option.
 // Default: "[name].js"
 // when a component wants to have a import from utils or other component directiory
-// imports must starts with 🦄 to mark as extenral to avoid to be bundled in.
+// imports must starts with @strawberry to mark as extenral to avoid to be bundled in.
 
 // #2
 // if we dont use typescript plugin, then we need to told rollup our extensions
@@ -104,10 +104,10 @@ runBuild();
 // https://github.com/rollup/rollup/issues/3814#issuecomment-706588315
 // aliasing external modules using output.path
 // use @rollup/plugin-alias only if those modules are not external
-// eg: ./Button/index.js -> import '🦄/utils' -> import '../utils'
+// eg: ./Button/index.js -> import '@strawberry/utils' -> import '../utils'
 // element-plus have did this
 // this works even pathes are nested
-// eg: ./Button/src/helpers/a.js -> import '🦄/utils' -> ./Button/index.(bundle.)js + import '../utils'
+// eg: ./Button/src/helpers/a.js -> import '@strawberry/utils' -> ./Button/index.(bundle.)js + import '../utils'
 // because this only affects the output file which is a single file named lib/button/index.js
 // ---
 // we use `rollup-plugin-alias` in rollup.bundle.config.js because every imports are internal

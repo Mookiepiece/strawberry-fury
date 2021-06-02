@@ -3,6 +3,7 @@
 .st-button {
   position: relative;
   display: inline-block;
+  box-sizing: border-box;
   height: 40px;
   padding: 0 20px;
   color: currentColor;

@@ -12,11 +12,11 @@ SyntaxHighlighter.registerLanguage('tsx', tsx);
 
 const DemoPlayer: React.FC<{
   src: {
-    demo: React.FC;
+    demo: any;
     raw: string;
   };
 }> = ({ src: { demo, raw } }) => {
-  const LiveDemo = demo;
+  const LiveDemo = demo.default;
   const [active, setActive] = useState(false);
   return (
     <div className="demo-player">

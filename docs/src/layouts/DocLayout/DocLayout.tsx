@@ -1,9 +1,9 @@
 import clsx from 'clsx';
 import React, { useContext, useState } from 'react';
-import NavLink from '🦌/components/NavLink';
+import NavLink from '@docs/components/NavLink';
 import { Button } from 'starfall';
-import { i18nContext, I18nKeys } from '🦌/utils/i18n';
-import { DocRoute, RouteView } from '🦌/utils/RouterView';
+import { i18nContext, I18nKeys } from '@docs/utils/i18n';
+import { DocRoute, RouteView } from '@docs/utils/RouterView';
 import './styles.scss';
 
 const SideBar: React.FC<{

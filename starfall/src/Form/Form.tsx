@@ -10,10 +10,10 @@ import React, {
   useEffect,
 } from 'react';
 import { useMount } from 'react-use';
-import Mitt from 'starfall/_utils/mitt';
-import type { Emitter } from 'starfall/_utils/mitt';
-import Button from 'starfall/Button';
-import { useEventCallback } from 'starfall/_utils/useEventCallback';
+import Mitt from '@starfall/_utils/mitt';
+import type { Emitter } from '@starfall/_utils/mitt';
+import Button from '@starfall/Button';
+import { useEventCallback } from '@starfall/_utils/useEventCallback';
 import { FormContext, FormItemsRegisterProps } from './FormContext';
 import { FormItem, ValidateStatusParam } from './FormItem';
 import { getProp, setProp } from './getProp';

@@ -1,7 +1,7 @@
 import React from 'react';
 import { CSSTransition } from 'react-transition-group';
-import Button from 'starfall/Button';
-import { Portal } from 'starfall/_utils/Portal';
+import Button from '@starfall/Button';
+import { Portal } from '@starfall/_utils/Portal';
 
 type ModalProps = {
   visible: boolean;

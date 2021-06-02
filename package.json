@@ -3,8 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "yarn workspace docs start",
+    "dev": "yarn workspace docs dev",
     "docs:build": "yarn workspace docs build",
+    "docs:serve": "yarn workspace docs serve",
     "docs:deploy": "yarn workspace docs deploy",
     "build:sf": "yarn workspace @mookiepiece/strawberry-fury build",
     "build:st": "yarn workspace @mookiepiece/starfall build",

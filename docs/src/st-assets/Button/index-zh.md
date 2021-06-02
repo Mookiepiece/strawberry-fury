@@ -2,11 +2,11 @@
 
 ### 基本用法
 
-::demo{./basic.tsx}
+::demo{basic}
 
 ### 禁用状态
 
-::demo{./disabled.tsx}
+::demo{disabled}
 
 ### 接口索引
 

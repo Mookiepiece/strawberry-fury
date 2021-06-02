@@ -1,6 +1,6 @@
 ## Form 表单
 
-:::demo{./basic.tsx}
+:::demo{basic}
 
 ### 基本用法
 
@@ -16,7 +16,7 @@
 
 :::
 
-:::demo{./pass.tsx}
+:::demo{pass}
 
 ### 重复密码
 
@@ -24,7 +24,7 @@
 
 :::
 
-:::demo{./remote.tsx}
+:::demo{remote}
 
 ### 修改规则
 
@@ -32,7 +32,7 @@
 
 :::
 
-:::demo{./list.tsx}
+:::demo{list}
 
 ### 列表
 
@@ -40,7 +40,7 @@
 
 :::
 
-:::demo{./nesting.tsx}
+:::demo{nesting}
 
 ### 假的监听
 
@@ -56,7 +56,7 @@
 
 :::
 
-:::demo{./status.tsx}
+:::demo{status}
 
 ### 校验状态
 

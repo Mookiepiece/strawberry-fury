@@ -2,4 +2,4 @@
 
 ### 基本用法
 
-::demo{./basic.tsx}
+::demo{basic}
