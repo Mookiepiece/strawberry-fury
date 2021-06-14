@@ -7,12 +7,13 @@
     "docs:build": "yarn workspace docs build",
     "docs:serve": "yarn workspace docs serve",
     "docs:deploy": "yarn workspace docs deploy",
-    "build:sf": "yarn workspace @mookiepiece/strawberry-fury build",
-    "build:st": "yarn workspace @mookiepiece/starfall build",
-    "test:st": "yarn workspace @mookiepiece/starfall test",
+    "sf:build": "yarn workspace @mookiepiece/strawberry-fury build",
+    "st:build": "yarn workspace @mookiepiece/starfall build",
+    "st:test": "yarn workspace @mookiepiece/starfall test",
     "example": "yarn && yarn workspace example build",
     "example:skip-check": "yarn && yarn workspace example build:skip-check",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "git-release": "node scripts/git-release.mjs"
   },
   "workspaces": [
     "strawberry-fury",
