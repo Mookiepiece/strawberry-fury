@@ -129,3 +129,8 @@ $align-items: (
     align-items: $v;
   }
 }
+
+.st-not-interactive {
+  pointer-events: none;
+  user-select: none;
+}

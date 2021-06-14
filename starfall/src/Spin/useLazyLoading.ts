@@ -14,14 +14,12 @@ export const useLazyLoading = (
     } else {
       if (loading) {
         timeout.current = setTimeout(() => {
-          console.log(2);
           setInnerLoading(true);
         }, lazy);
       } else {
         if (timeout.current !== undefined) {
           clearTimeout(timeout.current);
         }
-        console.log(1);
         setInnerLoading(false);
       }
     }

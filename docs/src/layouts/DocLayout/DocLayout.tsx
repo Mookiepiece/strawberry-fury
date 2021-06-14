@@ -3,7 +3,7 @@ import React, { useContext, useState } from 'react';
 import NavLink from '@docs/components/NavLink';
 import { Button } from 'starfall';
 import { i18nContext, I18nKeys } from '@docs/utils/i18n';
-import { DocRoute, RouteView } from '@docs/utils/RouterView';
+import { RouteView } from '@docs/utils/RouterView';
 import './styles.scss';
 
 const SideBar: React.FC<{
@@ -40,14 +40,13 @@ const SideBar: React.FC<{
 };
 
 const DocLayout: React.FC<{
-  children: DocRoute[];
   nav: Record<string, Record<string, I18nKeys>>;
-}> = ({ nav, children }) => {
+}> = ({ nav }) => {
   return (
     <main className="doc-layout">
       <div className="doc-content">
         <article>
-          <RouteView routes={children} />
+          <RouteView />
         </article>
       </div>
       <SideBar nav={nav} />

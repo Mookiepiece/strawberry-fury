@@ -9,7 +9,7 @@
   "homepage": "https://mookiepiece.github.io/strawberry-fury",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && vite --config vite.config.prod.ts build",
     "serve": "vite preview",
     "deploy": "gh-pages -d dist"
   },

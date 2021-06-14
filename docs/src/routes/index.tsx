@@ -1,13 +1,13 @@
 /* eslint-disable react/display-name */
 import React from 'react';
 import loadable from '@loadable/component';
+import type { DocRoute } from '@docs/utils/RouterView';
 
 import Index from '@docs/pages';
 import DocLayout from '@docs/layouts/DocLayout';
 
 import SfIndex from '@docs/pages/sf-components';
 import StIndex from '@docs/pages/st-components';
-import { DocRoute } from '@docs/utils/RouterView';
 import AppLayout from '@docs/layouts/AppLayout';
 
 export default [
@@ -22,7 +22,7 @@ export default [
       },
       {
         path: '/sf-components',
-        component: (props: { children: DocRoute[] }) => (
+        component: () => (
           <DocLayout
             nav={{
               Components: {
@@ -31,7 +31,6 @@ export default [
                 '/sf-components/farm': 'SidebarSfComponentFarm',
               },
             }}
-            {...props}
           />
         ),
         children: [
@@ -56,7 +55,7 @@ export default [
       },
       {
         path: '/st-components',
-        component: (props: { children: DocRoute[] }) => (
+        component: () => (
           <DocLayout
             nav={{
               Design: {
@@ -73,7 +72,6 @@ export default [
                 '/st-components/spin': 'SidebarStComponentSpin',
               },
             }}
-            {...props}
           />
         ),
         children: [

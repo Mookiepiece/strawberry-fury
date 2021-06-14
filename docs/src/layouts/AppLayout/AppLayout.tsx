@@ -1,10 +1,10 @@
 import React, { useContext, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import NavLink from '@docs/components/NavLink';
 
 import logo from '@docs/strawberry-fury-LOGO.png';
 import { i18nContext, i18nStateContext, Language } from '@docs/utils/i18n';
-import { DocRoute, RouteView } from '@docs/utils/RouterView';
+import { RouteView } from '@docs/utils/RouterView';
 import { Button } from 'starfall';
 import useBreakpoints from '@docs/utils/useBreakpoints';
 import './styles.scss';
@@ -49,7 +49,7 @@ const ScrollToTop: React.FC = ({ children }) => {
   return children as React.ReactElement;
 };
 
-const AppLayout: React.FC<{ children: DocRoute[] }> = ({ children }) => {
+const AppLayout: React.FC = () => {
   const [i18nState, setI18nState] = useContext(i18nStateContext);
 
   return (
@@ -58,7 +58,7 @@ const AppLayout: React.FC<{ children: DocRoute[] }> = ({ children }) => {
         i18nState={i18nState}
         setI18nState={() => setI18nState(i18nState === 'zh' ? 'en' : 'zh')}
       />
-      <RouteView routes={children} />
+      <RouteView />
     </ScrollToTop>
   );
 };

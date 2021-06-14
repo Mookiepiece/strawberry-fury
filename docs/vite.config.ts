@@ -17,5 +17,4 @@ export default defineConfig({
   server: {
     port: 8888,
   },
-  base: '/strawberry-fury/',
 });

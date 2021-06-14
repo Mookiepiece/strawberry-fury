@@ -78,9 +78,7 @@ const MyReactMarkdown: React.FC<{
           const { name, attributes, children } = props;
 
           if (name === 'demo') {
-            //   console.log(props);
             return <DemoPlayer src={demosMap[[...Object.keys(attributes)][0]]} />;
-            //   // return <DemoPlayer src={demosMap['.' + attributes.class.replace(/ /g, '.')]} />;
           }
           return <span className={clsx(`leaf-directive-${name}`)}>{children}</span>;
         },
@@ -104,7 +102,6 @@ const PageWalker: React.FC<{ requireDemo: any; requireRaw: any; requireMd: any }
   }, {});
 
   const article = requireMd[i18nState];
-  console.log(demosMap);
 
   return (
     <div className="page-walker">
