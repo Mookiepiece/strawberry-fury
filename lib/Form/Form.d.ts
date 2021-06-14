@@ -1,7 +1,7 @@
 import { ErrorList } from 'async-validator';
 import React from 'react';
-import type { Emitter } from 'starfall/_utils/mitt';
-import Button from 'starfall/Button';
+import type { Emitter } from '@starfall/_utils/mitt';
+import Button from '@starfall/Button';
 import { FormItem, ValidateStatusParam } from './FormItem';
 declare type FormInstance<T extends Record<string, unknown>> = {
     setInitialValue: (initialValue: T) => void;

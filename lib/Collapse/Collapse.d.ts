@@ -10,6 +10,5 @@ declare const Collapse: React.FC & {
 declare type CollapseSummaryProps = {
     children: React.ReactElement;
     active?: boolean;
-    toggle: () => void;
 };
 export default Collapse;
