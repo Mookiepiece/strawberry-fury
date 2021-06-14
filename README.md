@@ -7,6 +7,8 @@
 
 [Visit HomePage（访问主页）https://mookiepiece.github.io/strawberry-fury](https://mookiepiece.github.io/strawberry-fury/#/index)
 
+主页没有使用 babel，请使用现代浏览器；主页使用 BrowserRouter,部署在 ghpages 下不能刷新页面。
+
 This project is created to see if this project skeleton of react components library works.
 Of course there are some interesting components included.
 
@@ -103,15 +105,13 @@ NO English translations for rest sections in this chapter
 
 `tree shaking`只对`ES Module (ESM)` 文件生效。所以本项目用 `rollup` 构建`ESM` 输出。`webpack` 的 `ESM` 输出还在实验阶段。`typescript-cli`也支持`ESNext`输出，`babel-cli`也支持配置不转换模块语法。
 
-`webpack` 生产环境才会启用`tree shaking`，[material-ui: minimizing-bundle-size](https://material-ui.com/guides/minimizing-bundle-size/#when-and-how-to-use-tree-shaking)这篇指南介绍得非常详细，所以如果你的库很大，需要借助`babel-plugin-import`将 `import { Component } from 'my-lib'`转换成`import Component from 'my-lib/Component'`提升开发模式的编译速度，因为前者在`tree shaking`没有启用的情况会引入文件的整个内容，后者因为路径写得更细，所以只引入需要的文件。
+`webpack` 生产环境才会启用`tree shaking`，[material-ui: minimizing-bundle-size](https://material-ui.com/guides/minimizing-bundle-size/#when-and-how-to-use-tree-shaking)这篇指南介绍得非常详细，所以如果你的库很大，需要借助`babel-plugin-import`将 `import { Component } from 'my-lib'`转换成`import Component from 'my-lib/Component'`提升开发模式的编译速度，后者因为路径写得更细，所以只引入需要的文件。
 
 #### 关于 css
 
 `element` 、 `antd` 都支持直接引入其 `less/scss` 文件。
 
-注意在 js 文件里 `import '.css'` 并不是标准 `ESM` 的语法，而是打包工具的插件（比如 `webpack` 需要安装 `css-loader` ）所支持的，如果在打包后的文件里出现这种写法，就硬性要求了你的用户必须安装了相应的预处理器`less/sass/stylus`和 `some-css-loaders`，所以你一般应当把样式表和脚本分开。一个喜闻乐见的悲剧是`@antd/pro-components`它要求你的项目安装`less`和`less-loader`否则无法完成编译。
-
-如上一段所述，你的用户若使用了`babel-plugin-import`并且还需要借此引入 `css` 文件时，你的用户必须安装了相应的预处理器和 `some-css-loaders`，但既然都引入了这个库并且知道用法了想必已经做好了充分的脚手架配置，当这段话是废话吧。
+注意在 js 文件里 `import '.css'` 并不是标准 `ESM` 的语法，而是打包工具的插件（比如 `webpack` 需要安装 `css-loader` ）所支持的。一个喜闻乐见的悲剧是`@antd/pro-components`要求`less`和`less-loader`。
 
 #### 关于打包工具
 

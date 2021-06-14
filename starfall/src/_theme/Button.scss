@@ -10,7 +10,7 @@
   font-size: 14px;
   vertical-align: middle;
   background: transparent;
-  border-radius: 3px;
+  border-radius: 2px;
   outline: 0;
   transition: all 0.1s, outline 0s;
 
@@ -81,10 +81,10 @@
     &:not(:disabled) {
       &:hover,
       &:focus-visible {
-        background: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)) var(--color-primary);
+        background: var(--color-primary-darken-100);
       }
       &:active {
-        background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)) var(--color-primary);
+        background: var(--color-primary-darken-200);
       }
     }
     &:disabled {
