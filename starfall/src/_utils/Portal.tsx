@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/index';
 
 let starfallModalRoot: HTMLDivElement | null = null;
@@ -27,14 +27,23 @@ export const setup = (key: 'Modal' | 'Notification'): HTMLDivElement => {
 };
 
 export const Portal: React.FC = ({ children }) => {
-  if (typeof document !== 'object') return null;
-  const starfallModalRoot = setup('Modal');
-
-  return ReactDOM.createPortal(children, starfallModalRoot);
+  const root = setup('Modal');
+  const isMounted = useMountedStatePlus();
+  return isMounted ? ReactDOM.createPortal(children, root) : null;
 };
 
 export const NotificationPortal: React.FC = ({ children }) => {
-  if (typeof document !== 'object') return null;
-  const starfallModalRoot = setup('Modal');
-  return ReactDOM.createPortal(children, starfallModalRoot);
+  const root = setup('Notification');
+  const isMounted = useMountedStatePlus();
+  return isMounted ? ReactDOM.createPortal(children, root) : null;
+};
+
+export const useMountedStatePlus = (): boolean => {
+  const [state, setState] = useState(false);
+
+  useEffect(() => {
+    setState(true);
+  }, []);
+
+  return state;
 };
