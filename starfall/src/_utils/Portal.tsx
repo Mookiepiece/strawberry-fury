@@ -27,15 +27,13 @@ export const setup = (key: 'Modal' | 'Notification'): HTMLDivElement => {
 };
 
 export const Portal: React.FC = ({ children }) => {
-  const root = setup('Modal');
   const isMounted = useMountedStatePlus();
-  return isMounted ? ReactDOM.createPortal(children, root) : null;
+  return isMounted ? ReactDOM.createPortal(children, setup('Modal')) : null;
 };
 
 export const NotificationPortal: React.FC = ({ children }) => {
-  const root = setup('Notification');
   const isMounted = useMountedStatePlus();
-  return isMounted ? ReactDOM.createPortal(children, root) : null;
+  return isMounted ? ReactDOM.createPortal(children, setup('Notification')) : null;
 };
 
 export const useMountedStatePlus = (): boolean => {
