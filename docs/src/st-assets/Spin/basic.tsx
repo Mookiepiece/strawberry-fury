@@ -12,10 +12,9 @@ const BasicUsage: React.FC = () => {
         <Spin weight={3} />
       </span>
       <span>
-        <Spin loading={l} weight={1} lazy={1000} />
-        <Spin loading={l} lazy={2000} />
-        {/* 3000 will not appear 👇 */}
-        <Spin loading={l} weight={3} lazy={3000} />
+        <Spin loading={l} weight={1} lazy={2000} />
+        {/* 4000 will not appear 👇 */}
+        <Spin loading={l} lazy={3000} />
       </span>
       <div style={{ maxWidth: 300 }}>
         <Spin.Container loading={l}>
@@ -37,7 +36,9 @@ const BasicUsage: React.FC = () => {
         loading={l}
         onClick={() => {
           setL(true);
-          setTimeout(() => setL(false), 3000);
+          setTimeout(() => setL(false), 1000);
+          setTimeout(() => setL(true), 1000);
+          setTimeout(() => setL(false), 4000);
         }}
       >
         Loading
