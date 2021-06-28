@@ -18,6 +18,7 @@ export type I18nKeys =
   | 'SidebarStComponentLink'
   | 'SidebarStComponentNotification'
   | 'SidebarStComponentSpin'
+  | 'SidebarStComponentScroll'
   | 'SidebarStDesignColor'
   | 'SidebarStDesignLayout';
 
@@ -91,6 +92,10 @@ const a: Record<
   SidebarStComponentSpin: {
     en: 'Spin 加载符',
     zh: 'Spin 加载符',
+  },
+  SidebarStComponentScroll: {
+    en: 'Scroll 滚动',
+    zh: 'Scroll 滚动',
   },
   SidebarStDesignColor: {
     en: 'Color 色彩',

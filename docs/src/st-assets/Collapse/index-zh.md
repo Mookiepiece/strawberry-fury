@@ -38,6 +38,8 @@ Bootstrap 和 W3Schools 使用了 `scrollHeight` ，它的值只和内部内容�
 以及可能会把子元素的下`margin`纳入计算导致出现一个`margin`距离的动画断层，
 解决方法是新建[块格式化上下文 👍](https://zhuanlan.zhihu.com/p/131402341)，给 panel 设置 `overflow:hidden` 就可以了
 
+注意：子元素存在负值的`margin`&`padding`会导致 `scrollHeight` 计算出错
+
 - [Bootstrap: collapse.js](https://github.com/twbs/bootstrap/blob/main/js/src/collapse.js#L202)
 - [W3schools: Collapse 👍](https://www.w3schools.com/howto/howto_js_collapsible.asp)
 

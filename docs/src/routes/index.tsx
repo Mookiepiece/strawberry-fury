@@ -70,6 +70,7 @@ export default [
                 '/st-components/modal': 'SidebarStComponentModal',
                 '/st-components/notification': 'SidebarStComponentNotification',
                 '/st-components/spin': 'SidebarStComponentSpin',
+                '/st-components/scroll-view': 'SidebarStComponentScroll',
               },
             }}
           />
@@ -115,6 +116,10 @@ export default [
           {
             path: '/st-components/spin',
             component: loadable(() => import('@docs/pages/st-components/Spin')),
+          },
+          {
+            path: '/st-components/scroll-view',
+            component: loadable(() => import('@docs/pages/st-components/ScrollView')),
           },
         ],
       },
