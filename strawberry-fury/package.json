@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "module": "lib/index.esm.js",
   "scripts": {
-    "build": "yarn clean && yarn build:types && yarn build:bundle && yarn build:comp",
+    "build": "yarn clean && yarn build:types && yarn build:comp",
     "build:bundle": "rollup --config ./scripts/rollup.bundle.config.js",
     "build:types": "tsc -p ./tsconfig.json",
     "build:comp": "node ./scripts/build.components.mjs",

@@ -3,14 +3,14 @@
   "version": "0.0.1-alpha.2",
   "description": "react.js components for learning",
   "main": "lib/index.js",
-  "module": "lib/index.esm.js",
+  "module": "es/index.js",
   "scripts": {
-    "build": "yarn clean && yarn build:types && yarn build:bundle && yarn build:comp",
+    "build": "yarn clean && yarn build:types && yarn build:comp",
     "test": "jest",
     "build:bundle": "rollup --config ../strawberry-fury/scripts/rollup.bundle.config.js",
     "build:types": "tsc -p ./tsconfig.json",
     "build:comp": "node ../strawberry-fury/scripts/build.components.mjs",
-    "clean": "rimraf lib"
+    "clean": "rimraf lib && rimraf es"
   },
   "jest": {
     "setupFilesAfterEnv": [
@@ -76,6 +76,7 @@
   "license": "WTFPL",
   "files": [
     "src/_theme",
-    "lib/"
+    "lib/",
+    "es/"
   ]
 }

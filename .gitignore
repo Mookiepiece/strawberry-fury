@@ -15,5 +15,6 @@ yarn-debug.log*
 yarn-error.log*
 
 lib
+es
 dist
 git-release

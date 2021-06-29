@@ -12,6 +12,7 @@ if (!fs.existsSync(path.resolve(starfalldirname, 'git-release'))) {
 }
 
 fs.copy(path.resolve(starfalldirname, 'lib'), path.resolve(starfalldirname, 'git-release/lib'));
+fs.copy(path.resolve(starfalldirname, 'es'), path.resolve(starfalldirname, 'git-release/es'));
 fs.copy(
   path.resolve(starfalldirname, 'src/_theme'),
   path.resolve(starfalldirname, 'git-release/src/_theme')
