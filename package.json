@@ -1,6 +1,6 @@
 {
   "name": "@mookiepiece/starfall-utils",
-  "version": "0.0.0",
+  "version": "0.0.2-alpha.1",
   "description": "reactjs utils",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -9,7 +9,7 @@
     "test": "jest",
     "build:types": "tsc -p ./tsconfig.json",
     "build:comp": "node ./scripts/build.mjs",
-    "git-release": "node ./scripts/git-release.mjs",
+    "git-release": "rimraf git-release && node ./scripts/git-release.mjs",
     "clean": "rimraf lib && rimraf es"
   },
   "jest": {
