@@ -14,6 +14,8 @@ Of course there are some interesting components included.
 
 这个项目是为了测试这个组件库工程结构是可行的，当然也有一些有趣的组件
 
+In current version starfall dont treat starfall-utils as peerDependencies. but you have to install starfall-utils.
+
 ## Table of Contents - 目录
 
 - [Development Guide - 开发指南](#development-guide---开发指南)

@@ -1,8 +1,8 @@
 import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import AsyncValidator from 'async-validator';
-import { RuleItem } from 'async-validator';
+import type { RuleItem } from 'async-validator';
+import { useEventCallback } from '@mookiepiece/starfall-utils';
 import { FormContext } from './FormContext';
-import { useEventCallback } from '@starfall/_utils/useEventCallback';
 import clsx from 'clsx';
 import { getProp, UNDEFINED_VALUE } from './getProp';
 import { useMountedState } from 'react-use';

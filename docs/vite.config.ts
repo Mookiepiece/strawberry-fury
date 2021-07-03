@@ -10,8 +10,6 @@ export default defineConfig({
       '@docs': path.resolve(__dirname, './src'),
       '🦄': path.resolve(__dirname, '../strawberry-fury/src'),
       starfall: path.resolve(__dirname, '../starfall/src'),
-      '@starfall': path.resolve(__dirname, '../starfall/src'),
-      '@strawberry': path.resolve(__dirname, '../strawberry-fury/src'),
     },
   },
   server: {

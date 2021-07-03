@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import Button from '@starfall/Button';
-import { Portal } from '@starfall/_utils/Portal';
-import Mitt from '@starfall/_utils/mitt';
 import clsx from 'clsx';
-import { useEventCallback } from '@starfall/_utils/useEventCallback';
-import horizon from '@starfall/_utils/horizon';
+import Button from '../Button';
+import { useEventCallback, Portal, Mitt, horizon } from '@mookiepiece/starfall-utils';
 
 type ModalProps = {
   visible: boolean;

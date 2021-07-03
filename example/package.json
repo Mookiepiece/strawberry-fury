@@ -11,15 +11,15 @@
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-transition-group": "^4.4.1",
-    "react-use": "^17.1.1"
+    "react-use": "^17.1.1",
+    "@mookiepiece/starfall": "file:../starfall",
+    "@mookiepiece/strawberry-fury": "file:../strawberry-fury"
   },
   "devDependencies": {
     "@babel/core": "^7.13.8",
     "@babel/preset-env": "^7.13.5",
     "@babel/preset-react": "^7.12.13",
     "@babel/preset-typescript": "^7.13.0",
-    "@mookiepiece/starfall": "file:../starfall",
-    "@mookiepiece/strawberry-fury": "file:../strawberry-fury",
     "@types/react": "^16.14.0",
     "@types/react-dom": "^16.9.10",
     "babel-loader": "^8.2.2",

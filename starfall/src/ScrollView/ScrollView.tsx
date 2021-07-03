@@ -1,8 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
-import { useEventCallback } from '@starfall/_utils/useEventCallback';
-import Mitt from '@starfall/_utils/mitt';
-import type { Emitter } from '@starfall/_utils/mitt';
+import { useEventCallback, Mitt } from '@mookiepiece/starfall-utils';
+import type { Emitter } from '@mookiepiece/starfall-utils';
 
 type ScrollViewMitt = Emitter<{
   SCROLL: [number, number];

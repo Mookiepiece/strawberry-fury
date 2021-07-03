@@ -2,9 +2,8 @@ import React, { useLayoutEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { CSSTransition } from 'react-transition-group';
 import { useMount } from 'react-use';
-import Collapse from '@starfall/Collapse';
-import { NotificationPortal, setup } from '@starfall/_utils/Portal';
-import { useEventCallback } from '@starfall/_utils/useEventCallback';
+import { NotificationPortal, setup, useEventCallback } from '@mookiepiece/starfall-utils';
+import Collapse from '../Collapse';
 
 type Noti = {
   id: number;

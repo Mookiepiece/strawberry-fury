@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import React from 'react';
-import Spin from '@starfall/Spin';
+import Spin from '../Spin';
 
 type ButtonProps = {
   type?: 'button' | 'submit' | 'reset';

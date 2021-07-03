@@ -6,6 +6,4 @@ export type Emitter<T> = {
   emit<K extends keyof T>(type: K, event: T[K]): void;
 };
 
-const Mitt = <T>(): Emitter<T> => (mitt() as unknown) as Emitter<T>;
-
-export default Mitt;
+export const Mitt = <T>(): Emitter<T> => (mitt() as unknown) as Emitter<T>;

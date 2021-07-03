@@ -1,7 +1,7 @@
 import React, { useCallback, useContext, useMemo, useRef, useState } from 'react';
 import clsx from 'clsx';
 import { useMount, useUnmount } from 'react-use';
-import { useEventCallback } from '@starfall/_utils/useEventCallback';
+import { useEventCallback } from '@mookiepiece/starfall-utils';
 import CollapsePanel, { CollapsePanelProps } from './CollapsePanel';
 const CollapseContext = React.createContext<{
   names: string[];

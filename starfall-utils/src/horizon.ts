@@ -1,4 +1,4 @@
-const horizon = {
+export const horizon = {
   remove: <T = unknown>(arr: T[], cb: (t: T) => boolean): T[] => {
     const index = arr.findIndex(cb);
     if (index !== -1) {
@@ -7,5 +7,3 @@ const horizon = {
     return arr;
   },
 };
-
-export default horizon;
