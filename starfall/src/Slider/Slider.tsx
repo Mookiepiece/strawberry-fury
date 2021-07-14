@@ -205,12 +205,7 @@ const Slider: React.FC<SliderProps> = ({ min = 0, max = 100, step = 1, label = E
         ))}
       </div>
       <input type="range" className="st-slider__input-el" onKeyDown={handleKeydown} />
-      <div
-        className="st-slider__rail"
-        ref={railRef}
-        onMouseDown={handleStart}
-        onTouchStart={handleStart}
-      >
+      <div className="st-slider__rail" ref={railRef} onMouseDown={handleStart}>
         <div
           className="st-slider__fill"
           style={{
@@ -222,6 +217,7 @@ const Slider: React.FC<SliderProps> = ({ min = 0, max = 100, step = 1, label = E
           style={{
             left: percentage + '%',
           }}
+          onTouchStart={handleStart}
         >
           <div className="st-slider__tooltip">{valueNow}</div>
         </div>

@@ -2,7 +2,7 @@
   position: relative;
   width: 100%;
   user-select: none;
-  touch-action: none;
+  touch-action: pan-y;
 }
 .st-slider__input-el {
   position: absolute;
