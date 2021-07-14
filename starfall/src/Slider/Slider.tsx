@@ -79,9 +79,9 @@ const useSlider = ({
     handleDrag(e.nativeEvent);
     document.addEventListener('mousemove', handleDrag);
     document.addEventListener('mouseup', handleEnd);
-    document.removeEventListener('touchmove', handleDrag);
-    document.removeEventListener('touchend', handleEnd);
-    document.removeEventListener('touchcancel', handleEnd);
+    document.addEventListener('touchmove', handleDrag);
+    document.addEventListener('touchend', handleEnd);
+    document.addEventListener('touchcancel', handleEnd);
   });
 
   useUnmount(handleEnd); // component could unexpectly unmount during dragging.
