@@ -19,3 +19,5 @@ export { default as Input } from './Input';
 export { default as Spin } from './Spin';
 
 export { default as ScrollView } from './ScrollView';
+
+export { default as Slider } from './Slider';
